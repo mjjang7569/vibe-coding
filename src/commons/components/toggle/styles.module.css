@@ -1,0 +1,238 @@
+/* Toggle Wrapper */
+.toggleWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Label */
+.label {
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, Roboto, 'Helvetica Neue', 'Segoe UI', 'Apple SD Gothic Neo', 'Noto Sans KR', 'Malgun Gothic', 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', sans-serif;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #1c1c1c;
+  cursor: pointer;
+}
+
+.label--small {
+  font-size: 12px;
+}
+
+.label--medium {
+  font-size: 14px;
+}
+
+.label--large {
+  font-size: 16px;
+}
+
+.label--light {
+  color: #1c1c1c;
+}
+
+.label--dark {
+  color: #ffffff;
+}
+
+/* Toggle Container */
+.toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.toggle--disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* Hidden Input */
+.input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  outline: none;
+}
+
+/* Track (Background) */
+.track {
+  position: relative;
+  border-radius: 100px;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+}
+
+/* Track Sizes */
+.track--small {
+  width: 40px;
+  height: 20px;
+}
+
+.track--medium {
+  width: 58px;
+  height: 32px;
+}
+
+.track--large {
+  width: 72px;
+  height: 40px;
+}
+
+/* Track Variants - Light Theme */
+.track--primary {
+  background-color: #e4e4e4;
+}
+
+.track--secondary {
+  background-color: #f2f2f2;
+}
+
+.track--tertiary {
+  background-color: #ffffff;
+  border: 1px solid #e4e4e4;
+}
+
+/* Track Variants - Dark Theme */
+.track--primary.track--dark {
+  background-color: #404040;
+}
+
+.track--secondary.track--dark {
+  background-color: #2a2a2a;
+}
+
+.track--tertiary.track--dark {
+  background-color: #1a1a1a;
+  border: 1px solid #404040;
+}
+
+/* Track Checked States - Light Theme */
+.track--checked.track--primary {
+  background-color: #3ab50f;
+}
+
+.track--checked.track--secondary {
+  background-color: #299c00;
+}
+
+.track--checked.track--tertiary {
+  background-color: #3ab50f;
+  border-color: #3ab50f;
+}
+
+/* Track Checked States - Dark Theme */
+.track--checked.track--primary.track--dark {
+  background-color: #4cc91a;
+}
+
+.track--checked.track--secondary.track--dark {
+  background-color: #3ab50f;
+}
+
+.track--checked.track--tertiary.track--dark {
+  background-color: #4cc91a;
+  border-color: #4cc91a;
+}
+
+/* Track Disabled States */
+.track--disabled {
+  background-color: #f5f5f5 !important;
+  border-color: #e0e0e0 !important;
+}
+
+.track--disabled.track--dark {
+  background-color: #2a2a2a !important;
+  border-color: #404040 !important;
+}
+
+/* Thumb (Switch) */
+.thumb {
+  position: absolute;
+  border-radius: 50%;
+  background-color: #ffffff;
+  transition: all 0.2s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Thumb Sizes */
+.thumb--small {
+  width: 16px;
+  height: 16px;
+  left: 2px;
+}
+
+.thumb--medium {
+  width: 24px;
+  height: 24px;
+  left: 4px;
+}
+
+.thumb--large {
+  width: 32px;
+  height: 32px;
+  left: 4px;
+}
+
+/* Thumb Checked States */
+.thumb--checked.thumb--small {
+  transform: translateX(20px);
+}
+
+.thumb--checked.thumb--medium {
+  transform: translateX(30px);
+}
+
+.thumb--checked.thumb--large {
+  transform: translateX(36px);
+}
+
+/* Thumb Disabled States */
+.thumb--disabled {
+  background-color: #e0e0e0 !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+}
+
+.thumb--disabled.thumb--dark {
+  background-color: #404040 !important;
+}
+
+/* Hover Effects */
+.toggle:not(.toggle--disabled):hover .track {
+  box-shadow: 0 0 0 2px rgba(58, 181, 15, 0.1);
+}
+
+.toggle:not(.toggle--disabled):hover .track--dark {
+  box-shadow: 0 0 0 2px rgba(76, 201, 26, 0.1);
+}
+
+/* Focus Effects */
+.input:focus + .track {
+  box-shadow: 0 0 0 2px rgba(58, 181, 15, 0.2);
+}
+
+.input:focus + .track--dark {
+  box-shadow: 0 0 0 2px rgba(76, 201, 26, 0.2);
+}
+
+/* Active Effects */
+.toggle:active:not(.toggle--disabled) .thumb {
+  transform: scale(0.95);
+}
+
+.toggle:active:not(.toggle--disabled) .thumb--checked.thumb--small {
+  transform: translateX(20px) scale(0.95);
+}
+
+.toggle:active:not(.toggle--disabled) .thumb--checked.thumb--medium {
+  transform: translateX(30px) scale(0.95);
+}
+
+.toggle:active:not(.toggle--disabled) .thumb--checked.thumb--large {
+  transform: translateX(36px) scale(0.95);
+}
