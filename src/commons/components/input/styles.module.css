@@ -1,0 +1,393 @@
+/* Input Wrapper */
+.inputWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+/* Label Styles */
+.label {
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  color: var(--color-text-primary);
+  transition: color 0.2s ease;
+}
+
+.label--small {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.label--medium {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.label--large {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+.label--light {
+  color: var(--color-text-primary);
+}
+
+.label--dark {
+  color: var(--color-text-primary);
+}
+
+/* Input Container */
+.inputContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border-radius: 0.5rem;
+  transition: all 0.2s ease;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-bg-primary);
+}
+
+/* Input Container Variants */
+.inputContainer--primary {
+  border-color: var(--color-border);
+}
+
+.inputContainer--primary.inputContainer--focused {
+  border-color: var(--color-primary-500);
+  box-shadow: 0 0 0 3px var(--color-primary-100);
+}
+
+.inputContainer--secondary {
+  border-color: var(--color-border-light);
+  background-color: var(--color-bg-secondary);
+}
+
+.inputContainer--secondary.inputContainer--focused {
+  border-color: var(--color-secondary-500);
+  box-shadow: 0 0 0 3px var(--color-secondary-100);
+}
+
+.inputContainer--tertiary {
+  border-color: var(--color-border-light);
+  background-color: var(--color-bg-tertiary);
+}
+
+.inputContainer--tertiary.inputContainer--focused {
+  border-color: var(--color-gray-500);
+  box-shadow: 0 0 0 3px var(--color-gray-100);
+}
+
+/* Input Container Sizes */
+.inputContainer--small {
+  height: 2rem;
+  padding: 0 0.75rem;
+}
+
+.inputContainer--medium {
+  height: 2.5rem;
+  padding: 0 1rem;
+}
+
+.inputContainer--large {
+  height: 3rem;
+  padding: 0 1.25rem;
+}
+
+/* Input Container States */
+.inputContainer--error {
+  border-color: var(--color-error);
+}
+
+.inputContainer--error.inputContainer--focused {
+  border-color: var(--color-error);
+  box-shadow: 0 0 0 3px var(--color-error-light);
+}
+
+.inputContainer--disabled {
+  background-color: var(--color-bg-tertiary);
+  border-color: var(--color-border-light);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Input Element */
+.input {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  color: var(--color-text-primary);
+  transition: all 0.2s ease;
+}
+
+.input::placeholder {
+  color: var(--color-text-tertiary);
+  transition: color 0.2s ease;
+}
+
+/* Input Variants */
+.input--primary {
+  color: var(--color-text-primary);
+}
+
+.input--primary::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.input--secondary {
+  color: var(--color-text-primary);
+}
+
+.input--secondary::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.input--tertiary {
+  color: var(--color-text-secondary);
+}
+
+.input--tertiary::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* Input Sizes */
+.input--small {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.input--medium {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+}
+
+.input--large {
+  font-size: 1rem;
+  line-height: 1.5rem;
+}
+
+/* Input States */
+.input--error {
+  color: var(--color-text-primary);
+}
+
+.input--error::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.input--disabled {
+  color: var(--color-text-disabled);
+  cursor: not-allowed;
+}
+
+.input--disabled::placeholder {
+  color: var(--color-text-disabled);
+}
+
+.input--readonly {
+  color: var(--color-text-secondary);
+  cursor: default;
+}
+
+.input--readonly::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+.input--focused {
+  color: var(--color-text-primary);
+}
+
+.input--focused::placeholder {
+  color: var(--color-text-tertiary);
+}
+
+/* Input with Icons */
+.input--with-left-icon {
+  padding-left: 0;
+}
+
+.input--with-right-icon {
+  padding-right: 0;
+}
+
+/* Icon Styles */
+.icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-tertiary);
+  transition: color 0.2s ease;
+}
+
+.iconLeft {
+  margin-right: 0.5rem;
+}
+
+.iconRight {
+  margin-left: 0.5rem;
+}
+
+.icon--small {
+  width: 1rem;
+  height: 1rem;
+}
+
+.icon--medium {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.icon--large {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+/* Error Message */
+.errorMessage {
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 400;
+  color: var(--color-error);
+  transition: color 0.2s ease;
+}
+
+.errorMessage--small {
+  font-size: 0.6875rem;
+  line-height: 0.875rem;
+}
+
+.errorMessage--medium {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.errorMessage--large {
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+}
+
+.errorMessage--light {
+  color: var(--color-error);
+}
+
+.errorMessage--dark {
+  color: var(--color-error);
+}
+
+/* Helper Text */
+.helperText {
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 400;
+  color: var(--color-text-tertiary);
+  transition: color 0.2s ease;
+}
+
+.helperText--small {
+  font-size: 0.6875rem;
+  line-height: 0.875rem;
+}
+
+.helperText--medium {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.helperText--large {
+  font-size: 0.8125rem;
+  line-height: 1.125rem;
+}
+
+.helperText--light {
+  color: var(--color-text-tertiary);
+}
+
+.helperText--dark {
+  color: var(--color-text-tertiary);
+}
+
+/* Dark Theme Overrides */
+@media (prefers-color-scheme: dark) {
+  .inputContainer--primary.inputContainer--focused {
+    box-shadow: 0 0 0 3px var(--color-primary-900);
+  }
+  
+  .inputContainer--secondary.inputContainer--focused {
+    box-shadow: 0 0 0 3px var(--color-secondary-900);
+  }
+  
+  .inputContainer--tertiary.inputContainer--focused {
+    box-shadow: 0 0 0 3px var(--color-gray-900);
+  }
+  
+  .inputContainer--error.inputContainer--focused {
+    box-shadow: 0 0 0 3px var(--color-error-light);
+  }
+}
+
+/* Focus Visible for Accessibility */
+.input:focus-visible {
+  outline: 2px solid var(--color-primary-500);
+  outline-offset: 2px;
+}
+
+/* Hover States */
+.inputContainer:not(.inputContainer--disabled):hover {
+  border-color: var(--color-border-dark);
+}
+
+.inputContainer--primary:not(.inputContainer--disabled):hover {
+  border-color: var(--color-primary-300);
+}
+
+.inputContainer--secondary:not(.inputContainer--disabled):hover {
+  border-color: var(--color-secondary-300);
+}
+
+.inputContainer--tertiary:not(.inputContainer--disabled):hover {
+  border-color: var(--color-gray-400);
+}
+
+/* Animation for smooth transitions */
+@keyframes inputFocus {
+  from {
+    box-shadow: 0 0 0 0 transparent;
+  }
+  to {
+    box-shadow: 0 0 0 3px var(--color-primary-100);
+  }
+}
+
+.inputContainer--focused {
+  animation: inputFocus 0.2s ease-out;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .inputContainer--small {
+    height: 2.25rem;
+    padding: 0 0.875rem;
+  }
+  
+  .inputContainer--medium {
+    height: 2.75rem;
+    padding: 0 1.125rem;
+  }
+  
+  .inputContainer--large {
+    height: 3.25rem;
+    padding: 0 1.375rem;
+  }
+  
+  .input--small {
+    font-size: 0.8125rem;
+  }
+  
+  .input--medium {
+    font-size: 0.9375rem;
+  }
+  
+  .input--large {
+    font-size: 1.0625rem;
+  }
+}
