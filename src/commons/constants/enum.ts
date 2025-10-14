@@ -112,3 +112,5 @@ export const getEmotionColor = (type: EmotionType, mode: 'light' | 'dark' = 'lig
   return emotionConfigs[type].color[mode];
 };
 
+
+
