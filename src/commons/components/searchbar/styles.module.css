@@ -1,0 +1,341 @@
+/* Searchbar Container */
+.searchbarContainer {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+  border-radius: 100px;
+  border: 1px solid #c7c7c7;
+  background-color: transparent;
+}
+
+/* Searchbar Input */
+.searchbar {
+  width: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  color: #1c1c1c;
+}
+
+.searchbar::placeholder {
+  color: #ababab;
+  font-weight: 500;
+}
+
+.searchbar:focus {
+  outline: none;
+}
+
+/* Icon Container */
+.iconContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #ababab;
+}
+
+.searchIcon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Size Variants */
+.size-small .searchbarContainer {
+  height: 36px;
+  padding: 0 12px;
+}
+
+.size-small .searchbar {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+}
+
+.size-small .iconContainer {
+  margin-right: 8px;
+}
+
+.size-small .searchIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.size-medium .searchbarContainer {
+  height: 48px;
+  padding: 0 16px;
+}
+
+.size-medium .searchbar {
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+}
+
+.size-medium .iconContainer {
+  margin-right: 12px;
+}
+
+.size-medium .searchIcon {
+  width: 24px;
+  height: 24px;
+}
+
+.size-large .searchbarContainer {
+  height: 56px;
+  padding: 0 20px;
+}
+
+.size-large .searchbar {
+  font-size: 18px;
+  line-height: 28px;
+  letter-spacing: -0.18px;
+}
+
+.size-large .iconContainer {
+  margin-right: 16px;
+}
+
+.size-large .searchIcon {
+  width: 28px;
+  height: 28px;
+}
+
+/* Variant Styles */
+.variant-primary .searchbarContainer {
+  border-color: #c7c7c7;
+  background-color: transparent;
+}
+
+.variant-primary .searchbar {
+  color: #1c1c1c;
+}
+
+.variant-primary .searchbar::placeholder {
+  color: #ababab;
+}
+
+.variant-primary .iconContainer {
+  color: #ababab;
+}
+
+.variant-secondary .searchbarContainer {
+  border-color: #d1d5db;
+  background-color: #f9fafb;
+}
+
+.variant-secondary .searchbar {
+  color: #374151;
+}
+
+.variant-secondary .searchbar::placeholder {
+  color: #9ca3af;
+}
+
+.variant-secondary .iconContainer {
+  color: #9ca3af;
+}
+
+.variant-tertiary .searchbarContainer {
+  border-color: #e5e7eb;
+  background-color: #ffffff;
+}
+
+.variant-tertiary .searchbar {
+  color: #111827;
+}
+
+.variant-tertiary .searchbar::placeholder {
+  color: #6b7280;
+}
+
+.variant-tertiary .iconContainer {
+  color: #6b7280;
+}
+
+/* Theme Styles */
+.theme-light .searchbarContainer {
+  border-color: #c7c7c7;
+  background-color: transparent;
+}
+
+.theme-light .searchbar {
+  color: #1c1c1c;
+}
+
+.theme-light .searchbar::placeholder {
+  color: #ababab;
+}
+
+.theme-light .iconContainer {
+  color: #ababab;
+}
+
+.theme-dark .searchbarContainer {
+  border-color: #4b5563;
+  background-color: #374151;
+}
+
+.theme-dark .searchbar {
+  color: #f9fafb;
+}
+
+.theme-dark .searchbar::placeholder {
+  color: #9ca3af;
+}
+
+.theme-dark .iconContainer {
+  color: #9ca3af;
+}
+
+/* Focus States */
+.focused .searchbarContainer,
+.containerFocused {
+  border-color: #3b82f6;
+}
+
+.focused .searchbar {
+  color: #1c1c1c;
+}
+
+.focused .iconContainer {
+  color: #3b82f6;
+}
+
+.theme-dark .focused .searchbarContainer,
+.theme-dark .containerFocused {
+  border-color: #60a5fa;
+}
+
+.theme-dark .focused .iconContainer {
+  color: #60a5fa;
+}
+
+/* Disabled States */
+.disabled .searchbarContainer,
+.containerDisabled {
+  border-color: #e5e7eb;
+  background-color: #f9fafb;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.disabled .searchbar {
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+.disabled .searchbar::placeholder {
+  color: #d1d5db;
+}
+
+.disabled .iconContainer {
+  color: #d1d5db;
+}
+
+.theme-dark .disabled .searchbarContainer,
+.theme-dark .containerDisabled {
+  border-color: #374151;
+  background-color: #1f2937;
+}
+
+.theme-dark .disabled .searchbar {
+  color: #6b7280;
+}
+
+.theme-dark .disabled .searchbar::placeholder {
+  color: #4b5563;
+}
+
+.theme-dark .disabled .iconContainer {
+  color: #4b5563;
+}
+
+/* Read-only States */
+.readOnly .searchbarContainer {
+  border-color: #e5e7eb;
+  background-color: #f9fafb;
+  cursor: default;
+}
+
+.readOnly .searchbar {
+  color: #6b7280;
+  cursor: default;
+}
+
+.theme-dark .readOnly .searchbarContainer {
+  border-color: #374151;
+  background-color: #1f2937;
+}
+
+.theme-dark .readOnly .searchbar {
+  color: #9ca3af;
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .size-medium .searchbarContainer {
+    height: 44px;
+    padding: 0 14px;
+  }
+  
+  .size-medium .searchbar {
+    font-size: 15px;
+  }
+  
+  .size-large .searchbarContainer {
+    height: 52px;
+    padding: 0 18px;
+  }
+  
+  .size-large .searchbar {
+    font-size: 17px;
+  }
+}
+
+@media (max-width: 480px) {
+  .size-medium .searchbarContainer {
+    height: 40px;
+    padding: 0 12px;
+  }
+  
+  .size-medium .searchbar {
+    font-size: 14px;
+  }
+  
+  .size-large .searchbarContainer {
+    height: 48px;
+    padding: 0 16px;
+  }
+  
+  .size-large .searchbar {
+    font-size: 16px;
+  }
+}
+
+
+/* Accessibility improvements */
+.searchbar:focus-visible {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+.theme-dark .searchbar:focus-visible {
+  outline-color: #60a5fa;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .searchbarContainer {
+    border-width: 2px;
+  }
+  
+  .focused .searchbarContainer,
+  .containerFocused {
+    border-width: 3px;
+  }
+}
+

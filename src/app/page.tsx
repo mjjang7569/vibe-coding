@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Button } from '@/commons/components/button';
 import { Pagination } from '@/commons/components/pagination';
+import { Searchbar } from '@/commons/components/searchbar';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -355,6 +356,208 @@ export default function Home() {
             >
               And Me!
             </Button>
+          </div>
+        </section>
+
+        {/* Searchbar Component Section */}
+        <section className="mb-16 p-8 bg-white rounded-lg">
+          <h2 className="text-2xl font-semibold mb-6">Searchbar Component</h2>
+          
+          {/* Light Theme Searchbar */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium mb-4">Light Theme</h3>
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-md font-medium mb-2">Primary Variant</h4>
+                <div className="space-y-4">
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="small"
+                      theme="light"
+                      placeholder="작은 검색바"
+                    />
+                  </div>
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="medium"
+                      theme="light"
+                      placeholder="중간 검색바"
+                    />
+                  </div>
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="large"
+                      theme="light"
+                      placeholder="큰 검색바"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="text-md font-medium mb-2">Secondary Variant</h4>
+                <div className="space-y-4">
+                  <div className="w-80">
+                    <Searchbar
+                      variant="secondary"
+                      size="medium"
+                      theme="light"
+                      placeholder="Secondary 검색바"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="text-md font-medium mb-2">Tertiary Variant</h4>
+                <div className="space-y-4">
+                  <div className="w-80">
+                    <Searchbar
+                      variant="tertiary"
+                      size="medium"
+                      theme="light"
+                      placeholder="Tertiary 검색바"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-md font-medium mb-2">Disabled & Read-only</h4>
+                <div className="space-y-4">
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="medium"
+                      theme="light"
+                      placeholder="비활성화된 검색바"
+                      disabled
+                    />
+                  </div>
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="medium"
+                      theme="light"
+                      placeholder="읽기 전용 검색바"
+                      readOnly
+                      defaultValue="읽기 전용 텍스트"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dark Theme Searchbar */}
+          <div className="mb-8 p-6 bg-gray-900 rounded-lg">
+            <h3 className="text-lg font-medium mb-4 text-white">Dark Theme</h3>
+            <div className="space-y-6">
+              <div>
+                <h4 className="text-md font-medium mb-2 text-white">Primary Variant</h4>
+                <div className="space-y-4">
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="small"
+                      theme="dark"
+                      placeholder="작은 검색바 (다크)"
+                    />
+                  </div>
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="medium"
+                      theme="dark"
+                      placeholder="중간 검색바 (다크)"
+                    />
+                  </div>
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="large"
+                      theme="dark"
+                      placeholder="큰 검색바 (다크)"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="text-md font-medium mb-2 text-white">Secondary Variant</h4>
+                <div className="space-y-4">
+                  <div className="w-80">
+                    <Searchbar
+                      variant="secondary"
+                      size="medium"
+                      theme="dark"
+                      placeholder="Secondary 검색바 (다크)"
+                    />
+                  </div>
+                </div>
+              </div>
+              
+              <div>
+                <h4 className="text-md font-medium mb-2 text-white">Tertiary Variant</h4>
+                <div className="space-y-4">
+                  <div className="w-80">
+                    <Searchbar
+                      variant="tertiary"
+                      size="medium"
+                      theme="dark"
+                      placeholder="Tertiary 검색바 (다크)"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="text-md font-medium mb-2 text-white">Disabled & Read-only</h4>
+                <div className="space-y-4">
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="medium"
+                      theme="dark"
+                      placeholder="비활성화된 검색바 (다크)"
+                      disabled
+                    />
+                  </div>
+                  <div className="w-80">
+                    <Searchbar
+                      variant="primary"
+                      size="medium"
+                      theme="dark"
+                      placeholder="읽기 전용 검색바 (다크)"
+                      readOnly
+                      defaultValue="읽기 전용 텍스트"
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Interactive Example */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium mb-4">Interactive Example</h3>
+            <div className="space-y-4">
+              <div className="w-96">
+                <Searchbar
+                  variant="primary"
+                  size="medium"
+                  theme="light"
+                  placeholder="검색어를 입력하고 Enter를 누르세요"
+                  onSearch={(value) => alert(`검색어: ${value}`)}
+                />
+              </div>
+              <p className="text-sm text-gray-600">
+                검색어를 입력하고 Enter 키를 누르면 검색이 실행됩니다.
+              </p>
+            </div>
           </div>
         </section>
       </main>
