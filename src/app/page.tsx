@@ -4,11 +4,13 @@ import { useState } from 'react';
 import { Button } from '@/commons/components/button';
 import { Pagination } from '@/commons/components/pagination';
 import { Searchbar } from '@/commons/components/searchbar';
+import { Selectbox } from '@/commons/components/selectbox';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [currentPage2, setCurrentPage2] = useState(1);
   const [currentPage3, setCurrentPage3] = useState(1);
+  const [selectValue, setSelectValue] = useState('');
 
   return (
     <div className="min-h-screen p-8 pb-20 gap-16 sm:p-20">
@@ -246,6 +248,196 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Selectbox Component */}
+          <div className="mb-8">
+            <h3 className="text-lg font-medium mb-4">Selectbox Component</h3>
+            <div className="space-y-6">
+              {/* Primary Variant */}
+              <div>
+                <h4 className="text-md font-medium mb-2">Primary Variant</h4>
+                <div className="flex flex-wrap gap-4">
+                  <div className="w-48">
+                    <Selectbox
+                      variant="primary"
+                      size="small"
+                      theme="light"
+                      placeholder="Small"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                      value={selectValue}
+                      onChange={setSelectValue}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="primary"
+                      size="medium"
+                      theme="light"
+                      placeholder="Medium"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="primary"
+                      size="large"
+                      theme="light"
+                      placeholder="Large"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="primary"
+                      size="medium"
+                      theme="light"
+                      placeholder="Disabled"
+                      disabled
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Secondary Variant */}
+              <div>
+                <h4 className="text-md font-medium mb-2">Secondary Variant</h4>
+                <div className="flex flex-wrap gap-4">
+                  <div className="w-48">
+                    <Selectbox
+                      variant="secondary"
+                      size="small"
+                      theme="light"
+                      placeholder="Small"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="secondary"
+                      size="medium"
+                      theme="light"
+                      placeholder="Medium"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="secondary"
+                      size="large"
+                      theme="light"
+                      placeholder="Large"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Tertiary Variant */}
+              <div>
+                <h4 className="text-md font-medium mb-2">Tertiary Variant</h4>
+                <div className="flex flex-wrap gap-4">
+                  <div className="w-48">
+                    <Selectbox
+                      variant="tertiary"
+                      size="small"
+                      theme="light"
+                      placeholder="Small"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="tertiary"
+                      size="medium"
+                      theme="light"
+                      placeholder="Medium"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="tertiary"
+                      size="large"
+                      theme="light"
+                      placeholder="Large"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Dark Theme Pagination */}
           <div className="mb-8 p-6 bg-gray-900 rounded-lg">
             <h3 className="text-lg font-medium mb-4 text-white">Dark Theme</h3>
@@ -281,6 +473,194 @@ export default function Home() {
                   currentPage={1}
                   totalPages={10}
                 />
+              </div>
+            </div>
+          </div>
+
+          {/* Dark Theme Selectbox */}
+          <div className="mb-8 p-6 bg-gray-900 rounded-lg">
+            <h3 className="text-lg font-medium mb-4 text-white">Dark Theme Selectbox</h3>
+            <div className="space-y-6">
+              {/* Primary Variant */}
+              <div>
+                <h4 className="text-md font-medium mb-2 text-white">Primary Variant</h4>
+                <div className="flex flex-wrap gap-4">
+                  <div className="w-48">
+                    <Selectbox
+                      variant="primary"
+                      size="small"
+                      theme="dark"
+                      placeholder="Small"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="primary"
+                      size="medium"
+                      theme="dark"
+                      placeholder="Medium"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="primary"
+                      size="large"
+                      theme="dark"
+                      placeholder="Large"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="primary"
+                      size="medium"
+                      theme="dark"
+                      placeholder="Disabled"
+                      disabled
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Secondary Variant */}
+              <div>
+                <h4 className="text-md font-medium mb-2 text-white">Secondary Variant</h4>
+                <div className="flex flex-wrap gap-4">
+                  <div className="w-48">
+                    <Selectbox
+                      variant="secondary"
+                      size="small"
+                      theme="dark"
+                      placeholder="Small"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="secondary"
+                      size="medium"
+                      theme="dark"
+                      placeholder="Medium"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="secondary"
+                      size="large"
+                      theme="dark"
+                      placeholder="Large"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Tertiary Variant */}
+              <div>
+                <h4 className="text-md font-medium mb-2 text-white">Tertiary Variant</h4>
+                <div className="flex flex-wrap gap-4">
+                  <div className="w-48">
+                    <Selectbox
+                      variant="tertiary"
+                      size="small"
+                      theme="dark"
+                      placeholder="Small"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="tertiary"
+                      size="medium"
+                      theme="dark"
+                      placeholder="Medium"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                  <div className="w-48">
+                    <Selectbox
+                      variant="tertiary"
+                      size="large"
+                      theme="dark"
+                      placeholder="Large"
+                      options={[
+                        { value: 'all', label: '전체' },
+                        { value: 'happy', label: '행복해요' },
+                        { value: 'sad', label: '슬퍼요' },
+                        { value: 'surprised', label: '놀랐어요' },
+                        { value: 'angry', label: '화나요' },
+                        { value: 'etc', label: '기타' },
+                      ]}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
