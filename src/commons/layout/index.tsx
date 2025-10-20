@@ -10,7 +10,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     <div className={styles.container}>
       {/* Header 영역 */}
       <header className={styles.header}>
-        {/* Header 내용은 추후 구현 */}
+        <div className={styles.logo}>민지의 다이어리</div>
       </header>
       
       {/* Gap */}
@@ -18,7 +18,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       
       {/* Banner 영역 */}
       <section className={styles.banner}>
-        {/* Banner 내용은 추후 구현 */}
+        <img src="/images/banner.png" alt="배너 이미지" className={styles.bannerImage} />
       </section>
       
       {/* Gap */}
@@ -26,8 +26,32 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       
       {/* Navigation 영역 */}
       <nav className={styles.navigation}>
-        {/* Navigation 내용은 추후 구현 */}
+        <div className={styles.navTabs}>
+          <button className={styles.navTabActive}>일기보관함</button>
+          <button className={styles.navTab}>사진보관함</button>
+        </div>
+        <button className={styles.diaryWriteButton}>
+          <img src="/icons/plus_outline_light_m.svg" alt="plus" className={styles.plusIcon} />
+          일기쓰기
+        </button>
       </nav>
+      
+      {/* Gap between Navigation and Controls */}
+      <div className={styles.navigationGap} />
+      
+      {/* Navigation Controls 영역 */}
+      <div className={styles.navigationControls}>
+        <div className={styles.controlsLeft}>
+          <div className={styles.dropdown}>
+            <span className={styles.dropdownText}>전체</span>
+            <img src="/icons/arrow_drop_down.svg" alt="dropdown" className={styles.dropdownIcon} />
+          </div>
+          <div className={styles.searchBar}>
+            <img src="/icons/search_outline_light_m.svg" alt="search" className={styles.searchIcon} />
+            <span className={styles.searchPlaceholder}>검색어를 입력해 주세요.</span>
+          </div>
+        </div>
+      </div>
       
       {/* Main Content 영역 (children 포함) */}
       <main className={styles.main}>
@@ -36,7 +60,11 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       
       {/* Footer 영역 */}
       <footer className={styles.footer}>
-        {/* Footer 내용은 추후 구현 */}
+        <div className={styles.footerContent}>
+          <div className={styles.footerLogo}>민지의 다이어리</div>
+          <div className={styles.footerInfo}>대표 : 민지</div>
+          <div className={styles.footerCopyright}>Copyright © 2024. 민지 Co., Ltd.</div>
+        </div>
       </footer>
     </div>
   );
