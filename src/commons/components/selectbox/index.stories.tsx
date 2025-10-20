@@ -9,7 +9,7 @@ const meta: Meta<typeof Selectbox> = {
     layout: 'centered',
     docs: {
       description: {
-        component: '다양한 variant, size, theme를 지원하는 셀렉트박스 컴포넌트입니다. 피그마 디자인을 반영한 다크모드 스타일과 24px 화살표 아이콘으로 업데이트되었습니다. 옵션 선택, 키보드 네비게이션, 접근성을 지원합니다.',
+        component: '다양한 variant, size, theme를 지원하는 셀렉트박스 컴포넌트입니다. 최신 12px border-radius, 부드러운 애니메이션, 개선된 스크롤바 스타일이 적용되었습니다. 피그마 디자인을 반영한 다크모드 스타일과 24px 화살표 아이콘을 지원하며, 옵션 선택, 키보드 네비게이션, 접근성을 지원합니다.',
       },
     },
   },
@@ -261,7 +261,7 @@ export const SelectedState: Story = {
 // 조합 스토리들
 export const AllVariants: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '300px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '320px' }}>
       <Selectbox
         options={basicOptions}
         placeholder="Primary 스타일"
@@ -288,7 +288,7 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: '모든 variant 타입을 확인할 수 있습니다.',
+        story: '개선된 스타일로 모든 variant 타입을 확인할 수 있습니다. 12px border-radius와 부드러운 애니메이션이 적용되었습니다.',
       },
     },
   },
@@ -296,24 +296,24 @@ export const AllVariants: Story = {
 
 export const AllSizes: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '300px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '320px' }}>
       <Selectbox
         options={basicOptions}
-        placeholder="작은 크기"
+        placeholder="작은 크기 (36px)"
         variant="primary"
         size="small"
         theme="light"
       />
       <Selectbox
         options={basicOptions}
-        placeholder="중간 크기"
+        placeholder="중간 크기 (52px)"
         variant="primary"
         size="medium"
         theme="light"
       />
       <Selectbox
         options={basicOptions}
-        placeholder="큰 크기"
+        placeholder="큰 크기 (60px)"
         variant="primary"
         size="large"
         theme="light"
@@ -323,7 +323,7 @@ export const AllSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: '모든 size 옵션을 확인할 수 있습니다.',
+        story: '개선된 크기별 스타일을 확인할 수 있습니다. Small(36px), Medium(52px), Large(60px) 높이가 적용되었습니다.',
       },
     },
   },
@@ -331,7 +331,7 @@ export const AllSizes: Story = {
 
 export const AllStates: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '300px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '320px' }}>
       <Selectbox
         options={basicOptions}
         placeholder="정상 상태"
@@ -367,7 +367,7 @@ export const AllStates: Story = {
   parameters: {
     docs: {
       description: {
-        story: '모든 상태를 확인할 수 있습니다.',
+        story: '개선된 상태별 스타일을 확인할 수 있습니다. 더 부드러운 호버 효과와 선택된 옵션 스타일이 적용되었습니다.',
       },
     },
   },
@@ -376,9 +376,9 @@ export const AllStates: Story = {
 export const AllThemes: Story = {
   render: () => (
     <div style={{ display: 'flex', gap: '32px' }}>
-      <div style={{ padding: '16px', backgroundColor: '#ffffff', borderRadius: '8px' }}>
-        <div style={{ marginBottom: '16px', fontSize: '14px', color: '#666' }}>Light Theme</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '280px' }}>
+      <div style={{ padding: '20px', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e5e7eb' }}>
+        <div style={{ marginBottom: '20px', fontSize: '16px', fontWeight: '600', color: '#374151' }}>Light Theme</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '300px' }}>
           <Selectbox
             options={basicOptions}
             placeholder="Primary (Light)"
@@ -402,9 +402,9 @@ export const AllThemes: Story = {
           />
         </div>
       </div>
-      <div style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px' }}>
-        <div style={{ marginBottom: '16px', fontSize: '14px', color: '#ccc' }}>Dark Theme</div>
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '280px' }}>
+      <div style={{ padding: '20px', backgroundColor: '#0a0a0a', borderRadius: '12px', border: '1px solid #374151' }}>
+        <div style={{ marginBottom: '20px', fontSize: '16px', fontWeight: '600', color: '#f9fafb' }}>Dark Theme</div>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', width: '300px' }}>
           <Selectbox
             options={emotionOptions}
             placeholder="전체"
@@ -434,7 +434,7 @@ export const AllThemes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Light와 Dark 테마에서의 모든 variant를 확인할 수 있습니다.',
+        story: '개선된 스타일로 Light와 Dark 테마에서의 모든 variant를 확인할 수 있습니다. 12px border-radius와 개선된 그림자 효과가 적용되었습니다.',
       },
     },
   },
@@ -625,7 +625,7 @@ export const FigmaDesignExample: Story = {
     return (
       <div style={{ display: 'flex', gap: '32px' }}>
         {/* 라이트 테마 */}
-        <div style={{ padding: '24px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #e5e5e5' }}>
+        <div style={{ padding: '24px', backgroundColor: '#ffffff', borderRadius: '12px', border: '1px solid #e5e5e5' }}>
           <div style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600', color: '#333' }}>Light Theme</div>
           <Selectbox
             options={emotionOptions}
@@ -639,7 +639,7 @@ export const FigmaDesignExample: Story = {
         </div>
 
         {/* 다크 테마 */}
-        <div style={{ padding: '24px', backgroundColor: '#1c1c1c', borderRadius: '8px', border: '1px solid #5f5f5f' }}>
+        <div style={{ padding: '24px', backgroundColor: '#1c1c1c', borderRadius: '12px', border: '1px solid #5f5f5f' }}>
           <div style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600', color: '#ffffff' }}>Dark Theme</div>
           <div style={{ marginBottom: '12px', fontSize: '12px', color: '#c7c7c7' }}>
             피그마 색상: 선택된 옵션 #ffffff, 일반 옵션 #c7c7c7
@@ -661,7 +661,55 @@ export const FigmaDesignExample: Story = {
     layout: 'padded',
     docs: {
       description: {
-        story: '피그마 노드ID 0:2746에서 확인한 다크모드 디자인을 반영한 예제입니다. 선택된 옵션은 #ffffff(흰색), 일반 옵션은 #c7c7c7(회색)로 표시됩니다.',
+        story: '개선된 스타일이 적용된 피그마 디자인 예제입니다. 12px border-radius, 부드러운 애니메이션, 개선된 스크롤바가 적용되었습니다.',
+      },
+    },
+  },
+};
+
+// 새로운 스토리: 스타일 개선사항 강조
+export const StyleImprovements: Story = {
+  render: () => (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '400px' }}>
+      <div>
+        <h3 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: '600', color: '#374151' }}>
+          스타일 개선사항
+        </h3>
+        <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
+          <ul style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: 0, paddingLeft: '20px' }}>
+            <li><strong>Border Radius:</strong> 8px → 12px (더 현대적인 느낌)</li>
+            <li><strong>애니메이션:</strong> cubic-bezier(0.4, 0, 0.2, 1) 적용</li>
+            <li><strong>크기 조정:</strong> Small(36px), Medium(52px), Large(60px)</li>
+            <li><strong>패딩 개선:</strong> 더 여유로운 공간 (14-20px)</li>
+            <li><strong>그림자 효과:</strong> 더 부드러운 drop-shadow</li>
+            <li><strong>스크롤바:</strong> 8px 너비, 개선된 스타일링</li>
+          </ul>
+        </div>
+      </div>
+      
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <Selectbox
+          options={manyOptions}
+          placeholder="개선된 스크롤바 확인"
+          variant="primary"
+          size="medium"
+          theme="light"
+        />
+        <Selectbox
+          options={basicOptions}
+          placeholder="부드러운 애니메이션 확인"
+          variant="primary"
+          size="large"
+          theme="light"
+        />
+      </div>
+    </div>
+  ),
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        story: '최신 스타일 개선사항을 확인할 수 있는 예제입니다. 12px border-radius, 부드러운 애니메이션, 개선된 크기와 패딩이 적용되었습니다.',
       },
     },
   },

@@ -41,8 +41,10 @@ export const Selectbox: React.FC<SelectboxProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [internalValue, setInternalValue] = useState(value || defaultValue || '');
+  const [focusedIndex, setFocusedIndex] = useState(-1);
   const selectRef = useRef<HTMLDivElement>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const optionRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   // 외부 클릭 감지
   useEffect(() => {
@@ -64,28 +66,55 @@ export const Selectbox: React.FC<SelectboxProps> = ({
     };
   }, [onClose]);
 
+  // 활성 옵션 필터링
+  const activeOptions = options.filter(option => !option.disabled);
+
   // 키보드 네비게이션
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (!isOpen) return;
+      if (!isOpen) {
+        if (event.key === 'Enter' || event.key === ' ' || event.key === 'ArrowDown') {
+          event.preventDefault();
+          handleToggle();
+        }
+        return;
+      }
+
+      const currentIndex = focusedIndex;
 
       switch (event.key) {
         case 'Escape':
+          event.preventDefault();
           setIsOpen(false);
+          setFocusedIndex(-1);
           onClose?.();
+          selectRef.current?.focus();
           break;
         case 'ArrowDown':
           event.preventDefault();
-          // 다음 옵션으로 이동
+          const nextIndex = currentIndex < activeOptions.length - 1 ? currentIndex + 1 : 0;
+          setFocusedIndex(nextIndex);
           break;
         case 'ArrowUp':
           event.preventDefault();
-          // 이전 옵션으로 이동
+          const prevIndex = currentIndex > 0 ? currentIndex - 1 : activeOptions.length - 1;
+          setFocusedIndex(prevIndex);
           break;
         case 'Enter':
         case ' ':
           event.preventDefault();
-          // 현재 포커스된 옵션 선택
+          if (focusedIndex >= 0 && focusedIndex < activeOptions.length) {
+            const selectedOption = activeOptions[focusedIndex];
+            handleOptionClick(selectedOption.value);
+          }
+          break;
+        case 'Home':
+          event.preventDefault();
+          setFocusedIndex(0);
+          break;
+        case 'End':
+          event.preventDefault();
+          setFocusedIndex(activeOptions.length - 1);
           break;
       }
     };
@@ -97,7 +126,7 @@ export const Selectbox: React.FC<SelectboxProps> = ({
     return () => {
       document.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, focusedIndex, activeOptions.length, activeOptions]);
 
   // value prop 변경 감지
   useEffect(() => {
@@ -113,8 +142,12 @@ export const Selectbox: React.FC<SelectboxProps> = ({
     setIsOpen(newIsOpen);
     
     if (newIsOpen) {
+      // 선택된 옵션의 인덱스 찾기
+      const selectedIndex = activeOptions.findIndex(option => option.value === internalValue);
+      setFocusedIndex(selectedIndex >= 0 ? selectedIndex : 0);
       onOpen?.();
     } else {
+      setFocusedIndex(-1);
       onClose?.();
     }
   };
@@ -125,8 +158,19 @@ export const Selectbox: React.FC<SelectboxProps> = ({
     setInternalValue(optionValue);
     onChange?.(optionValue);
     setIsOpen(false);
+    setFocusedIndex(-1);
     onClose?.();
+    selectRef.current?.focus();
   };
+
+  // 포커스된 옵션 스크롤 처리
+  useEffect(() => {
+    if (focusedIndex >= 0 && optionRefs.current[focusedIndex]) {
+      optionRefs.current[focusedIndex]?.scrollIntoView({
+        block: 'nearest',
+      });
+    }
+  }, [focusedIndex]);
 
   const selectedOption = options.find(option => option.value === internalValue);
   const displayText = selectedOption ? selectedOption.label : placeholder;
@@ -161,6 +205,7 @@ export const Selectbox: React.FC<SelectboxProps> = ({
         aria-haspopup="listbox"
         aria-controls="selectbox-dropdown"
         aria-disabled={disabled}
+        aria-activedescendant={isOpen && focusedIndex >= 0 ? `option-${activeOptions[focusedIndex]?.value}` : undefined}
         tabIndex={disabled ? -1 : 0}
       >
         <span className={styles.displayText}>
@@ -183,19 +228,34 @@ export const Selectbox: React.FC<SelectboxProps> = ({
           id="selectbox-dropdown"
           aria-label="옵션 목록"
         >
-          {options.map((option) => {
+          {options.map((option, index) => {
             const isSelected = option.value === internalValue;
+            const activeIndex = activeOptions.findIndex(activeOption => activeOption.value === option.value);
+            const isFocused = activeIndex === focusedIndex;
+            
             const optionClasses = [
               styles.option,
               isSelected ? styles.selected : '',
               option.disabled ? styles.disabled : '',
+              isFocused ? styles.focused : '',
             ].filter(Boolean).join(' ');
 
             return (
               <div
                 key={option.value}
+                id={`option-${option.value}`}
+                ref={(el) => {
+                  if (activeIndex >= 0) {
+                    optionRefs.current[activeIndex] = el;
+                  }
+                }}
                 className={optionClasses}
                 onClick={() => !option.disabled && handleOptionClick(option.value)}
+                onMouseEnter={() => {
+                  if (!option.disabled) {
+                    setFocusedIndex(activeIndex);
+                  }
+                }}
                 role="option"
                 aria-selected={isSelected}
                 aria-disabled={option.disabled}
