@@ -29,33 +29,6 @@
   line-height: 16px;
 }
 
-.diaryWriteButton {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  background-color: var(--color-text-primary);
-  color: var(--color-text-inverse);
-  border: none;
-  border-radius: 8px;
-  padding: 12px 16px;
-  font-size: 18px;
-  font-weight: 600;
-  font-family: var(--font-ko-primary);
-  letter-spacing: -0.18px;
-  line-height: 24px;
-  cursor: pointer;
-  height: 48px;
-  min-width: 110px;
-}
-
-.diaryWriteButton:hover {
-  background-color: var(--color-gray-800);
-}
-
-.plusIcon {
-  width: 24px;
-  height: 24px;
-}
 
 /* Gap 영역 - 1168px * 24px */
 .gap {
@@ -128,85 +101,6 @@
   cursor: pointer;
 }
 
-/* Navigation Gap - 24px */
-.navigationGap {
-  width: 1168px;
-  height: 24px;
-  margin: 0 auto;
-}
-
-/* Navigation Controls 영역 - 1168px * 48px */
-.navigationControls {
-  width: 1168px;
-  height: 48px;
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0;
-}
-
-.controlsLeft {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.dropdown {
-  display: flex;
-  align-items: center;
-  background-color: var(--color-bg-primary);
-  border: 1px solid var(--color-figma-light-border);
-  border-radius: 8px;
-  padding: 12px 12px 12px 16px;
-  width: 120px;
-  height: 48px;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-
-.dropdownText {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--color-text-primary);
-  font-family: var(--font-ko-primary);
-  letter-spacing: -0.16px;
-  line-height: 24px;
-  flex: 1;
-}
-
-.dropdownIcon {
-  width: 8.6px;
-  height: 4.7px;
-  margin-left: 8px;
-}
-
-.searchBar {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background-color: transparent;
-  border: 1px solid var(--color-figma-light-border);
-  border-radius: 100px;
-  padding: 12px 16px;
-  width: 320px;
-  height: 48px;
-  box-sizing: border-box;
-}
-
-.searchIcon {
-  width: 24px;
-  height: 24px;
-}
-
-.searchPlaceholder {
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--color-figma-light-placeholder);
-  font-family: var(--font-ko-primary);
-  letter-spacing: -0.16px;
-  line-height: 24px;
-}
 
 
 /* Main Content 영역 - 1168px * auto (children 포함) */

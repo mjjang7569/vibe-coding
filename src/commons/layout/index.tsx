@@ -32,26 +32,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
         </div>
       </nav>
       
-      {/* Gap between Navigation and Controls */}
-      <div className={styles.navigationGap} />
-      
-      {/* Navigation Controls 영역 */}
-      <div className={styles.navigationControls}>
-        <div className={styles.controlsLeft}>
-          <div className={styles.dropdown}>
-            <span className={styles.dropdownText}>전체</span>
-            <img src="/icons/arrow_drop_down.svg" alt="dropdown" className={styles.dropdownIcon} />
-          </div>
-          <div className={styles.searchBar}>
-            <img src="/icons/search_outline_light_m.svg" alt="search" className={styles.searchIcon} />
-            <span className={styles.searchPlaceholder}>검색어를 입력해 주세요.</span>
-          </div>
-        </div>
-        <button className={styles.diaryWriteButton}>
-          <img src="/icons/plus_outline_light_m.svg" alt="plus" className={styles.plusIcon} />
-          일기쓰기
-        </button>
-      </div>
       
       {/* Main Content 영역 (children 포함) */}
       <main className={styles.main}>

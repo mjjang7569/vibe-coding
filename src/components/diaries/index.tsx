@@ -3,7 +3,6 @@
 import React from 'react';
 import styles from './styles.module.css';
 import { Searchbar } from '@/commons/components/searchbar';
-import { Pagination } from '@/commons/components/pagination';
 import { Button } from '@/commons/components/button';
 import { Selectbox } from '@/commons/components/selectbox';
 
@@ -26,25 +25,12 @@ export interface DiariesProps {
    */
   onSelectChange?: (value: string) => void;
   
-  /**
-   * 페이지 변경 핸들러
-   */
-  onPageChange?: (page: number) => void;
   
   /**
    * 일기쓰기 버튼 클릭 핸들러
    */
   onWriteDiary?: () => void;
   
-  /**
-   * 현재 페이지
-   */
-  currentPage?: number;
-  
-  /**
-   * 전체 페이지 수
-   */
-  totalPages?: number;
   
   /**
    * 셀렉트박스 옵션들
@@ -77,10 +63,7 @@ export const Diaries: React.FC<DiariesProps> = ({
   className = '',
   onSearch,
   onSelectChange,
-  onPageChange,
   onWriteDiary,
-  currentPage = 1,
-  totalPages = 1,
   selectOptions = [],
   selectValue = '',
 }) => {
@@ -91,14 +74,6 @@ export const Diaries: React.FC<DiariesProps> = ({
         {/* 여기에 일기 목록 콘텐츠가 들어갑니다 */}
       </main>
       
-      {/* Pagination 영역 */}
-      <section className={styles.pagination}>
-        <Pagination
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={onPageChange}
-        />
-      </section>
     </div>
   );
 };
