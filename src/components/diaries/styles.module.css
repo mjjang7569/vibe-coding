@@ -7,6 +7,22 @@
   margin: 0 auto;
 }
 
+/* Gap 영역들 */
+.gap {
+  width: 1168px;
+}
+
+.gap32 {
+  height: 32px; /* 첫 번째 gap: 32px */
+}
+
+.gap42 {
+  height: 42px; /* 두 번째 gap: 42px */
+}
+
+.gap40 {
+  height: 40px; /* 세 번째, 네 번째 gap: 40px */
+}
 
 /* Search 영역: 1168px * 48px */
 .search {
@@ -15,7 +31,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 20px;
+  padding: 0;
   box-sizing: border-box;
 }
 
@@ -23,8 +39,88 @@
 .searchbarAndSelect {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
   flex: 1;
+}
+
+.selectboxArea {
+  width: 120px;
+  flex-shrink: 0;
+}
+
+/* searchbar 영역 크기 - 수정요구사항: 320*48px */
+.searchbarArea {
+  width: 320px;
+  height: 48px;
+  flex-shrink: 0;
+}
+
+/* 버튼 영역 */
+.writeButton {
+  display: flex;
+  align-items: center;
+  width: 110px;
+}
+
+/* 커스텀 스타일링 */
+.selectboxCustom {
+  width: 100%;
+  height: 48px;
+}
+
+/* 드롭다운 화살표 크기 수정 - 수정요구사항: 8.6 * 4.7px */
+.selectboxArea img[alt="드롭다운 화살표"] {
+  width: 8.6px;
+  height: 4.7px;
+}
+
+/* searchbar 크기 수정 - 수정요구사항: 가로세로 320*48px */
+.searchbarCustom {
+  width: 320px;
+  height: 48px;
+}
+
+/* searchbar 컨테이너 크기 조정 */
+.searchbarArea > div {
+  width: 320px;
+  height: 48px;
+}
+
+/* searchbar 검색 아이콘 좌측 패딩 - 수정요구사항: 좌측 16px */
+.searchbarArea > div > div:first-child {
+  padding-left: 16px;
+}
+
+/* searchbar input 크기 및 placeholder 영역 - placeholder가 149*24px 차지 */
+.searchbarArea div input {
+  width: 100%;
+  height: 48px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  line-height: 24px;
+  box-sizing: border-box;
+}
+
+.searchbarArea div input::placeholder {
+  color: #ababab;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  max-width: 149px;
+  display: inline-block;
+}
+
+/* 일기쓰기 버튼 스타일 - 폰트 사이즈 18px, 우측 패딩 10px */
+.buttonCustom {
+  width: 100%;
+  height: 48px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  /* 일기쓰기 버튼 텍스트 패딩 수정요구사항: 상하좌우 12 12 10 10px */
+  padding: 12px 10px 12px 12px;
 }
 
 /* Main 영역: 1168px * 936px */
@@ -39,24 +135,12 @@
   box-sizing: border-box;
 }
 
-
-/* Search 영역 내 Selectbox 스타일 */
-.selectboxInSearch {
-  flex-shrink: 0;
-  min-width: 150px;
-}
-
-/* Search 영역 내 Searchbar 스타일 */
-.searchbarInSearch {
+.mainContent {
   flex: 1;
-  max-width: 400px;
 }
 
-/* Search 영역 내 일기쓰기 버튼 스타일 */
-.writeButton {
-  flex-shrink: 0;
-  margin-left: 16px;
-}
+
+
 
 
 /* 반응형 처리 */
@@ -64,6 +148,21 @@
   .container {
     max-width: 100%;
     padding: 0 16px;
+  }
+  
+  .search {
+    width: 100%;
+    max-width: calc(100vw - 32px);
+  }
+  
+  .main {
+    width: 100%;
+    max-width: calc(100vw - 32px);
+  }
+  
+  .gap {
+    width: 100%;
+    max-width: calc(100vw - 32px);
   }
 }
 
@@ -75,6 +174,20 @@
   .search {
     height: auto;
     min-height: 48px;
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+  
+  .searchbarAndSelect {
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .selectboxArea,
+  .searchbarArea,
+  .writeButton {
+    width: 100%;
   }
   
   .main {
