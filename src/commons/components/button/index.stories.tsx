@@ -252,7 +252,7 @@ export const AllThemes: Story = {
 };
 
 export const InteractiveExample: Story = {
-  render: () => {
+  render: function InteractiveExampleRender() {
     const handleClick = () => {
       alert('버튼이 클릭되었습니다!');
     };

@@ -424,7 +424,7 @@ export const AllThemes: Story = {
 };
 
 export const InteractiveExample: Story = {
-  render: () => {
+  render: function InteractiveExampleRender() {
     const [selectedValue, setSelectedValue] = React.useState<string>('');
 
     const handleChange = (value: string) => {
@@ -458,9 +458,15 @@ export const InteractiveExample: Story = {
   },
 };
 
+interface FormData {
+  country: string;
+  city: string;
+  language: string;
+}
+
 export const FormExample: Story = {
-  render: () => {
-    const [formData, setFormData] = React.useState({
+  render: function FormExampleRender() {
+    const [formData, setFormData] = React.useState<FormData>({
       country: '',
       city: '',
       language: '',
@@ -502,7 +508,7 @@ export const FormExample: Story = {
               variant="primary"
               size="medium"
               theme="light"
-              onChange={(value) => setFormData(prev => ({ ...prev, country: value }))}
+              onChange={(value: string) => setFormData((prev: FormData) => ({ ...prev, country: value }))}
             />
           </div>
           
@@ -517,7 +523,7 @@ export const FormExample: Story = {
               variant="primary"
               size="medium"
               theme="light"
-              onChange={(value) => setFormData(prev => ({ ...prev, city: value }))}
+              onChange={(value: string) => setFormData((prev: FormData) => ({ ...prev, city: value }))}
             />
           </div>
           
@@ -532,7 +538,7 @@ export const FormExample: Story = {
               variant="primary"
               size="medium"
               theme="light"
-              onChange={(value) => setFormData(prev => ({ ...prev, language: value }))}
+              onChange={(value: string) => setFormData((prev: FormData) => ({ ...prev, language: value }))}
             />
           </div>
 
@@ -556,7 +562,7 @@ export const FormExample: Story = {
 };
 
 export const AccessibilityExample: Story = {
-  render: () => {
+  render: function AccessibilityExampleRender() {
     const [selectedValue, setSelectedValue] = React.useState<string>('');
 
     const handleOpen = () => {

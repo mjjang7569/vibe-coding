@@ -476,16 +476,30 @@ export const AllThemes: Story = {
   },
 };
 
+interface FormData {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+interface FormErrors {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
 export const WithFormExample: Story = {
-  render: () => {
-    const [formData, setFormData] = React.useState({
+  render: function WithFormExampleRender() {
+    const [formData, setFormData] = React.useState<FormData>({
       username: '',
       email: '',
       password: '',
       confirmPassword: '',
     });
 
-    const [errors, setErrors] = React.useState({
+    const [errors, setErrors] = React.useState<FormErrors>({
       username: '',
       email: '',
       password: '',
@@ -493,17 +507,17 @@ export const WithFormExample: Story = {
     });
 
     const handleChange = (field: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
-      setFormData(prev => ({ ...prev, [field]: e.target.value }));
+      setFormData((prev: FormData) => ({ ...prev, [field]: e.target.value }));
       
       // 간단한 유효성 검사
       if (field === 'email' && e.target.value && !e.target.value.includes('@')) {
-        setErrors(prev => ({ ...prev, email: '올바른 이메일 형식이 아닙니다' }));
+        setErrors((prev: FormErrors) => ({ ...prev, email: '올바른 이메일 형식이 아닙니다' }));
       } else if (field === 'password' && e.target.value.length < 6) {
-        setErrors(prev => ({ ...prev, password: '비밀번호는 최소 6자 이상이어야 합니다' }));
+        setErrors((prev: FormErrors) => ({ ...prev, password: '비밀번호는 최소 6자 이상이어야 합니다' }));
       } else if (field === 'confirmPassword' && e.target.value !== formData.password) {
-        setErrors(prev => ({ ...prev, confirmPassword: '비밀번호가 일치하지 않습니다' }));
+        setErrors((prev: FormErrors) => ({ ...prev, confirmPassword: '비밀번호가 일치하지 않습니다' }));
       } else {
-        setErrors(prev => ({ ...prev, [field]: '' }));
+        setErrors((prev: FormErrors) => ({ ...prev, [field]: '' }));
       }
     };
 

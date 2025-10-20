@@ -360,7 +360,7 @@ export const AllThemes: Story = {
 };
 
 export const InteractiveExample: Story = {
-  render: () => {
+  render: function InteractiveExampleRender() {
     const [searchResults, setSearchResults] = React.useState<string[]>([]);
     
     const handleSearch = (value: string) => {
@@ -424,13 +424,13 @@ export const InteractiveExample: Story = {
 };
 
 export const SearchExample: Story = {
-  render: () => {
+  render: function SearchExampleRender() {
     const [inputValue, setInputValue] = React.useState('');
     const [searchHistory, setSearchHistory] = React.useState<string[]>([]);
     
     const handleSearch = (value: string) => {
       if (value.trim()) {
-        setSearchHistory(prev => [value, ...prev.filter(item => item !== value).slice(0, 4)]);
+        setSearchHistory((prev: string[]) => [value, ...prev.filter(item => item !== value).slice(0, 4)]);
         setInputValue('');
       }
     };

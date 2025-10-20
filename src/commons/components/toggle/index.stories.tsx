@@ -271,16 +271,22 @@ export const AllThemes: Story = {
   },
 };
 
+interface Settings {
+  notifications: boolean;
+  darkMode: boolean;
+  autoSave: boolean;
+}
+
 export const InteractiveExample: Story = {
-  render: () => {
-    const [settings, setSettings] = React.useState({
+  render: function InteractiveExampleRender() {
+    const [settings, setSettings] = React.useState<Settings>({
       notifications: false,
       darkMode: false,
       autoSave: true,
     });
 
     const handleToggleChange = (key: string) => (checked: boolean) => {
-      setSettings(prev => ({ ...prev, [key]: checked }));
+      setSettings((prev: Settings) => ({ ...prev, [key]: checked }));
     };
 
     return (

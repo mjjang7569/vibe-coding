@@ -466,7 +466,7 @@ export const AllThemes: Story = {
 
 // 인터랙티브 예제
 export const InteractiveExample: Story = {
-  render: () => {
+  render: function InteractiveExampleRender() {
     const [currentPage, setCurrentPage] = React.useState(3);
     const totalPages = 20;
 
