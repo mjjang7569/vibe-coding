@@ -9,7 +9,7 @@ const meta: Meta<typeof Selectbox> = {
     layout: 'centered',
     docs: {
       description: {
-        component: '다양한 variant, size, theme를 지원하는 셀렉트박스 컴포넌트입니다. 최신 12px border-radius, 부드러운 애니메이션, 개선된 스크롤바 스타일이 적용되었습니다. 피그마 디자인을 반영한 다크모드 스타일과 24px 화살표 아이콘을 지원하며, 옵션 선택, 키보드 네비게이션, 접근성을 지원합니다.',
+        component: '완전한 키보드 네비게이션과 접근성을 지원하는 고성능 셀렉트박스 컴포넌트입니다. React.useCallback과 useMemo를 통한 성능 최적화, data-testid 지원으로 테스트 친화적이고, 모바일 터치 최적화가 적용되었습니다. 12px border-radius와 부드러운 애니메이션, 개선된 ARIA 속성으로 접근성을 대폭 향상시켰습니다.',
       },
     },
   },
@@ -17,6 +17,10 @@ const meta: Meta<typeof Selectbox> = {
     options: {
       control: false,
       description: '선택 옵션 배열',
+      table: {
+        type: { summary: 'SelectOption[]' },
+        category: 'Data',
+      },
     },
     value: {
       control: 'text',
@@ -48,6 +52,13 @@ const meta: Meta<typeof Selectbox> = {
     disabled: {
       control: 'boolean',
       description: '비활성화 상태',
+    },
+    'data-testid': {
+      control: 'text',
+      description: '테스트용 data-testid 속성',
+      table: {
+        category: 'Testing',
+      },
     },
     onChange: { action: 'changed' },
     onOpen: { action: 'opened' },
@@ -367,7 +378,7 @@ export const AllStates: Story = {
   parameters: {
     docs: {
       description: {
-        story: '개선된 상태별 스타일을 확인할 수 있습니다. 더 부드러운 호버 효과와 선택된 옵션 스타일이 적용되었습니다.',
+        story: '성능 최적화와 접근성 개선이 적용된 상태별 스타일을 확인할 수 있습니다. React.useCallback과 useMemo를 통한 최적화, ARIA 속성 강화가 적용되었습니다.',
       },
     },
   },
@@ -526,6 +537,7 @@ export const FormExample: Story = {
               size="medium"
               theme="light"
               onChange={(value: string) => setFormData((prev: FormData) => ({ ...prev, country: value }))}
+              data-testid="form-country-select"
             />
           </div>
           
@@ -541,6 +553,7 @@ export const FormExample: Story = {
               size="medium"
               theme="light"
               onChange={(value: string) => setFormData((prev: FormData) => ({ ...prev, city: value }))}
+              data-testid="form-city-select"
             />
           </div>
           
@@ -556,6 +569,7 @@ export const FormExample: Story = {
               size="medium"
               theme="light"
               onChange={(value: string) => setFormData((prev: FormData) => ({ ...prev, language: value }))}
+              data-testid="form-language-select"
             />
           </div>
 
@@ -591,9 +605,16 @@ export const AccessibilityExample: Story = {
     };
 
     return (
-      <div style={{ width: '300px' }}>
-        <div style={{ marginBottom: '16px', fontSize: '14px', color: '#666' }}>
-          접근성 예제: 키보드로 Tab을 사용하여 포커스를 이동하고, Enter나 Space로 옵션을 열을 수 있습니다.
+      <div style={{ width: '400px' }}>
+        <div style={{ marginBottom: '20px', padding: '16px', backgroundColor: '#f8fafc', borderRadius: '8px', border: '1px solid #e2e8f0' }}>
+          <h4 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '600', color: '#374151' }}>키보드 네비게이션</h4>
+          <ul style={{ margin: 0, paddingLeft: '20px', fontSize: '14px', color: '#475569', lineHeight: '1.6' }}>
+            <li><strong>Tab:</strong> 컴포넌트로 포커스 이동</li>
+            <li><strong>Enter/Space/ArrowDown:</strong> 드롭다운 열기</li>
+            <li><strong>ArrowUp/Down:</strong> 옵션 간 이동</li>
+            <li><strong>Home/End:</strong> 첫/마지막 옵션으로 이동</li>
+            <li><strong>Escape:</strong> 드롭다운 닫기</li>
+          </ul>
         </div>
         <Selectbox
           options={basicOptions}
@@ -605,6 +626,7 @@ export const AccessibilityExample: Story = {
           onChange={setSelectedValue}
           onOpen={handleOpen}
           onClose={handleClose}
+          data-testid="accessibility-selectbox"
         />
       </div>
     );
@@ -612,7 +634,7 @@ export const AccessibilityExample: Story = {
   parameters: {
     docs: {
       description: {
-        story: '키보드 네비게이션과 접근성 기능을 테스트할 수 있는 예제입니다.',
+        story: '완전한 키보드 네비게이션과 ARIA 속성으로 접근성이 향상된 예제입니다. 스크린 리더와 키보드 사용자를 위해 최적화되었습니다.',
       },
     },
   },
@@ -667,40 +689,60 @@ export const FigmaDesignExample: Story = {
   },
 };
 
-// 새로운 스토리: 스타일 개선사항 강조
-export const StyleImprovements: Story = {
+// 새로운 스토리: 최신 개선사항 강조
+export const LatestImprovements: Story = {
   render: () => (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '400px' }}>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '450px' }}>
       <div>
-        <h3 style={{ marginBottom: '16px', fontSize: '18px', fontWeight: '600', color: '#374151' }}>
-          스타일 개선사항
+        <h3 style={{ marginBottom: '20px', fontSize: '20px', fontWeight: '600', color: '#374151' }}>
+          최신 개선사항
         </h3>
-        <div style={{ padding: '20px', backgroundColor: '#f8fafc', borderRadius: '12px', border: '1px solid #e2e8f0' }}>
-          <ul style={{ fontSize: '14px', color: '#475569', lineHeight: '1.6', margin: 0, paddingLeft: '20px' }}>
-            <li><strong>Border Radius:</strong> 8px → 12px (더 현대적인 느낌)</li>
-            <li><strong>애니메이션:</strong> cubic-bezier(0.4, 0, 0.2, 1) 적용</li>
-            <li><strong>크기 조정:</strong> Small(36px), Medium(52px), Large(60px)</li>
-            <li><strong>패딩 개선:</strong> 더 여유로운 공간 (14-20px)</li>
-            <li><strong>그림자 효과:</strong> 더 부드러운 drop-shadow</li>
-            <li><strong>스크롤바:</strong> 8px 너비, 개선된 스타일링</li>
+        
+        {/* 성능 최적화 */}
+        <div style={{ marginBottom: '24px', padding: '20px', backgroundColor: '#f0f9ff', borderRadius: '12px', border: '1px solid #bae6fd' }}>
+          <h4 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '600', color: '#0369a1' }}>⚡ 성능 최적화</h4>
+          <ul style={{ fontSize: '14px', color: '#0369a1', lineHeight: '1.6', margin: 0, paddingLeft: '20px' }}>
+            <li><strong>React.useCallback:</strong> 함수 메모이제이션으로 리렌더링 최소화</li>
+            <li><strong>React.useMemo:</strong> 선택된 옵션 계산 최적화</li>
+            <li><strong>의존성 배열 최적화:</strong> 불필요한 effect 실행 방지</li>
+          </ul>
+        </div>
+
+        {/* 테스트 지원 */}
+        <div style={{ marginBottom: '24px', padding: '20px', backgroundColor: '#f0fdf4', borderRadius: '12px', border: '1px solid #bbf7d0' }}>
+          <h4 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '600', color: '#166534' }}>🧪 테스트 지원</h4>
+          <ul style={{ fontSize: '14px', color: '#166534', lineHeight: '1.6', margin: 0, paddingLeft: '20px' }}>
+            <li><strong>data-testid:</strong> 컨테이너, 셀렉트박스, 드롭다운, 옵션별 전용 ID</li>
+            <li><strong>접근성 테스트:</strong> ARIA 속성으로 테스트 자동화 지원</li>
+          </ul>
+        </div>
+
+        {/* 모바일 최적화 */}
+        <div style={{ marginBottom: '24px', padding: '20px', backgroundColor: '#fff7ed', borderRadius: '12px', border: '1px solid #fed7aa' }}>
+          <h4 style={{ margin: '0 0 12px 0', fontSize: '16px', fontWeight: '600', color: '#c2410c' }}>📱 모바일 최적화</h4>
+          <ul style={{ fontSize: '14px', color: '#c2410c', lineHeight: '1.6', margin: 0, paddingLeft: '20px' }}>
+            <li><strong>터치 최적화:</strong> touch-action, webkit-tap-highlight-color</li>
+            <li><strong>반응형 크기:</strong> 모바일에서 더 적절한 크기 조정</li>
           </ul>
         </div>
       </div>
       
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
         <Selectbox
           options={manyOptions}
-          placeholder="개선된 스크롤바 확인"
+          placeholder="성능 최적화된 스크롤바 확인"
           variant="primary"
           size="medium"
           theme="light"
+          data-testid="performance-example"
         />
         <Selectbox
           options={basicOptions}
-          placeholder="부드러운 애니메이션 확인"
+          placeholder="모바일 터치 최적화 확인"
           variant="primary"
           size="large"
           theme="light"
+          data-testid="mobile-optimized"
         />
       </div>
     </div>
@@ -709,7 +751,7 @@ export const StyleImprovements: Story = {
     layout: 'padded',
     docs: {
       description: {
-        story: '최신 스타일 개선사항을 확인할 수 있는 예제입니다. 12px border-radius, 부드러운 애니메이션, 개선된 크기와 패딩이 적용되었습니다.',
+        story: '최신 성능 최적화, 테스트 지원, 모바일 최적화가 적용된 개선사항을 확인할 수 있는 예제입니다.',
       },
     },
   },

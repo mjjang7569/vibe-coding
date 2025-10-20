@@ -33,15 +33,26 @@ const config: StorybookConfig = {
       crypto: false,
     };
 
-    // Storybook이 Next.js 이미지를 올바르게 처리하도록 설정
-    const imageRule = config.module?.rules?.find((rule: any) => {
-      const test = rule.test;
-      if (!test) return false;
-      return test.test('.svg') || test.test('.png') || test.test('.jpg');
-    });
-
-    if (imageRule) {
-      imageRule.exclude = /node_modules/;
+    // SWC loader 문제 해결
+    if (config.module && config.module.rules) {
+      // next-swc-loader-patch 관련 문제 해결
+      config.module.rules = config.module.rules.map((rule: any) => {
+        if (rule && rule.use && Array.isArray(rule.use)) {
+          // next-swc-loader-patch loader를 찾아서 제거
+          rule.use = rule.use.filter((loader: any) => {
+            if (typeof loader === 'string') {
+              return !loader.includes('next-swc-loader-patch');
+            }
+            if (loader && typeof loader === 'object') {
+              if (loader.loader && loader.loader.includes('next-swc-loader-patch')) {
+                return false;
+              }
+            }
+            return true;
+          });
+        }
+        return rule;
+      });
     }
 
     return config;
