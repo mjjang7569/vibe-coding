@@ -30,10 +30,6 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
           <button className={styles.navTabActive}>일기보관함</button>
           <button className={styles.navTab}>사진보관함</button>
         </div>
-        <button className={styles.diaryWriteButton}>
-          <img src="/icons/plus_outline_light_m.svg" alt="plus" className={styles.plusIcon} />
-          일기쓰기
-        </button>
       </nav>
       
       {/* Gap between Navigation and Controls */}
@@ -51,6 +47,10 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <span className={styles.searchPlaceholder}>검색어를 입력해 주세요.</span>
           </div>
         </div>
+        <button className={styles.diaryWriteButton}>
+          <img src="/icons/plus_outline_light_m.svg" alt="plus" className={styles.plusIcon} />
+          일기쓰기
+        </button>
       </div>
       
       {/* Main Content 영역 (children 포함) */}

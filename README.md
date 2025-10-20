@@ -1,36 +1,90 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Vibe Coding
 
-## Getting Started
+일기 작성 및 관리 기능을 제공하는 Next.js 기반 웹 애플리케이션입니다. React, TypeScript, Tailwind CSS와 Storybook을 사용하여 개발되었습니다.
 
-First, run the development server:
+## 주요 기능
 
+- 일기 목록 조회 및 검색
+- 페이지네이션을 통한 일기 목록 탐색
+- 반응형 UI 컴포넌트
+- Storybook을 통한 컴포넌트 문서화
+
+## 기술 스택
+
+- **Frontend**: Next.js 14, React 18, TypeScript
+- **Styling**: Tailwind CSS
+- **State Management**: TanStack Query
+- **Testing**: Storybook
+- **Theme**: next-themes (다크/라이트 모드 지원)
+
+## 설치 및 실행
+
+### 필수 요구사항
+- Node.js 18 이상
+- npm 또는 yarn
+
+### 설치
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 개발 서버 실행
+```bash
+npm run dev
+```
+개발 서버가 실행되면 브라우저에서 [http://localhost:3000](http://localhost:3000)에서 애플리케이션을 확인할 수 있습니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### 프로덕션 빌드
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Storybook 실행
+컴포넌트 문서화 및 테스트를 위해 Storybook을 실행할 수 있습니다:
+```bash
+npm run storybook
+```
+Storybook이 실행되면 [http://localhost:6006](http://localhost:6006)에서 확인할 수 있습니다.
 
-## Learn More
+## 테스트
 
-To learn more about Next.js, take a look at the following resources:
+### Linting
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Storybook 빌드 테스트
+```bash
+npm run build-storybook
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 프로젝트 구조
 
-## Deploy on Vercel
+```
+src/
+├── app/                    # Next.js App Router 페이지
+│   ├── diaries/           # 일기 목록 페이지
+│   └── layout.tsx         # 루트 레이아웃
+├── components/            # 페이지별 컴포넌트
+│   ├── diaries/           # 일기 관련 컴포넌트
+│   └── diaries-detail/    # 일기 상세 컴포넌트
+├── commons/               # 공통 컴포넌트 및 유틸리티
+│   ├── components/        # 재사용 가능한 UI 컴포넌트
+│   ├── constants/         # 상수 정의
+│   ├── layout/           # 공통 레이아웃
+│   └── providers/        # React Context Providers
+└── lib/                  # 라이브러리 및 유틸리티 함수
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## 컴포넌트
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+프로젝트에 포함된 주요 UI 컴포넌트:
+- Button: 기본 버튼 컴포넌트
+- Input: 입력 필드 컴포넌트
+- Searchbar: 검색바 컴포넌트
+- Pagination: 페이지네이션 컴포넌트
+- Selectbox: 셀렉트박스 컴포넌트
+- Toggle: 토글 컴포넌트
+
+각 컴포넌트는 Storybook에서 확인하고 테스트할 수 있습니다.
