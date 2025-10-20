@@ -1,0 +1,49 @@
+/* Layout Container - Flexbox 구조 */
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Header 영역 - 1168px * 60px */
+.header {
+  width: 1168px;
+  height: 60px;
+  margin: 0 auto;
+}
+
+/* Gap 영역 - 1168px * 24px */
+.gap {
+  width: 1168px;
+  height: 24px;
+  margin: 0 auto;
+}
+
+/* Banner 영역 - 1168px * 240px */
+.banner {
+  width: 1168px;
+  height: 240px;
+  margin: 0 auto;
+}
+
+/* Navigation 영역 - 1168px * 48px */
+.navigation {
+  width: 1168px;
+  height: 48px;
+  margin: 0 auto;
+}
+
+/* Main Content 영역 - 1168px * auto (children 포함) */
+.main {
+  width: 1168px;
+  flex: 1;
+  margin: 0 auto;
+}
+
+/* Footer 영역 - 1168px * 160px */
+.footer {
+  width: 1168px;
+  height: 160px;
+  margin: 0 auto;
+}
