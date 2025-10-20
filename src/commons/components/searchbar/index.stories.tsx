@@ -9,7 +9,7 @@ const meta: Meta<typeof Searchbar> = {
     layout: 'centered',
     docs: {
       description: {
-        component: '다양한 variant, size, theme를 지원하는 검색바 컴포넌트입니다. 검색 아이콘과 함께 사용자 입력을 받습니다.',
+        component: '다양한 variant, size, theme를 지원하는 검색바 컴포넌트입니다. 피그마 디자인에 맞게 구현되었으며, 다크 테마는 배경색 #000000, 테두리 색상 #333333, 텍스트 색상 #ffffff, 플레이스홀더 색상 #c7c7c7을 사용합니다. 플레이스홀더는 Pretendard Variable 폰트, 500 font-weight, 16px 크기로 피그마 디자인과 일치하게 구현되었습니다. Medium 크기에서 컨테이너는 48px 높이, 최소 320px 너비로 설정되고, 아이콘과 텍스트 간격이 피그마 디자인에 맞게 조정되었습니다.',
       },
     },
   },
@@ -164,6 +164,55 @@ export const ReadOnly: Story = {
     theme: 'light',
     readOnly: true,
     defaultValue: '읽기 전용 값',
+  },
+};
+
+export const DarkThemeStates: Story = {
+  render: () => (
+    <div style={{ padding: '24px', backgroundColor: '#1c1c1c', borderRadius: '8px', width: '400px' }}>
+      <div style={{ marginBottom: '24px', fontSize: '16px', color: '#e4e4e4', fontWeight: '600' }}>
+        다크 테마 상태별 검색바 (피그마 디자인 반영)
+      </div>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        <div>
+          <div style={{ marginBottom: '8px', fontSize: '14px', color: '#c7c7c7' }}>정상 상태</div>
+          <Searchbar
+            placeholder="다크 테마 검색바"
+            variant="primary"
+            size="medium"
+            theme="dark"
+          />
+        </div>
+        <div>
+          <div style={{ marginBottom: '8px', fontSize: '14px', color: '#c7c7c7' }}>비활성화 상태</div>
+          <Searchbar
+            placeholder="비활성화된 검색바"
+            variant="primary"
+            size="medium"
+            theme="dark"
+            disabled={true}
+          />
+        </div>
+        <div>
+          <div style={{ marginBottom: '8px', fontSize: '14px', color: '#c7c7c7' }}>읽기 전용 상태</div>
+          <Searchbar
+            placeholder="읽기 전용 검색바"
+            variant="primary"
+            size="medium"
+            theme="dark"
+            readOnly={true}
+            defaultValue="읽기 전용 값"
+          />
+        </div>
+      </div>
+    </div>
+  ),
+  parameters: {
+    docs: {
+      description: {
+        story: '다크 테마에서의 다양한 상태를 보여줍니다. 피그마 디자인 스펙에 맞게 배경색 #000000, 테두리 색상 #333333, 텍스트 색상 #ffffff, 플레이스홀더 색상 #c7c7c7이 적용되었습니다. 플레이스홀더는 Pretendard Variable 폰트, 500 font-weight, 16px 크기로 피그마 디자인과 일치하며, 아이콘과 텍스트 간격이 8px로 조정되어 피그마 디자인과 일치합니다.',
+      },
+    },
   },
 };
 
@@ -325,8 +374,8 @@ export const AllThemes: Story = {
           />
         </div>
       </div>
-      <div style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px' }}>
-        <div style={{ marginBottom: '16px', fontSize: '14px', color: '#ccc' }}>Dark Theme</div>
+      <div style={{ padding: '16px', backgroundColor: '#1c1c1c', borderRadius: '8px' }}>
+        <div style={{ marginBottom: '16px', fontSize: '14px', color: '#e4e4e4' }}>Dark Theme</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '300px' }}>
           <Searchbar
             placeholder="다크 테마 Primary"
@@ -353,7 +402,7 @@ export const AllThemes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Light와 Dark 테마에서의 모든 variant를 확인할 수 있습니다.',
+        story: 'Light와 Dark 테마에서의 모든 variant를 확인할 수 있습니다. 다크 테마는 피그마 디자인에 맞게 #000000 배경색과 #333333 테두리 색상을 적용했습니다. 플레이스홀더는 Pretendard Variable 폰트, 500 font-weight, 16px 크기로 피그마 디자인과 일치하며, 아이콘과 텍스트 간격이 8px로 조정되어 피그마 디자인과 일치합니다.',
       },
     },
   },

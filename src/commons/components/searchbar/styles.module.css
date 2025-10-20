@@ -17,11 +17,16 @@
   font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-weight: 500;
   color: #1c1c1c;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 .searchbar::placeholder {
   color: #ababab;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   font-weight: 500;
+  font-style: normal;
 }
 
 .searchbar:focus {
@@ -66,16 +71,20 @@
 .size-medium .searchbarContainer {
   height: 48px;
   padding: 0 16px;
+  min-width: 320px;
 }
 
 .size-medium .searchbar {
   font-size: 16px;
   line-height: 24px;
   letter-spacing: -0.16px;
+  padding-left: 0;
+  padding-right: 0;
 }
 
 .size-medium .iconContainer {
-  margin-right: 12px;
+  margin-right: 8px;
+  margin-left: 0;
 }
 
 .size-medium .searchIcon {
@@ -115,6 +124,9 @@
 
 .variant-primary .searchbar::placeholder {
   color: #ababab;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .variant-primary .iconContainer {
@@ -132,6 +144,9 @@
 
 .variant-secondary .searchbar::placeholder {
   color: #9ca3af;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .variant-secondary .iconContainer {
@@ -149,6 +164,9 @@
 
 .variant-tertiary .searchbar::placeholder {
   color: #6b7280;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .variant-tertiary .iconContainer {
@@ -167,6 +185,9 @@
 
 .theme-light .searchbar::placeholder {
   color: #ababab;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .theme-light .iconContainer {
@@ -174,20 +195,23 @@
 }
 
 .theme-dark .searchbarContainer {
-  border-color: #4b5563;
-  background-color: #374151;
+  border-color: #333333;
+  background-color: #000000;
 }
 
 .theme-dark .searchbar {
-  color: #f9fafb;
+  color: #ffffff;
 }
 
 .theme-dark .searchbar::placeholder {
-  color: #9ca3af;
+  color: #c7c7c7;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .theme-dark .iconContainer {
-  color: #9ca3af;
+  color: #c7c7c7;
 }
 
 /* Focus States */
@@ -207,6 +231,10 @@
 .theme-dark .focused .searchbarContainer,
 .theme-dark .containerFocused {
   border-color: #60a5fa;
+}
+
+.theme-dark .focused .searchbar {
+  color: #ffffff;
 }
 
 .theme-dark .focused .iconContainer {
@@ -229,6 +257,9 @@
 
 .disabled .searchbar::placeholder {
   color: #d1d5db;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .disabled .iconContainer {
@@ -237,20 +268,24 @@
 
 .theme-dark .disabled .searchbarContainer,
 .theme-dark .containerDisabled {
-  border-color: #374151;
-  background-color: #1f2937;
+  border-color: #333333;
+  background-color: #000000;
+  opacity: 0.6;
 }
 
 .theme-dark .disabled .searchbar {
-  color: #6b7280;
+  color: #c7c7c7;
 }
 
 .theme-dark .disabled .searchbar::placeholder {
-  color: #4b5563;
+  color: #666666;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-weight: 500;
+  font-style: normal;
 }
 
 .theme-dark .disabled .iconContainer {
-  color: #4b5563;
+  color: #666666;
 }
 
 /* Read-only States */
@@ -266,12 +301,12 @@
 }
 
 .theme-dark .readOnly .searchbarContainer {
-  border-color: #374151;
-  background-color: #1f2937;
+  border-color: #333333;
+  background-color: #000000;
 }
 
 .theme-dark .readOnly .searchbar {
-  color: #9ca3af;
+  color: #c7c7c7;
 }
 
 
