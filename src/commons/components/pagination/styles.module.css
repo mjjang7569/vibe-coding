@@ -18,10 +18,12 @@
   transition: all 0.2s ease;
   border-radius: 8px;
   color: inherit;
+  width: 24px;
+  height: 24px;
 }
 
 .navButton:hover:not(:disabled) {
-  background-color: var(--color-gray-100);
+  /* 기본 hover는 테마별로 정의됨 */
 }
 
 .navButton:disabled {
@@ -47,19 +49,22 @@
   align-items: center;
   justify-content: center;
   border: none;
-  background: transparent;
+  background: #ffffff;
   cursor: pointer;
   transition: all 0.2s ease;
   border-radius: 8px;
-  font-weight: 500;
-  color: var(--color-text-secondary);
+  font-weight: 400;
+  color: #777777;
   min-width: 32px;
   height: 32px;
+  font-family: 'Pretendard Variable', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -0.16px;
 }
 
 .pageButton:hover:not(:disabled) {
-  background-color: var(--color-gray-100);
-  color: var(--color-text-primary);
+  /* 기본 hover는 테마별로 정의됨 */
 }
 
 .pageButton:focus-visible {
@@ -74,8 +79,8 @@
 
 /* Active Page Button */
 .pageButton.active {
-  background-color: var(--color-gray-200);
-  color: var(--color-text-primary);
+  background-color: #f2f2f2;
+  color: #000000;
   font-weight: 500;
 }
 
@@ -92,52 +97,127 @@
 
 /* ===== VARIANT STYLES ===== */
 
-/* Primary Variant */
-.variant-primary .pageButton.active {
-  background-color: var(--color-primary-500);
-  color: var(--color-text-inverse);
+/* Primary Variant - Light Theme */
+.theme-light .variant-primary .pageButton.active {
+  background-color: #f2f2f2;
+  color: #000000;
+  font-weight: 500;
 }
 
-.variant-primary .pageButton:hover:not(:disabled) {
-  background-color: var(--color-primary-100);
-  color: var(--color-primary-700);
+.theme-light .variant-primary .pageButton:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  color: #000000;
 }
 
-.variant-primary .navButton:hover:not(:disabled) {
-  background-color: var(--color-primary-100);
-  color: var(--color-primary-700);
+.theme-light .variant-primary .navButton:hover:not(:disabled) {
+  background-color: #f5f5f5;
 }
 
-/* Secondary Variant */
-.variant-secondary .pageButton.active {
-  background-color: var(--color-secondary-500);
-  color: var(--color-text-inverse);
+/* Primary Variant - Dark Theme */
+.theme-dark.variant-primary .pageButton.active,
+.theme-dark .variant-primary .pageButton.active {
+  background-color: #333333 !important;
+  color: #e4e4e4 !important;
+  font-weight: 500 !important;
 }
 
-.variant-secondary .pageButton:hover:not(:disabled) {
-  background-color: var(--color-secondary-100);
-  color: var(--color-secondary-700);
+.theme-dark.variant-primary .pageButton:hover:not(:disabled),
+.theme-dark .variant-primary .pageButton:hover:not(:disabled) {
+  background-color: #404040 !important;
+  color: #e4e4e4 !important;
 }
 
-.variant-secondary .navButton:hover:not(:disabled) {
-  background-color: var(--color-secondary-100);
-  color: var(--color-secondary-700);
+.theme-dark.variant-primary .navButton,
+.theme-dark .variant-primary .navButton {
+  color: #e4e4e4 !important;
 }
 
-/* Tertiary Variant */
-.variant-tertiary .pageButton.active {
-  background-color: var(--color-gray-300);
-  color: var(--color-text-primary);
+.theme-dark.variant-primary .navButton:hover:not(:disabled),
+.theme-dark .variant-primary .navButton:hover:not(:disabled) {
+  background-color: #404040 !important;
+  color: #e4e4e4 !important;
 }
 
-.variant-tertiary .pageButton:hover:not(:disabled) {
-  background-color: var(--color-gray-200);
-  color: var(--color-text-primary);
+/* Secondary Variant - Light Theme */
+.theme-light .variant-secondary .pageButton.active {
+  background-color: #f2f2f2;
+  color: #000000;
+  font-weight: 500;
 }
 
-.variant-tertiary .navButton:hover:not(:disabled) {
-  background-color: var(--color-gray-200);
-  color: var(--color-text-primary);
+.theme-light .variant-secondary .pageButton:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  color: #000000;
+}
+
+.theme-light .variant-secondary .navButton:hover:not(:disabled) {
+  background-color: #f5f5f5;
+}
+
+/* Secondary Variant - Dark Theme */
+.theme-dark.variant-secondary .pageButton.active,
+.theme-dark .variant-secondary .pageButton.active {
+  background-color: #333333 !important;
+  color: #e4e4e4 !important;
+  font-weight: 500 !important;
+}
+
+.theme-dark.variant-secondary .pageButton:hover:not(:disabled),
+.theme-dark .variant-secondary .pageButton:hover:not(:disabled) {
+  background-color: #404040 !important;
+  color: #e4e4e4 !important;
+}
+
+.theme-dark.variant-secondary .navButton,
+.theme-dark .variant-secondary .navButton {
+  color: #e4e4e4 !important;
+}
+
+.theme-dark.variant-secondary .navButton:hover:not(:disabled),
+.theme-dark .variant-secondary .navButton:hover:not(:disabled) {
+  background-color: #404040 !important;
+  color: #e4e4e4 !important;
+}
+
+/* Tertiary Variant - Light Theme */
+.theme-light .variant-tertiary .pageButton.active {
+  background-color: #f2f2f2;
+  color: #000000;
+  font-weight: 500;
+}
+
+.theme-light .variant-tertiary .pageButton:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  color: #000000;
+}
+
+.theme-light .variant-tertiary .navButton:hover:not(:disabled) {
+  background-color: #f5f5f5;
+}
+
+/* Tertiary Variant - Dark Theme */
+.theme-dark.variant-tertiary .pageButton.active,
+.theme-dark .variant-tertiary .pageButton.active {
+  background-color: #333333 !important;
+  color: #e4e4e4 !important;
+  font-weight: 500 !important;
+}
+
+.theme-dark.variant-tertiary .pageButton:hover:not(:disabled),
+.theme-dark .variant-tertiary .pageButton:hover:not(:disabled) {
+  background-color: #404040 !important;
+  color: #e4e4e4 !important;
+}
+
+.theme-dark.variant-tertiary .navButton,
+.theme-dark .variant-tertiary .navButton {
+  color: #e4e4e4 !important;
+}
+
+.theme-dark.variant-tertiary .navButton:hover:not(:disabled),
+.theme-dark .variant-tertiary .navButton:hover:not(:disabled) {
+  background-color: #404040 !important;
+  color: #e4e4e4 !important;
 }
 
 /* ===== SIZE STYLES ===== */
@@ -216,11 +296,23 @@
 }
 
 .theme-light .pageButton {
-  color: var(--color-text-secondary);
+  background-color: #ffffff;
+  color: #777777;
 }
 
 .theme-light .pageButton.active {
-  color: var(--color-text-primary);
+  background-color: #f2f2f2;
+  color: #000000;
+  font-weight: 500;
+}
+
+.theme-light .pageButton:hover:not(:disabled) {
+  background-color: #f5f5f5;
+  color: #000000;
+}
+
+.theme-light .navButton:hover:not(:disabled) {
+  background-color: #f5f5f5;
 }
 
 .theme-light .ellipsis {
@@ -233,11 +325,18 @@
 }
 
 .theme-dark .pageButton {
-  color: var(--color-text-secondary);
+  background-color: #1c1c1c !important;
+  color: #777777 !important;
 }
 
 .theme-dark .pageButton.active {
-  color: var(--color-text-primary);
+  background-color: #333333 !important;
+  color: #e4e4e4 !important;
+  font-weight: 500 !important;
+}
+
+.theme-dark .navButton {
+  color: #e4e4e4 !important;
 }
 
 .theme-dark .ellipsis {
@@ -245,17 +344,13 @@
 }
 
 .theme-dark .pageButton:hover:not(:disabled) {
-  background-color: var(--color-gray-700);
-  color: var(--color-text-primary);
+  background-color: #404040 !important;
+  color: #e4e4e4 !important;
 }
 
 .theme-dark .navButton:hover:not(:disabled) {
-  background-color: var(--color-gray-700);
-  color: var(--color-text-primary);
-}
-
-.theme-dark .pageButton.active {
-  background-color: var(--color-gray-600);
+  background-color: #404040 !important;
+  color: #e4e4e4 !important;
 }
 
 /* ===== DISABLED STATE ===== */

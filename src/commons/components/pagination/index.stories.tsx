@@ -182,7 +182,7 @@ export const DarkTheme: Story = {
     showFirstLast: false,
   },
   parameters: {
-    backgrounds: { default: 'dark' },
+    backgrounds: { default: '#1c1c1c' },
   },
 };
 
@@ -428,7 +428,7 @@ export const AllThemes: Story = {
           />
         </div>
       </div>
-      <div style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px' }}>
+      <div style={{ padding: '16px', backgroundColor: '#1c1c1c', borderRadius: '8px' }}>
         <div style={{ marginBottom: '16px', fontSize: '14px', color: '#ccc' }}>Dark Theme</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', alignItems: 'center' }}>
           <Pagination
