@@ -149,7 +149,10 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
     return (
       <div className={styles.inputWrapper}>
         {label && (
-          <label className={cn(styles.label, styles[`label--${size}`], styles[`label--${theme}`])}>
+          <label 
+            className={cn(styles.label, styles[`label--${size}`], styles[`label--${theme}`])}
+            htmlFor={props.id}
+          >
             {label}
           </label>
         )}
@@ -169,6 +172,14 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             readOnly={readOnly}
             onFocus={handleFocus}
             onBlur={handleBlur}
+            aria-invalid={error}
+            aria-describedby={
+              error && errorMessage 
+                ? `${props.id}-error` 
+                : helperText 
+                  ? `${props.id}-helper` 
+                  : undefined
+            }
             {...props}
           />
           
@@ -180,13 +191,21 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
         </div>
         
         {(error && errorMessage) && (
-          <div className={cn(styles.errorMessage, styles[`errorMessage--${size}`], styles[`errorMessage--${theme}`])}>
+          <div 
+            id={props.id ? `${props.id}-error` : undefined}
+            className={cn(styles.errorMessage, styles[`errorMessage--${size}`], styles[`errorMessage--${theme}`])}
+            role="alert"
+            aria-live="polite"
+          >
             {errorMessage}
           </div>
         )}
         
         {helperText && !error && (
-          <div className={cn(styles.helperText, styles[`helperText--${size}`], styles[`helperText--${theme}`])}>
+          <div 
+            id={props.id ? `${props.id}-helper` : undefined}
+            className={cn(styles.helperText, styles[`helperText--${size}`], styles[`helperText--${theme}`])}
+          >
             {helperText}
           </div>
         )}

@@ -6,6 +6,90 @@
   --background: #ffffff;
   --foreground: #171717;
 
+  /* Color Variables - Light Theme */
+  /* Primary Colors */
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-200: #bae6fd;
+  --color-primary-300: #7dd3fc;
+  --color-primary-400: #38bdf8;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-700: #0369a1;
+  --color-primary-800: #075985;
+  --color-primary-900: #0c4a6e;
+
+  /* Secondary Colors */
+  --color-secondary-50: #faf5ff;
+  --color-secondary-100: #f3e8ff;
+  --color-secondary-200: #e9d5ff;
+  --color-secondary-300: #d8b4fe;
+  --color-secondary-400: #c084fc;
+  --color-secondary-500: #a855f7;
+  --color-secondary-600: #9333ea;
+  --color-secondary-700: #7e22ce;
+  --color-secondary-800: #6b21a8;
+  --color-secondary-900: #581c87;
+
+  /* Gray Scale */
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f4f4f5;
+  --color-gray-200: #e4e4e7;
+  --color-gray-300: #d4d4d8;
+  --color-gray-400: #a1a1aa;
+  --color-gray-500: #71717a;
+  --color-gray-600: #52525b;
+  --color-gray-700: #3f3f46;
+  --color-gray-800: #27272a;
+  --color-gray-900: #18181b;
+  --color-gray-950: #09090b;
+
+  /* Semantic Colors */
+  --color-success-light: #f0fdf4;
+  --color-success: #22c55e;
+  --color-success-dark: #166534;
+  --color-error-light: #fef2f2;
+  --color-error: #ef4444;
+  --color-error-dark: #991b1b;
+  --color-warning-light: #fffbeb;
+  --color-warning: #f59e0b;
+  --color-warning-dark: #92400e;
+  --color-info-light: #eff6ff;
+  --color-info: #3b82f6;
+  --color-info-dark: #1e40af;
+
+  /* Background Colors */
+  --color-bg-primary: #ffffff;
+  --color-bg-secondary: #f9fafb;
+  --color-bg-tertiary: #f3f4f6;
+  --color-bg-inverse: #111827;
+
+  /* Text Colors */
+  --color-text-primary: #111827;
+  --color-text-secondary: #4b5563;
+  --color-text-tertiary: #6b7280;
+  --color-text-disabled: #9ca3af;
+  --color-text-inverse: #ffffff;
+  --color-text-link: #2563eb;
+
+  /* Border Colors */
+  --color-border-light: #e5e7eb;
+  --color-border: #c7c7c7; /* 피그마 라이트모드 검색창 테두리 */
+  --color-border-dark: #9ca3af;
+  --color-border-focus: #3b82f6;
+  
+  /* Figma Specific Colors */
+  --color-figma-light-border: #c7c7c7;
+  --color-figma-light-placeholder: #ababab;
+  --color-figma-dark-border: #333333;
+  --color-figma-dark-bg: #000000;
+  --color-figma-dark-placeholder: #c7c7c7;
+
+  /* Surface Colors */
+  --color-surface-base: #ffffff;
+  --color-surface-raised: #ffffff;
+  --color-surface-overlay: #ffffff;
+
   /* Font Family Variables - Korean */
   --font-ko-primary: "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-ko-secondary: "Noto Sans KR", sans-serif;
@@ -210,6 +294,90 @@
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+
+    /* Color Variables - Dark Theme */
+    /* Primary Colors */
+    --color-primary-50: #0c1e2e;
+    --color-primary-100: #1a3a52;
+    --color-primary-200: #2d5676;
+    --color-primary-300: #4a7a9e;
+    --color-primary-400: #6ba3c9;
+    --color-primary-500: #8dcdf5;
+    --color-primary-600: #b0e0fb;
+    --color-primary-700: #c9ebfd;
+    --color-primary-800: #e0f4fe;
+    --color-primary-900: #f0f9ff;
+
+    /* Secondary Colors */
+    --color-secondary-50: #1a0f23;
+    --color-secondary-100: #2d1a42;
+    --color-secondary-200: #4a2a66;
+    --color-secondary-300: #6d3f94;
+    --color-secondary-400: #9460c7;
+    --color-secondary-500: #b98beb;
+    --color-secondary-600: #d0b5f5;
+    --color-secondary-700: #e3d5fa;
+    --color-secondary-800: #f0e8fd;
+    --color-secondary-900: #faf5ff;
+
+    /* Gray Scale */
+    --color-gray-50: #0a0a0a;
+    --color-gray-100: #18181b;
+    --color-gray-200: #27272a;
+    --color-gray-300: #3f3f46;
+    --color-gray-400: #52525b;
+    --color-gray-500: #71717a;
+    --color-gray-600: #a1a1aa;
+    --color-gray-700: #d4d4d8;
+    --color-gray-800: #e4e4e7;
+    --color-gray-900: #f4f4f5;
+    --color-gray-950: #fafafa;
+
+    /* Semantic Colors */
+    --color-success-light: #0a1f0f;
+    --color-success: #4ade80;
+    --color-success-dark: #bbf7d0;
+    --color-error-light: #1f0a0a;
+    --color-error: #f87171;
+    --color-error-dark: #fecaca;
+    --color-warning-light: #1f1a0a;
+    --color-warning: #fbbf24;
+    --color-warning-dark: #fde68a;
+    --color-info-light: #0a1623;
+    --color-info: #60a5fa;
+    --color-info-dark: #bfdbfe;
+
+    /* Background Colors */
+    --color-bg-primary: #0a0a0a;
+    --color-bg-secondary: #18181b;
+    --color-bg-tertiary: #27272a;
+    --color-bg-inverse: #f9fafb;
+
+    /* Text Colors */
+    --color-text-primary: #f9fafb;
+    --color-text-secondary: #d1d5db;
+    --color-text-tertiary: #9ca3af;
+    --color-text-disabled: #6b7280;
+    --color-text-inverse: #111827;
+    --color-text-link: #60a5fa;
+
+    /* Border Colors */
+    --color-border-light: #374151;
+    --color-border: #333333; /* 피그마 다크모드 검색창 테두리 */
+    --color-border-dark: #6b7280;
+    --color-border-focus: #60a5fa;
+    
+    /* Figma Specific Colors - Dark */
+    --color-figma-light-border: #c7c7c7;
+    --color-figma-light-placeholder: #ababab;
+    --color-figma-dark-border: #333333;
+    --color-figma-dark-bg: #000000;
+    --color-figma-dark-placeholder: #c7c7c7;
+
+    /* Surface Colors */
+    --color-surface-base: #18181b;
+    --color-surface-raised: #27272a;
+    --color-surface-overlay: #3f3f46;
   }
 }
 
