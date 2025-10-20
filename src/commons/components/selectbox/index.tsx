@@ -169,8 +169,8 @@ export const Selectbox: React.FC<SelectboxProps> = ({
         <Image
           src="/icons/arrow_drop_down.svg"
           alt="드롭다운 화살표"
-          width={20}
-          height={20}
+          width={24}
+          height={24}
           className={`${styles.chevron} ${isOpen ? styles.rotated : ''}`}
         />
       </div>

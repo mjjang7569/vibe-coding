@@ -9,7 +9,7 @@ const meta: Meta<typeof Selectbox> = {
     layout: 'centered',
     docs: {
       description: {
-        component: '다양한 variant, size, theme를 지원하는 셀렉트박스 컴포넌트입니다. 옵션 선택, 키보드 네비게이션, 접근성을 지원합니다.',
+        component: '다양한 variant, size, theme를 지원하는 셀렉트박스 컴포넌트입니다. 피그마 디자인을 반영한 다크모드 스타일과 24px 화살표 아이콘으로 업데이트되었습니다. 옵션 선택, 키보드 네비게이션, 접근성을 지원합니다.',
       },
     },
   },
@@ -85,6 +85,16 @@ const optionsWithDisabled: SelectOption[] = [
   { value: 'option3', label: '비활성 옵션', disabled: true },
   { value: 'option4', label: '비활성 옵션 2', disabled: true },
   { value: 'option5', label: '활성 옵션 3' },
+];
+
+// 피그마에서 확인한 감정 옵션들
+const emotionOptions: SelectOption[] = [
+  { value: 'all', label: '전체' },
+  { value: 'happy', label: '행복해요' },
+  { value: 'sad', label: '슬퍼요' },
+  { value: 'surprised', label: '놀랐어요' },
+  { value: 'angry', label: '화나요' },
+  { value: 'etc', label: '기타' },
 ];
 
 // 기본 셀렉트박스
@@ -174,14 +184,20 @@ export const LightTheme: Story = {
 
 export const DarkTheme: Story = {
   args: {
-    options: basicOptions,
-    placeholder: '다크 테마',
+    options: emotionOptions,
+    placeholder: '전체',
+    defaultValue: 'all',
     variant: 'primary',
     size: 'medium',
     theme: 'dark',
   },
   parameters: {
     backgrounds: { default: 'dark' },
+    docs: {
+      description: {
+        story: '피그마 디자인에 맞춰 구현된 다크모드 셀렉트박스입니다. 감정 필터 옵션을 표시합니다.',
+      },
+    },
   },
 };
 
@@ -390,21 +406,22 @@ export const AllThemes: Story = {
         <div style={{ marginBottom: '16px', fontSize: '14px', color: '#ccc' }}>Dark Theme</div>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '280px' }}>
           <Selectbox
-            options={basicOptions}
-            placeholder="Primary (Dark)"
+            options={emotionOptions}
+            placeholder="전체"
+            defaultValue="all"
             variant="primary"
             size="medium"
             theme="dark"
           />
           <Selectbox
-            options={basicOptions}
+            options={emotionOptions}
             placeholder="Secondary (Dark)"
             variant="secondary"
             size="medium"
             theme="dark"
           />
           <Selectbox
-            options={basicOptions}
+            options={emotionOptions}
             placeholder="Tertiary (Dark)"
             variant="tertiary"
             size="medium"
@@ -596,6 +613,55 @@ export const AccessibilityExample: Story = {
     docs: {
       description: {
         story: '키보드 네비게이션과 접근성 기능을 테스트할 수 있는 예제입니다.',
+      },
+    },
+  },
+};
+
+export const FigmaDesignExample: Story = {
+  render: function FigmaDesignExampleRender() {
+    const [selectedEmotion, setSelectedEmotion] = React.useState<string>('all');
+
+    return (
+      <div style={{ display: 'flex', gap: '32px' }}>
+        {/* 라이트 테마 */}
+        <div style={{ padding: '24px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #e5e5e5' }}>
+          <div style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600', color: '#333' }}>Light Theme</div>
+          <Selectbox
+            options={emotionOptions}
+            value={selectedEmotion}
+            placeholder="전체"
+            variant="primary"
+            size="medium"
+            theme="light"
+            onChange={setSelectedEmotion}
+          />
+        </div>
+
+        {/* 다크 테마 */}
+        <div style={{ padding: '24px', backgroundColor: '#1c1c1c', borderRadius: '8px', border: '1px solid #5f5f5f' }}>
+          <div style={{ marginBottom: '16px', fontSize: '16px', fontWeight: '600', color: '#ffffff' }}>Dark Theme</div>
+          <div style={{ marginBottom: '12px', fontSize: '12px', color: '#c7c7c7' }}>
+            피그마 색상: 선택된 옵션 #ffffff, 일반 옵션 #c7c7c7
+          </div>
+          <Selectbox
+            options={emotionOptions}
+            value={selectedEmotion}
+            placeholder="전체"
+            variant="primary"
+            size="medium"
+            theme="dark"
+            onChange={setSelectedEmotion}
+          />
+        </div>
+      </div>
+    );
+  },
+  parameters: {
+    layout: 'padded',
+    docs: {
+      description: {
+        story: '피그마 노드ID 0:2746에서 확인한 다크모드 디자인을 반영한 예제입니다. 선택된 옵션은 #ffffff(흰색), 일반 옵션은 #c7c7c7(회색)로 표시됩니다.',
       },
     },
   },
