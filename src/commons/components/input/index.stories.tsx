@@ -9,7 +9,7 @@ const meta: Meta<typeof Input> = {
     layout: 'centered',
     docs: {
       description: {
-        component: '피그마 디자인 시스템에 기반한 입력 컴포넌트입니다. 매우 둥근 형태(border-radius: 100px)의 디자인으로 검색창 스타일을 지원하며, 라이트/다크 모드와 다양한 variant, size를 지원합니다.',
+        component: '피그마 디자인 시스템에 기반한 입력 컴포넌트입니다. 일반적인 input 스타일(border-radius: 8px)로 Searchbar와 구분되는 디자인이며, 라이트/다크 모드와 다양한 variant, size를 지원합니다.',
       },
     },
   },
@@ -80,7 +80,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   args: {
     label: '기본 입력',
-    placeholder: '검색어를 입력해 주세요.',
+    placeholder: '입력해주세요.',
     variant: 'primary',
     size: 'medium',
     theme: 'light',
@@ -94,7 +94,7 @@ export const Default: Story = {
 export const Primary: Story = {
   args: {
     label: 'Primary 입력',
-    placeholder: '검색어를 입력해 주세요.',
+    placeholder: '입력해주세요.',
     variant: 'primary',
     size: 'medium',
     theme: 'light',
@@ -102,7 +102,7 @@ export const Primary: Story = {
   parameters: {
     docs: {
       description: {
-        story: '피그마 디자인에 기반한 Primary 스타일입니다. 매우 둥근 형태(border-radius: 100px)와 정확한 색상 값이 적용됩니다.',
+        story: '피그마 디자인 노드 0:825에 기반한 Primary 스타일입니다. 일반적인 input 형태(border-radius: 8px)와 정확한 색상 값이 적용됩니다.',
       },
     },
   },
@@ -163,7 +163,7 @@ export const Large: Story = {
 export const LightTheme: Story = {
   args: {
     label: '라이트 테마',
-    placeholder: '검색어를 입력해 주세요.',
+    placeholder: '입력해주세요.',
     variant: 'primary',
     size: 'medium',
     theme: 'light',
@@ -171,7 +171,7 @@ export const LightTheme: Story = {
   parameters: {
     docs: {
       description: {
-        story: '피그마 디자인 노드 0:1952 (라이트모드)에 기반한 검색창 스타일입니다.',
+        story: '피그마 디자인 노드 0:825 (라이트모드)에 기반한 input 스타일입니다.',
       },
     },
   },
@@ -180,7 +180,7 @@ export const LightTheme: Story = {
 export const DarkTheme: Story = {
   args: {
     label: '다크 테마',
-    placeholder: '검색어를 입력해 주세요.',
+    placeholder: '입력해주세요.',
     variant: 'primary',
     size: 'medium',
     theme: 'dark',
@@ -189,7 +189,7 @@ export const DarkTheme: Story = {
     backgrounds: { default: 'dark' },
     docs: {
       description: {
-        story: '피그마 디자인 노드 0:2697 (다크모드)에 기반한 검색창 스타일입니다.',
+        story: '피그마 디자인 노드 0:8550 (다크모드)에 기반한 input 스타일입니다.',
       },
     },
   },
@@ -255,8 +255,8 @@ export const ReadOnly: Story = {
 // 아이콘이 있는 입력
 export const WithLeftIcon: Story = {
   args: {
-    label: '검색 입력',
-    placeholder: '검색어를 입력해 주세요.',
+    label: '아이콘이 있는 입력',
+    placeholder: '입력해주세요.',
     leftIcon: (
       <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
         <circle cx="11" cy="11" r="8"></circle>
@@ -270,7 +270,7 @@ export const WithLeftIcon: Story = {
   parameters: {
     docs: {
       description: {
-        story: '피그마 디자인에 맞춘 검색 아이콘이 포함된 입력창입니다.',
+        story: '왼쪽 아이콘이 포함된 입력창입니다.',
       },
     },
   },
@@ -318,47 +318,37 @@ export const WithBothIcons: Story = {
   },
 };
 
-// 피그마 디자인 검색창 스토리
-export const FigmaSearchInput: Story = {
+// 피그마 디자인 input 스토리
+export const FigmaInputLight: Story = {
   args: {
-    placeholder: '검색어를 입력해 주세요.',
+    label: '피그마 라이트 테마',
+    placeholder: '입력해주세요.',
     variant: 'primary',
     size: 'medium',
     theme: 'light',
-    leftIcon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.35-4.35"></path>
-      </svg>
-    ),
   },
   parameters: {
     docs: {
       description: {
-        story: '피그마 디자인 노드 0:1952 (라이트모드)에서 확인한 검색창 스타일입니다. 매우 둥근 형태와 정확한 색상 값이 적용됩니다.',
+        story: '피그마 디자인 노드 0:825 (라이트모드)에 기반한 input 스타일입니다. 8px 둥근 형태와 정확한 색상 값이 적용됩니다.',
       },
     },
   },
 };
 
-export const FigmaSearchInputDark: Story = {
+export const FigmaInputDark: Story = {
   args: {
-    placeholder: '검색어를 입력해 주세요.',
+    label: '피그마 다크 테마',
+    placeholder: '입력해주세요.',
     variant: 'primary',
     size: 'medium',
     theme: 'dark',
-    leftIcon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-        <circle cx="11" cy="11" r="8"></circle>
-        <path d="m21 21-4.35-4.35"></path>
-      </svg>
-    ),
   },
   parameters: {
     backgrounds: { default: 'dark' },
     docs: {
       description: {
-        story: '피그마 디자인 노드 0:2697 (다크모드)에서 확인한 검색창 스타일입니다. 검은색 배경과 #333333 테두리 색상이 적용됩니다.',
+        story: '피그마 디자인 노드 0:8550 (다크모드)에 기반한 input 스타일입니다. 검은색 배경과 #333333 테두리 색상이 적용됩니다.',
       },
     },
   },
@@ -370,7 +360,7 @@ export const AllVariants: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '400px' }}>
       <Input
         label="Primary 입력"
-        placeholder="검색어를 입력해 주세요."
+        placeholder="입력해주세요."
         variant="primary"
         size="medium"
         theme="light"
@@ -394,7 +384,7 @@ export const AllVariants: Story = {
   parameters: {
     docs: {
       description: {
-        story: '모든 variant 타입을 확인할 수 있습니다. Primary는 피그마 검색창 디자인을 반영했습니다.',
+        story: '모든 variant 타입을 확인할 수 있습니다. Primary는 피그마 디자인(노드 0:825, 0:8550)에 맞춰 input 스타일이 적용되었습니다.',
       },
     },
   },
@@ -405,21 +395,21 @@ export const AllSizes: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px', width: '400px' }}>
       <Input
         label="Small 입력"
-        placeholder="검색어를 입력해 주세요."
+        placeholder="입력해주세요."
         variant="primary"
         size="small"
         theme="light"
       />
       <Input
         label="Medium 입력"
-        placeholder="검색어를 입력해 주세요."
+        placeholder="입력해주세요."
         variant="primary"
         size="medium"
         theme="light"
       />
       <Input
         label="Large 입력"
-        placeholder="검색어를 입력해 주세요."
+        placeholder="입력해주세요."
         variant="primary"
         size="large"
         theme="light"
@@ -429,7 +419,7 @@ export const AllSizes: Story = {
   parameters: {
     docs: {
       description: {
-        story: '모든 size 옵션을 확인할 수 있습니다. 피그마 디자인에 맞춰 매우 둥근 형태가 적용됩니다.',
+        story: '모든 size 옵션을 확인할 수 있습니다. 피그마 디자인에 맞춰 8px 둥근 형태가 적용됩니다.',
       },
     },
   },
@@ -490,7 +480,7 @@ export const AllThemes: Story = {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '300px' }}>
           <Input
             label="Primary (Light)"
-            placeholder="검색어를 입력해 주세요."
+            placeholder="입력해주세요."
             variant="primary"
             size="medium"
             theme="light"
@@ -516,7 +506,7 @@ export const AllThemes: Story = {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px', width: '300px' }}>
           <Input
             label="Primary (Dark)"
-            placeholder="검색어를 입력해 주세요."
+            placeholder="입력해주세요."
             variant="primary"
             size="medium"
             theme="dark"
@@ -542,7 +532,7 @@ export const AllThemes: Story = {
   parameters: {
     docs: {
       description: {
-        story: 'Light와 Dark 테마에서의 모든 variant를 확인할 수 있습니다. Primary variant는 피그마 디자인(노드 0:1952, 0:2697)에 맞춰 검색창 스타일이 적용되었습니다.',
+        story: 'Light와 Dark 테마에서의 모든 variant를 확인할 수 있습니다. Primary variant는 피그마 디자인(노드 0:825, 0:8550)에 맞춰 input 스타일이 적용되었습니다.',
       },
     },
   },
@@ -665,53 +655,46 @@ export const FigmaDesignComparison: Story = {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '32px', width: '500px' }}>
       <div style={{ padding: '16px', backgroundColor: '#ffffff', borderRadius: '8px', border: '1px solid #e5e5e5' }}>
         <h4 style={{ margin: '0 0 16px 0', fontSize: '16px', fontWeight: '600', color: '#333' }}>
-          피그마 디자인 적용 전/후 비교
+          피그마 디자인 적용된 Input 컴포넌트
         </h4>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
           <div>
             <div style={{ fontSize: '14px', color: '#666', marginBottom: '8px' }}>
-              라이트모드 (노드 0:1952 기반)
+              라이트모드 (노드 0:825 기반)
             </div>
             <Input
-              placeholder="검색어를 입력해 주세요."
+              label="라이트 테마 Input"
+              placeholder="입력해주세요."
               variant="primary"
               size="medium"
               theme="light"
-              leftIcon={
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.35-4.35"></path>
-                </svg>
-              }
             />
             <div style={{ fontSize: '12px', color: '#888', marginTop: '8px' }}>
-              • 매우 둥근 형태 (border-radius: 100px)<br/>
+              • 일반 input 형태 (border-radius: 8px)<br/>
+              • 배경: #ffffff<br/>
               • 테두리: #c7c7c7<br/>
-              • 플레이스홀더: #ababab
+              • 플레이스홀더: #ababab<br/>
+              • 텍스트: #1c1c1c
             </div>
           </div>
           
           <div style={{ padding: '16px', backgroundColor: '#0a0a0a', borderRadius: '8px' }}>
             <div style={{ fontSize: '14px', color: '#ccc', marginBottom: '8px' }}>
-              다크모드 (노드 0:2697 기반)
+              다크모드 (노드 0:8550 기반)
             </div>
             <Input
-              placeholder="검색어를 입력해 주세요."
+              label="다크 테마 Input"
+              placeholder="입력해주세요."
               variant="primary"
               size="medium"
               theme="dark"
-              leftIcon={
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <circle cx="11" cy="11" r="8"></circle>
-                  <path d="m21 21-4.35-4.35"></path>
-                </svg>
-              }
             />
             <div style={{ fontSize: '12px', color: '#aaa', marginTop: '8px' }}>
-              • 매우 둥근 형태 (border-radius: 100px)<br/>
+              • 일반 input 형태 (border-radius: 8px)<br/>
               • 배경: #000000<br/>
               • 테두리: #333333<br/>
-              • 플레이스홀더: #c7c7c7
+              • 플레이스홀더: #c7c7c7<br/>
+              • 텍스트: #ffffff
             </div>
           </div>
         </div>
@@ -721,7 +704,7 @@ export const FigmaDesignComparison: Story = {
   parameters: {
     docs: {
       description: {
-        story: '피그마 디자인 노드 0:1952 (라이트모드)와 0:2697 (다크모드)를 기반으로 구현한 검색창 스타일입니다. 매우 둥근 형태와 정확한 색상 값이 적용되었습니다.',
+        story: '피그마 디자인 노드 0:825 (라이트모드)와 0:8550 (다크모드)를 기반으로 구현한 input 스타일입니다. Searchbar와 구분되는 일반적인 input 형태와 정확한 색상 값이 적용되었습니다.',
       },
     },
   },
