@@ -6,6 +6,17 @@ import styles from './styles.module.css';
 import { Selectbox } from '../../commons/components/selectbox';
 import { Searchbar } from '../../commons/components/searchbar';
 import { Button } from '../../commons/components/button';
+import { EmotionType, getEmotionConfig, emotionTypes } from '../../commons/constants/enum';
+
+/**
+ * 일기 데이터 인터페이스
+ */
+export interface DiaryItem {
+  id: string;
+  title: string;
+  date: string;
+  emotion: EmotionType;
+}
 
 /**
  * Diaries Component Props Interface
@@ -17,6 +28,16 @@ export interface DiariesProps {
   className?: string;
   
   /**
+   * 현재 페이지 번호
+   */
+  currentPage?: number;
+  
+  /**
+   * 전체 페이지 수
+   */
+  totalPages?: number;
+  
+  /**
    * 검색 핸들러
    */
   onSearch?: (value: string) => void;
@@ -25,6 +46,11 @@ export interface DiariesProps {
    * 셀렉트박스 변경 핸들러
    */
   onSelectChange?: (value: string) => void;
+  
+  /**
+   * 페이지 변경 핸들러
+   */
+  onPageChange?: (page: number) => void;
   
   /**
    * 일기쓰기 버튼 클릭 핸들러
@@ -57,14 +83,93 @@ export interface DiariesProps {
  * />
  * ```
  */
+/**
+ * Mock 데이터 생성 - 피그마 디자인과 동일한 순서로 생성
+ */
+const generateMockDiaries = (): DiaryItem[] => {
+  // 피그마에서 확인한 정확한 순서와 데이터
+  const mockDiariesData = [
+    // 첫 번째 행
+    { emotion: EmotionType.Sad, title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.', id: 'sad-1' },
+    { emotion: EmotionType.Surprise, title: '타이틀 영역 입니다.', id: 'surprise-1' },
+    { emotion: EmotionType.Angry, title: '타이틀 영역 입니다.', id: 'angry-1' },
+    { emotion: EmotionType.Happy, title: '타이틀 영역 입니다.', id: 'happy-1' },
+    
+    // 두 번째 행
+    { emotion: EmotionType.Etc, title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.', id: 'etc-1' },
+    { emotion: EmotionType.Surprise, title: '타이틀 영역 입니다.', id: 'surprise-2' },
+    { emotion: EmotionType.Angry, title: '타이틀 영역 입니다.', id: 'angry-2' },
+    { emotion: EmotionType.Happy, title: '타이틀 영역 입니다.', id: 'happy-2' },
+    
+    // 세 번째 행
+    { emotion: EmotionType.Sad, title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.', id: 'sad-2' },
+    { emotion: EmotionType.Surprise, title: '타이틀 영역 입니다.', id: 'surprise-3' },
+    { emotion: EmotionType.Angry, title: '타이틀 영역 입니다.', id: 'angry-3' },
+    { emotion: EmotionType.Happy, title: '타이틀 영역 입니다.', id: 'happy-3' },
+  ];
+  
+  return mockDiariesData.map(item => ({
+    ...item,
+    date: '2024. 03. 12',
+  }));
+};
+
+/**
+ * 일기 카드 컴포넌트
+ */
+const DiaryCard: React.FC<{ diary: DiaryItem }> = ({ diary }) => {
+  const emotionConfig = getEmotionConfig(diary.emotion);
+  
+  return (
+    <div className={styles.diaryCard}>
+      <div className={styles.cardImage}>
+        <Image
+          src={emotionConfig.images.s}
+          alt={emotionConfig.label}
+          width={274}
+          height={208}
+          className={styles.cardImageContent}
+        />
+        <button className={styles.closeButton} aria-label="닫기">
+          <Image
+            src="/icons/close_outline_light_s.svg"
+            alt="닫기"
+            width={24}
+            height={24}
+          />
+        </button>
+      </div>
+      <div className={styles.cardContent}>
+        <div className={styles.cardHeader}>
+          <span 
+            className={styles.emotionText}
+            style={{ color: emotionConfig.color.light }}
+          >
+            {emotionConfig.label}
+          </span>
+          <span className={styles.dateText}>{diary.date}</span>
+        </div>
+        <div className={styles.cardTitle}>
+          <h3 className={styles.titleText}>{diary.title}</h3>
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export const Diaries: React.FC<DiariesProps> = ({
   className = '',
+  currentPage = 1,
+  totalPages = 10,
   onSearch,
   onSelectChange,
+  onPageChange,
   onWriteDiary,
   selectOptions = [],
   selectValue = '',
 }) => {
+  const mockDiaries = generateMockDiaries();
+  
   return (
     <div className={`${styles.container} ${className}`}>
       {/* Gap 영역: 32px */}
@@ -128,7 +233,13 @@ export const Diaries: React.FC<DiariesProps> = ({
       {/* Main 영역: 1168px * 936px */}
       <main className={styles.main}>
         {/* 일기 목록 콘텐츠 영역 */}
-        <div className={styles.mainContent}></div>
+        <div className={styles.mainContent}>
+          <div className={styles.diaryGrid}>
+            {mockDiaries.map((diary) => (
+              <DiaryCard key={diary.id} diary={diary} />
+            ))}
+          </div>
+        </div>
       </main>
 
       {/* Gap 영역: 40px */}
