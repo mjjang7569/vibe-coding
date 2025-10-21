@@ -115,6 +115,20 @@ const generateMockDiaries = (): DiaryItem[] => {
 };
 
 /**
+ * 감정별 이미지 경로 가져오기 함수 (핵심 수정 요구사항)
+ */
+const getEmotionImagePath = (emotion: EmotionType): string => {
+  const imagePathMap: Record<EmotionType, string> = {
+    [EmotionType.Happy]: '/images/emotion-happy-m.png',
+    [EmotionType.Sad]: '/images/emotion-sad-m.png',
+    [EmotionType.Angry]: '/images/emotion-angry-m.png',
+    [EmotionType.Surprise]: '/images/emotion-surprise-m.png',
+    [EmotionType.Etc]: '/images/emotion-etc-m.png',
+  };
+  return imagePathMap[emotion];
+};
+
+/**
  * 일기 카드 컴포넌트
  */
 const DiaryCard: React.FC<{ diary: DiaryItem }> = ({ diary }) => {
@@ -124,7 +138,7 @@ const DiaryCard: React.FC<{ diary: DiaryItem }> = ({ diary }) => {
     <div className={styles.diaryCard}>
       <div className={styles.cardImage}>
         <Image
-          src={emotionConfig.images.s}
+          src={getEmotionImagePath(diary.emotion)}
           alt={emotionConfig.label}
           width={274}
           height={208}
