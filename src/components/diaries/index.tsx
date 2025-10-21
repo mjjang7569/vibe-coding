@@ -7,6 +7,7 @@ import { Selectbox } from '../../commons/components/selectbox';
 import { Searchbar } from '../../commons/components/searchbar';
 import { Button } from '../../commons/components/button';
 import { EmotionType, getEmotionConfig, emotionTypes } from '../../commons/constants/enum';
+import { colorTokens } from '../../commons/constants/color';
 
 /**
  * 일기 데이터 인터페이스
@@ -134,6 +135,14 @@ const getEmotionImagePath = (emotion: EmotionType): string => {
 const DiaryCard: React.FC<{ diary: DiaryItem }> = ({ diary }) => {
   const emotionConfig = getEmotionConfig(diary.emotion);
   
+  // "기타" 감정의 색상을 피그마와 일치하도록 수정
+  const getEmotionTextColor = (emotion: EmotionType): string => {
+    if (emotion === EmotionType.Etc) {
+      return colorTokens.secondary[600].light; // #9333ea - 피그마의 #a229ed와 유사
+    }
+    return emotionConfig.color.light;
+  };
+  
   return (
     <div className={styles.diaryCard}>
       <div className={styles.cardImage}>
@@ -157,7 +166,7 @@ const DiaryCard: React.FC<{ diary: DiaryItem }> = ({ diary }) => {
         <div className={styles.cardHeader}>
           <span 
             className={styles.emotionText}
-            style={{ color: emotionConfig.color.light }}
+            style={{ color: getEmotionTextColor(diary.emotion) }}
           >
             {emotionConfig.label}
           </span>

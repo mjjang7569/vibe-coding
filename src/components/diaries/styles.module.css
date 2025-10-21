@@ -141,12 +141,14 @@
   flex-direction: column;
 }
 
-/* 일기 그리드 레이아웃 */
+/* 일기 그리드 레이아웃 - main 영역에 딱 맞게 */
 .diaryGrid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 24px;
+  grid-template-columns: repeat(4, 274px); /* 피그마와 동일: 274px 카드 4개 */
+  gap: 24px; /* 피그마와 동일한 간격 */
   width: 100%;
+  justify-content: space-between; /* main 영역에 딱 맞게 분배 */
+  max-width: 1168px; /* main 영역 너비와 일치 */
 }
 
 /* 일기 카드 스타일 */
