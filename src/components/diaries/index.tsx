@@ -155,7 +155,7 @@ const DiaryCard: React.FC<{ diary: DiaryItem }> = ({ diary }) => {
         />
         <button className={styles.closeButton} aria-label="닫기">
           <Image
-            src="/icons/close_outline_light_s.svg"
+            src="/images/close_outline_light_m.svg"
             alt="닫기"
             width={24}
             height={24}
