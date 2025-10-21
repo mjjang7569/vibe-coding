@@ -39,7 +39,7 @@ export const emotionConfigs: Record<EmotionType, EmotionConfig> = {
   [EmotionType.Happy]: {
     label: '행복해요',
     images: {
-      m: '/icons/emotion-happy-m.svg',
+      m: '/images/emotion-happy-m.png',
       s: '/images/emotion-happy-s.png',
     },
     color: colorTokens.error.DEFAULT, // red60
@@ -47,7 +47,7 @@ export const emotionConfigs: Record<EmotionType, EmotionConfig> = {
   [EmotionType.Sad]: {
     label: '슬퍼요',
     images: {
-      m: '/icons/emotion-sad-m.svg',
+      m: '/images/emotion-sad-m.png',
       s: '/images/emotion-sad-s.png',
     },
     color: colorTokens.info.DEFAULT, // blue60
@@ -55,7 +55,7 @@ export const emotionConfigs: Record<EmotionType, EmotionConfig> = {
   [EmotionType.Angry]: {
     label: '화나요',
     images: {
-      m: '/icons/emotion-angry-m.svg',
+      m: '/images/emotion-angry-m.png',
       s: '/images/emotion-angry-s.png',
     },
     color: colorTokens.gray[600], // gray60
@@ -63,7 +63,7 @@ export const emotionConfigs: Record<EmotionType, EmotionConfig> = {
   [EmotionType.Surprise]: {
     label: '놀랐어요',
     images: {
-      m: '/icons/emotion-surprise-m.svg',
+      m: '/images/emotion-surprise-m.png',
       s: '/images/emotion-surprise-s.png',
     },
     color: colorTokens.warning.DEFAULT, // yellow60
@@ -71,7 +71,7 @@ export const emotionConfigs: Record<EmotionType, EmotionConfig> = {
   [EmotionType.Etc]: {
     label: '기타',
     images: {
-      m: '/icons/emotion-etc-m.svg',
+      m: '/images/emotion-etc-m.png',
       s: '/images/emotion-etc-s.png',
     },
     color: colorTokens.success.DEFAULT, // green60
