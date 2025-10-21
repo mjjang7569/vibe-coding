@@ -174,8 +174,9 @@
 .cardImageContent {
   width: 100%;
   height: 100%;
-  /* object-fit 제거하여 감정이미지 원본 훼손 방지 */
+  object-fit: cover; /* main 영역에 딱 맞게 꽉 차도록 */
   border-radius: 16px;
+  display: block;
 }
 
 /* 삭제버튼 - 피그마 노드ID 0:1859 스타일 적용 */
