@@ -23,8 +23,16 @@ const DiaryDetailPage: React.FC<DiaryDetailPageProps> = ({ params }) => {
     content: `이것은 ${id}번 일기의 내용입니다.\n여러 줄의 내용을 작성할 수 있으며,\nwireframe 구조에 따라 1168 * 169px 영역에 표시됩니다.`,
     retrospectInput: '',
     retrospectList: [
-      '오늘 하루 중 가장 기억에 남는 일은...',
-      '내일은 더 나은 하루가 되길 바란다.',
+      {
+        id: '1',
+        content: '오늘 하루 중 가장 기억에 남는 일은 그 사람과의 대화였다.',
+        createdAt: '2024. 12. 19'
+      },
+      {
+        id: '2',
+        content: '내일은 더 나은 하루가 되길 바란다. 새로운 목표를 세워보자.',
+        createdAt: '2024. 12. 18'
+      },
     ],
   };
 

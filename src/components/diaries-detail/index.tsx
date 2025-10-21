@@ -4,6 +4,7 @@ import React from 'react';
 import Image from 'next/image';
 import styles from './styles.module.css';
 import { Button } from '../../commons/components/button';
+import Input from '../../commons/components/input';
 import { EmotionType, getEmotionConfig, getEmotionImage, getEmotionLabel } from '../../commons/constants/enum';
 
 /**
@@ -61,9 +62,22 @@ export interface DiariesDetailProps {
   onRetrospectInputChange?: (value: string) => void;
   
   /**
+   * 회고 항목 타입
+   */
+  retrospectItem?: {
+    id: string;
+    content: string;
+    createdAt: string;
+  };
+
+  /**
    * 회고 목록
    */
-  retrospectList?: string[];
+  retrospectList?: {
+    id: string;
+    content: string;
+    createdAt: string;
+  }[];
 }
 
 /**
@@ -91,9 +105,20 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
   onCopyContent,
   retrospectInput = '',
   onRetrospectInputChange,
-  retrospectList = ['회고 내용 1', '회고 내용 2'],
+  retrospectList = [
+    {
+      id: '1',
+      content: '3년이 지나고 다시 보니 이때가 그립다.',
+      createdAt: '2024. 09. 24'
+    },
+    {
+      id: '2', 
+      content: '3년이 지나고 다시 보니 이때가 그립다.',
+      createdAt: '2024. 09. 24'
+    }
+  ],
 }) => {
-  const handleRetrospectInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handleRetrospectInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onRetrospectInputChange?.(e.target.value);
   };
 
@@ -205,13 +230,26 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
 
       {/* Retrospect Input 영역: 1168 * 85px */}
       <section className={styles.retrospectInput} role="region" aria-label="회고 입력">
-        <textarea
-          className={styles.inputTextarea}
-          placeholder="회고를 입력해주세요..."
-          value={retrospectInput}
-          onChange={handleRetrospectInputChange}
-          aria-label="회고 입력"
-        />
+        <div className={styles.retrospectLabel}>회고</div>
+        <div className={styles.retrospectInputContainer}>
+          <Input
+            variant="primary"
+            theme="light"
+            size="medium"
+            placeholder="회고를 남겨보세요."
+            value={retrospectInput}
+            onChange={handleRetrospectInputChange}
+            className="flex-1"
+          />
+          <Button
+            variant="primary"
+            theme="light"
+            size="medium"
+            className="w-[51px]"
+          >
+            입력
+          </Button>
+        </div>
       </section>
 
       {/* Gap 영역: 1168 * 16px */}
@@ -221,8 +259,12 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
       <section className={styles.retrospectList} role="region" aria-label="회고 목록">
         <div className={styles.retrospectItems}>
           {retrospectList.map((item, index) => (
-            <div key={index} className={styles.retrospectItem}>
-              {item}
+            <div key={item.id || index} className={styles.retrospectItem}>
+              <div className={styles.retrospectItemFrame}>
+                <div className={styles.retrospectContent}>{item.content}</div>
+                <div className={styles.retrospectDate}>[{item.createdAt}]</div>
+              </div>
+              {index < retrospectList.length - 1 && <div className={styles.retrospectDivider} />}
             </div>
           ))}
         </div>

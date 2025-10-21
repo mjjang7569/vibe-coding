@@ -215,35 +215,30 @@
   width: 1168px;
   height: 85px;
   display: flex;
+  flex-direction: column;
   padding: 0;
   box-sizing: border-box;
 }
 
-.inputTextarea {
-  width: 100%;
-  height: 100%;
-  border: 1px solid var(--color-border);
-  border-radius: 8px;
-  padding: 12px 16px;
+.retrospectLabel {
+  height: 24px;
   font-family: var(--font-ko-primary);
-  font-size: 16px;
-  font-weight: 400;
+  font-size: 18px;
+  font-weight: 600;
   line-height: 24px;
-  letter-spacing: 0;
+  letter-spacing: -0.18px;
   color: var(--color-text-primary);
-  background-color: var(--color-surface-base);
-  resize: none;
-  box-sizing: border-box;
   margin: 0;
+  padding: 0;
 }
 
-.inputTextarea::placeholder {
-  color: var(--color-text-tertiary);
-}
-
-.inputTextarea:focus {
-  outline: none;
-  border-color: var(--color-border-focus);
+.retrospectInputContainer {
+  height: 48px;
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  padding-top: 13px;
+  box-sizing: border-box;
 }
 
 /* Retrospect List 영역: 1168 * 72px */
@@ -252,7 +247,6 @@
   height: 72px;
   display: flex;
   flex-direction: column;
-  padding: 0;
   box-sizing: border-box;
 }
 
@@ -261,17 +255,43 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
 .retrospectItem {
+  display: flex;
+  flex-direction: column;
+}
+
+.retrospectItemFrame {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  height: 24px;
+}
+
+.retrospectContent {
   font-family: var(--font-ko-primary);
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: var(--color-text-primary);
+}
+
+.retrospectDate {
+  font-family: var(--font-ko-primary);
+  font-size: 16px;
   font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0;
-  color: var(--color-text-secondary);
-  padding: 8px 0;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: #777777;
+}
+
+.retrospectDivider {
+  width: 100%;
+  height: 0;
+  border-top: 1px solid #e4e4e4;
+  margin: 12px 0;
 }
 
 /* 반응형 처리 */
