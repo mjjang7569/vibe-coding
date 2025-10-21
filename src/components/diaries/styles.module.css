@@ -190,9 +190,9 @@
   right: 12px;
   width: 24px;
   height: 24px;
-  background-color: var(--color-surface-base);
+  background-color: #ffffff; /* 피그마에서 확인한 정확한 색상 */
   border: none;
-  border-radius: 50%;
+  border-radius: 50%; /* cornerRadius: 100과 동일한 효과 */
   display: flex;
   align-items: center;
   justify-content: center;
