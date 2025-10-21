@@ -346,3 +346,50 @@
     max-width: 300px;
   }
 }
+
+/* ===== PAGINATION STYLES ===== */
+
+/* Pagination Section */
+.paginationSection {
+  width: 1168px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Pagination 커스텀 스타일링 - 피그마 디자인에 맞게 조정 */
+.paginationCustom {
+  /* 피그마에서 확인한 크기: 288px * 32px */
+  width: 288px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* 반응형 pagination 스타일 */
+@media (max-width: 1200px) {
+  .paginationSection {
+    width: 100%;
+    max-width: calc(100vw - 32px);
+  }
+  
+  .paginationCustom {
+    width: auto;
+    min-width: 200px;
+  }
+}
+
+@media (max-width: 768px) {
+  .paginationSection {
+    width: 100%;
+    max-width: calc(100vw - 24px);
+  }
+  
+  .paginationCustom {
+    width: auto;
+    min-width: 150px;
+  }
+}

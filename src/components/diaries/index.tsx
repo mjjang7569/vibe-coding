@@ -6,7 +6,8 @@ import styles from './styles.module.css';
 import { Selectbox } from '../../commons/components/selectbox';
 import { Searchbar } from '../../commons/components/searchbar';
 import { Button } from '../../commons/components/button';
-import { EmotionType, getEmotionConfig, emotionTypes } from '../../commons/constants/enum';
+import { Pagination } from '../../commons/components/pagination';
+import { EmotionType, getEmotionConfig } from '../../commons/constants/enum';
 import { colorTokens } from '../../commons/constants/color';
 
 /**
@@ -264,6 +265,25 @@ export const Diaries: React.FC<DiariesProps> = ({
           </div>
         </div>
       </main>
+
+      {/* Gap 영역: 40px */}
+      <div className={`${styles.gap} ${styles.gap40}`}></div>
+
+      {/* Pagination 영역 */}
+      <div className={styles.paginationSection}>
+        <Pagination
+          variant="primary"
+          theme="light"
+          size="medium"
+          currentPage={currentPage}
+          totalPages={totalPages}
+          onPageChange={onPageChange}
+          visiblePages={5}
+          showNavigation={true}
+          showFirstLast={false}
+          className={styles.paginationCustom}
+        />
+      </div>
 
       {/* Gap 영역: 40px */}
       <div className={`${styles.gap} ${styles.gap40}`}></div>

@@ -267,7 +267,7 @@ export const Selectbox: React.FC<SelectboxProps> = ({
           aria-label="옵션 목록"
           data-testid={testId ? `${testId}-dropdown` : undefined}
         >
-          {options.map((option, index) => {
+          {options.map((option) => {
             const isSelected = option.value === internalValue;
             const activeIndex = activeOptions.findIndex(activeOption => activeOption.value === option.value);
             const isFocused = activeIndex === focusedIndex;

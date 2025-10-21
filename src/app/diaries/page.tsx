@@ -10,7 +10,7 @@ import { Diaries } from '@/components/diaries';
  */
 export default function DiariesPage() {
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(10);
+  const [totalPages] = useState(10);
   const [selectValue, setSelectValue] = useState('');
 
   const selectOptions = [
