@@ -202,12 +202,17 @@
 
 /* 카드 콘텐츠 영역 */
 .cardContent {
-  padding: 16px;
+  width: 274px; /* 피그마 노드ID 0:1860 참고: 274px 너비 */
+  height: 56px; /* 피그마 노드ID 0:1860 참고: 56px 높이 */
+  padding-left: 8px; /* 피그마에서 확인한 좌측 패딩 8px */
+  padding-right: 8px; /* 우측 패딩도 동일하게 */
+  padding-top: 0;
+  padding-bottom: 0;
   display: flex;
   flex-direction: column;
-  gap: 32px;
-  flex: 1;
-  /* height 제거 요구사항 */
+  gap: 8px; /* 피그마에서 헤더(24px)와 타이틀(24px) 사이 간격 */
+  flex: none; /* 고정 크기 */
+  box-sizing: border-box;
 }
 
 /* 카드 헤더 (감정 + 날짜) */
@@ -215,7 +220,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 258px; /* 피그마에서 확인한 내부 콘텐츠 너비 */
+  height: 24px; /* 피그마에서 확인한 헤더 높이 */
 }
 
 .emotionText {
@@ -237,7 +243,8 @@
 
 /* 카드 타이틀 */
 .cardTitle {
-  width: 100%;
+  width: 258px; /* 피그마에서 확인한 내부 콘텐츠 너비 */
+  height: 24px; /* 피그마에서 확인한 타이틀 높이 */
 }
 
 .titleText {
