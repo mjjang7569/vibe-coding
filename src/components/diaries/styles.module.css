@@ -160,6 +160,7 @@
   overflow: hidden;
   width: 274px;
   height: 296px;
+  gap: 16px; /* 카드이미지와 카드컨텐츠 사이 16px 간격 */
   /* box-shadow 제거 요구사항 */
 }
 
