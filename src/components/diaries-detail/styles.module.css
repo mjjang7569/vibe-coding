@@ -23,30 +23,90 @@
   height: 16px; /* 마지막 gap: 1168 * 16px */
 }
 
-/* Detail Title 영역: 1168 * 84px */
-.detailTitle {
+/* Title Section 영역: 1168 * 84px */
+.titleSection {
   width: 1168px;
   height: 84px;
   display: flex;
-  align-items: center;
-  justify-content: flex-start;
+  flex-direction: column;
   padding: 0;
   box-sizing: border-box;
 }
 
+.titleFrame {
+  height: 36px;
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid black;
+}
+
 .titleText {
   font-family: var(--font-ko-primary);
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 700;
-  line-height: 40px;
-  letter-spacing: -0.32px;
+  line-height: 24px;
+  letter-spacing: -0.22px;
   color: var(--color-text-primary);
   margin: 0;
   padding: 0;
 }
 
-/* Detail Content 영역: 1168 * 169px */
-.detailContent {
+.emotionDateFrame {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+  box-sizing: border-box;
+}
+
+.emotionFrame {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 32px;
+}
+
+.emotionIcon {
+  width: 32px;
+  height: 32px;
+}
+
+.emotionText {
+  font-family: var(--font-ko-primary);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+}
+
+.dateFrame {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  height: 20px;
+}
+
+.dateText {
+  font-family: var(--font-ko-primary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  color: var(--color-text-tertiary);
+}
+
+.dateLabel {
+  font-family: var(--font-ko-primary);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  color: var(--color-text-tertiary);
+}
+
+/* Content Section 영역: 1168 * 169px */
+.contentSection {
   width: 1168px;
   height: 169px;
   display: flex;
@@ -55,23 +115,76 @@
   box-sizing: border-box;
 }
 
-.contentText {
+.contentArea {
   width: 100%;
-  height: 100%;
+  height: 133px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
 }
 
-.contentLine {
+.contentLabel {
+  height: 20px;
+  font-family: var(--font-ko-primary);
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+.contentTextContainer {
+  height: 113px;
+  padding-top: 13px;
+  box-sizing: border-box;
+}
+
+.contentText {
+  font-family: var(--font-ko-primary);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.16px;
+  color: var(--color-text-primary);
+  margin: 0;
+  padding: 0;
+}
+
+.copySection {
+  height: 24px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-top: 12px;
+  box-sizing: border-box;
+}
+
+.copyButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.copyIcon {
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.copyText {
   font-family: var(--font-ko-primary);
   font-size: 16px;
   font-weight: 400;
   line-height: 24px;
-  letter-spacing: 0;
+  letter-spacing: -0.16px;
   color: var(--color-text-primary);
-  margin: 0;
-  padding: 0;
 }
 
 /* Detail Footer 영역: 1168 * 56px */
@@ -80,18 +193,21 @@
   height: 56px;
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: flex-end;
   padding: 0;
   box-sizing: border-box;
+  border-bottom: 2px solid black;
 }
 
-.footerContent {
-  font-family: var(--font-ko-primary);
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 24px;
-  letter-spacing: 0;
-  color: var(--color-text-secondary);
+.footerButtons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.footerButtons button {
+  height: 40px !important;
+  min-height: 40px !important;
 }
 
 /* Retrospect Input 영역: 1168 * 85px */
@@ -168,8 +284,8 @@
   .gap64,
   .gap24,
   .gap16,
-  .detailTitle,
-  .detailContent,
+  .titleSection,
+  .contentSection,
   .detailFooter,
   .retrospectInput,
   .retrospectList {
@@ -178,8 +294,8 @@
   }
   
   .titleText {
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 20px;
+    line-height: 24px;
   }
 }
 
@@ -191,8 +307,8 @@
   .gap64,
   .gap24,
   .gap16,
-  .detailTitle,
-  .detailContent,
+  .titleSection,
+  .contentSection,
   .detailFooter,
   .retrospectInput,
   .retrospectList {
@@ -201,16 +317,16 @@
   }
   
   .titleText {
-    font-size: 24px;
-    line-height: 32px;
+    font-size: 18px;
+    line-height: 22px;
   }
   
-  .detailTitle {
+  .titleSection {
     height: auto;
     min-height: 84px;
   }
   
-  .detailContent {
+  .contentSection {
     height: auto;
     min-height: 169px;
   }
