@@ -1,0 +1,212 @@
+/* DiariesNew Component Styles */
+
+/* Wrapper: 640px * 560px */
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 640px;
+  height: 560px;
+  padding: 24px;
+  background-color: var(--color-bg-primary);
+  border-radius: 24px;
+  border: 1px solid var(--color-border-light);
+  box-sizing: border-box;
+}
+
+/* Header 영역: full * 24px */
+.header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 24px;
+}
+
+.headerTitle {
+  margin: 0;
+  font-family: var(--font-ko-primary);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+  color: #000000;
+}
+
+/* Gap 영역: full * 40px */
+.gap40 {
+  display: flex;
+  width: 100%;
+  height: 40px;
+}
+
+/* Gap 영역: full * 24px */
+.gap24 {
+  display: flex;
+  width: 100%;
+  height: 24px;
+}
+
+/* Emotion Box 영역: full * 64px */
+.emotionBox {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 64px;
+  gap: 16px;
+}
+
+.emotionTitle {
+  margin: 0;
+  font-family: var(--font-ko-primary);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  color: #000000;
+}
+
+.emotionRadioGroup {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.radioLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.radioInput {
+  display: none;
+}
+
+.radioCustom {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+}
+
+.radioText {
+  font-family: var(--font-ko-primary);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.18px;
+  color: #333333;
+}
+
+/* Input Title 영역: full * 76px */
+.inputTitle {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 76px;
+  gap: 8px;
+}
+
+.inputLabel {
+  font-family: var(--font-ko-primary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  color: #333333;
+}
+
+.titleInput {
+  width: 100%;
+}
+
+/* Input 컴포넌트 커스터마이징 - 피그마 디자인에 맞춤 */
+.inputTitle :global(.inputWrapper) {
+  gap: 0;
+}
+
+.inputTitle :global(.inputContainer) {
+  border-color: #d4d3d3 !important;
+}
+
+.inputTitle :global(.inputContainer):hover {
+  border-color: #d4d3d3 !important;
+}
+
+.inputTitle :global(.inputContainer--focused) {
+  border-color: var(--color-border-focus) !important;
+}
+
+/* Input Content 영역: full * 156px */
+.inputContent {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 156px;
+  gap: 8px;
+}
+
+.contentTextarea {
+  width: 100%;
+  height: 128px;
+  padding: 12px 16px;
+  font-family: var(--font-ko-primary);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: #000000;
+  background-color: #ffffff;
+  border: 1px solid #d4d3d3;
+  border-radius: 8px;
+  box-sizing: border-box;
+  resize: none;
+  outline: none;
+}
+
+.contentTextarea::placeholder {
+  color: #ababab;
+}
+
+.contentTextarea:focus {
+  border-color: var(--color-border-focus);
+}
+
+/* Footer 영역: full * 48px */
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 48px;
+  gap: 16px;
+}
+
+.closeButton {
+  width: 104px;
+  height: 48px;
+  background-color: #ffffff !important;
+  border: 1px solid #000000 !important;
+  color: #1c1c1c !important;
+  font-family: var(--font-ko-primary);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  border-radius: 8px;
+}
+
+.submitButton {
+  width: 104px;
+  height: 48px;
+  background-color: #c7c7c7 !important;
+  border: none !important;
+  color: #f2f2f2 !important;
+  font-family: var(--font-ko-primary);
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.18px;
+  border-radius: 8px;
+}
+
