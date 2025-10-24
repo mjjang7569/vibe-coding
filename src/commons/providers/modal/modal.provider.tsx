@@ -92,10 +92,10 @@ const ModalOverlay: React.FC<{
   );
 };
 
-// Modal Wrapper 컴포넌트 (max-w-md, w-full 제거됨)
+// Modal Wrapper 컴포넌트 (styles_wrapper__ReGTa 클래스 사용)
 const ModalWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
+    <div className="styles_wrapper__ReGTa">
       {children}
     </div>
   );

@@ -16,7 +16,7 @@
 
 ==============================================
 
-핵심요구사항) 다음의 기능을 playwright 테스트를 활용하여 TDD기반으로 구현할 것.
+기존히스토리-참고만) 다음의 기능을 playwright 테스트를 활용하여 TDD기반으로 구현할 것.
             1) 테스트 제외 라이브러리
                 - jest
                 - @testing-library/react
@@ -27,7 +27,7 @@
                     - 페이지 로드 식별 요구사항: 고정식별자 data-testid 대기 방법
                     - 페이지 로드 식별 금지사항: networkidle 대기 방법
 
-핵심요구사항) 다음의 조건에 맞게 모달 열람 기능을 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
+기존히스토리-참고만) 다음의 조건에 맞게 모달 열람 기능을 step-by-step 으로 구현하고, 적용 결과를 체크리스트로 반환할 것.
             1) 모달조건
                 - 일기쓰기 모달 컴포넌트 경로: src/components/diaries-new/index.tsx
                 - 모달 프로바이더 경로: src/commons/providers/modal/modal.provider.tsx
@@ -36,3 +36,5 @@
             
             2) 상세 구현 내용
                 - 일기쓰기버튼: 클릭시, 모달 컴포넌트를 기존의 페이지 위 중앙에 overlay 하여 겹칠 것.
+==============================================
+수정요구사항) class="bg-white rounded-lg shadow-lg p-6" 의 div를 생성하지 말고 class='styles_wrapper__ReGTa'가 모달의 경계가 될 수 있도록 구현할 것
