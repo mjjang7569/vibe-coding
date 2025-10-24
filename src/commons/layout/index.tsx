@@ -1,16 +1,25 @@
+'use client';
+
 import React from 'react';
+import Link from 'next/link';
 import styles from './styles.module.css';
+import { URL_PATHS } from '@/commons/constants/url';
+import { useActiveTab } from './hooks/index.link.routing.hook';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 export const Layout: React.FC<LayoutProps> = ({ children }) => {
+  const { isDiariesActive, isPicturesActive } = useActiveTab();
+
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="layout-container">
       {/* Header 영역 */}
       <header className={styles.header}>
-        <div className={styles.logo}>민지의 다이어리</div>
+        <Link href={URL_PATHS.DIARIES.LIST}>
+          <div className={styles.logo} data-testid="layout-logo">민지의 다이어리</div>
+        </Link>
       </header>
       
       {/* Gap */}
@@ -27,8 +36,22 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
       {/* Navigation 영역 */}
       <nav className={styles.navigation}>
         <div className={styles.navTabs}>
-          <button className={styles.navTabActive}>일기보관함</button>
-          <button className={styles.navTab}>사진보관함</button>
+          <Link href={URL_PATHS.DIARIES.LIST}>
+            <button 
+              className={isDiariesActive ? styles.navTabActive : styles.navTab}
+              data-testid="nav-tab-diaries"
+            >
+              일기보관함
+            </button>
+          </Link>
+          <Link href={URL_PATHS.PICTURES.LIST}>
+            <button 
+              className={isPicturesActive ? styles.navTabActive : styles.navTab}
+              data-testid="nav-tab-pictures"
+            >
+              사진보관함
+            </button>
+          </Link>
         </div>
       </nav>
       

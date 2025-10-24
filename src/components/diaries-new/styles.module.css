@@ -28,7 +28,7 @@
   font-weight: 700;
   line-height: 24px;
   letter-spacing: -0.24px;
-  color: #000000;
+  color: var(--color-text-primary);
 }
 
 /* Gap 영역: full * 40px */
@@ -61,7 +61,7 @@
   font-weight: 600;
   line-height: 24px;
   letter-spacing: -0.2px;
-  color: #000000;
+  color: var(--color-text-primary);
 }
 
 .emotionRadioGroup {
@@ -95,7 +95,7 @@
   font-weight: 500;
   line-height: 20px;
   letter-spacing: -0.18px;
-  color: #333333;
+  color: var(--color-text-secondary);
 }
 
 /* Input Title 영역: full * 76px */
@@ -113,7 +113,7 @@
   font-weight: 500;
   line-height: 20px;
   letter-spacing: -0.14px;
-  color: #333333;
+  color: var(--color-text-secondary);
 }
 
 .titleInput {
@@ -126,11 +126,11 @@
 }
 
 .inputTitle :global(.inputContainer) {
-  border-color: #d4d3d3 !important;
+  border-color: var(--color-border) !important;
 }
 
 .inputTitle :global(.inputContainer):hover {
-  border-color: #d4d3d3 !important;
+  border-color: var(--color-border) !important;
 }
 
 .inputTitle :global(.inputContainer--focused) {
@@ -155,9 +155,9 @@
   font-weight: 500;
   line-height: 24px;
   letter-spacing: -0.16px;
-  color: #000000;
-  background-color: #ffffff;
-  border: 1px solid #d4d3d3;
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   box-sizing: border-box;
   resize: none;
@@ -165,7 +165,7 @@
 }
 
 .contentTextarea::placeholder {
-  color: #ababab;
+  color: var(--color-text-tertiary);
 }
 
 .contentTextarea:focus {
@@ -185,9 +185,9 @@
 .closeButton {
   width: 104px;
   height: 48px;
-  background-color: #ffffff !important;
-  border: 1px solid #000000 !important;
-  color: #1c1c1c !important;
+  background-color: var(--color-bg-primary) !important;
+  border: 1px solid var(--color-text-primary) !important;
+  color: var(--color-text-primary) !important;
   font-family: var(--font-ko-primary);
   font-size: 18px;
   font-weight: 600;
@@ -199,9 +199,9 @@
 .submitButton {
   width: 104px;
   height: 48px;
-  background-color: #c7c7c7 !important;
+  background-color: var(--color-gray-400) !important;
   border: none !important;
-  color: #f2f2f2 !important;
+  color: var(--color-text-inverse) !important;
   font-family: var(--font-ko-primary);
   font-size: 18px;
   font-weight: 600;

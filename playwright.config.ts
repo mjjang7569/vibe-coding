@@ -5,22 +5,22 @@ import { defineConfig, devices } from '@playwright/test';
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-//   testDir: './tests',
+  testDir: './tests',
   
-//   /* 병렬로 실행할 테스트 수 */
-//   fullyParallel: true,
+  /* 병렬로 실행할 테스트 수 */
+  fullyParallel: true,
   
-//   /* CI에서 실패한 테스트만 재시도 */
-//   forbidOnly: !!process.env.CI,
+  /* CI에서 실패한 테스트만 재시도 */
+  forbidOnly: !!process.env.CI,
   
-//   /* CI에서 재시도 설정 */
-//   retries: process.env.CI ? 2 : 0,
+  /* CI에서 재시도 설정 */
+  retries: process.env.CI ? 2 : 0,
   
-//   /* CI에서는 병렬 처리 없이, 로컬에서는 병렬 처리 */
-//   workers: process.env.CI ? 1 : undefined,
+  /* CI에서는 병렬 처리 없이, 로컬에서는 병렬 처리 */
+  workers: process.env.CI ? 1 : undefined,
   
-//   /* 리포터 설정 */
-//   reporter: 'html',
+  /* 리포터 설정 */
+  reporter: 'html',
   
   /* 모든 테스트에 공유되는 설정 */
   use: {

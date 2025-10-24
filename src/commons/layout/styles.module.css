@@ -27,6 +27,7 @@
   font-family: var(--font-ko-primary);
   letter-spacing: -0.18px;
   line-height: 16px;
+  cursor: pointer;
 }
 
 
