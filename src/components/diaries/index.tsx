@@ -9,6 +9,7 @@ import { Button } from '../../commons/components/button';
 import { Pagination } from '../../commons/components/pagination';
 import { EmotionType, getEmotionConfig } from '../../commons/constants/enum';
 import { colorTokens } from '../../commons/constants/color';
+import { useLinkModal } from './hooks/index.link.modal.hook';
 
 /**
  * 일기 데이터 인터페이스
@@ -54,10 +55,6 @@ export interface DiariesProps {
    */
   onPageChange?: (page: number) => void;
   
-  /**
-   * 일기쓰기 버튼 클릭 핸들러
-   */
-  onWriteDiary?: () => void;
   
   /**
    * 셀렉트박스 옵션들
@@ -188,11 +185,11 @@ export const Diaries: React.FC<DiariesProps> = ({
   onSearch,
   onSelectChange,
   onPageChange,
-  onWriteDiary,
   selectOptions = [],
   selectValue = '',
 }) => {
   const mockDiaries = generateMockDiaries();
+  const { openWriteDiaryModal } = useLinkModal();
   
   return (
     <div className={`${styles.container} ${className}`}>
@@ -236,7 +233,7 @@ export const Diaries: React.FC<DiariesProps> = ({
             variant="primary"
             size="medium"
             theme="light"
-            onClick={onWriteDiary}
+            onClick={openWriteDiaryModal}
             className={styles.buttonCustom}
             aria-label="새 일기 작성하기"
           >

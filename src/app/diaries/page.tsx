@@ -37,11 +37,6 @@ export default function DiariesPage() {
     // 페이지 변경 로직 구현
   };
 
-  const handleWriteDiary = () => {
-    console.log('Write diary clicked');
-    // 일기쓰기 페이지로 이동하는 로직 구현
-  };
-
   return (
     <Diaries
       currentPage={currentPage}
@@ -49,7 +44,6 @@ export default function DiariesPage() {
       onSearch={handleSearch}
       onSelectChange={handleSelectChange}
       onPageChange={handlePageChange}
-      onWriteDiary={handleWriteDiary}
       selectOptions={selectOptions}
       selectValue={selectValue}
     />

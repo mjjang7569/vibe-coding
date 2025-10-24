@@ -5,6 +5,7 @@ import styles from './styles.module.css';
 import { Button } from '@/commons/components/button';
 import Input from '@/commons/components/input';
 import { EmotionType, emotionTypes, getEmotionLabel } from '@/commons/constants/enum';
+import { useModal } from '@/commons/providers/modal/modal.provider';
 
 /**
  * DiariesNew Component Props Interface
@@ -32,10 +33,10 @@ export const DiariesNew: React.FC<DiariesNewProps> = ({
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType>(EmotionType.Happy);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const { closeModal } = useModal();
 
   const handleClose = () => {
-    // 닫기 로직
-    console.log('닫기');
+    closeModal();
   };
 
   const handleSubmit = () => {
