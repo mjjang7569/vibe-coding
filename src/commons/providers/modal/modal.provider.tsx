@@ -92,11 +92,11 @@ const ModalOverlay: React.FC<{
   );
 };
 
-// Modal Wrapper 컴포넌트 (styles_wrapper__ReGTa 클래스 사용)
+// Modal Wrapper 컴포넌트 (중복 래퍼 제거)
 const ModalWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
-    <div className="styles_wrapper__ReGTa">
+    <>
       {children}
-    </div>
+    </>
   );
 };
