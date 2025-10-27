@@ -10,15 +10,17 @@ import { Pagination } from '../../commons/components/pagination';
 import { EmotionType, getEmotionConfig } from '../../commons/constants/enum';
 import { colorTokens } from '../../commons/constants/color';
 import { useLinkModal } from './hooks/index.link.modal.hook';
+import { useDiariesBinding } from './hooks/index.binding.hook';
 
 /**
  * 일기 데이터 인터페이스
  */
 export interface DiaryItem {
-  id: string;
+  id: number;
   title: string;
-  date: string;
+  content: string;
   emotion: EmotionType;
+  createdAt: string;
 }
 
 /**
@@ -82,36 +84,6 @@ export interface DiariesProps {
  * />
  * ```
  */
-/**
- * Mock 데이터 생성 - 피그마 디자인과 동일한 순서로 생성
- */
-const generateMockDiaries = (): DiaryItem[] => {
-  // 피그마에서 확인한 정확한 순서와 데이터
-  const mockDiariesData = [
-    // 첫 번째 행
-    { emotion: EmotionType.Sad, title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.', id: 'sad-1' },
-    { emotion: EmotionType.Surprise, title: '타이틀 영역 입니다.', id: 'surprise-1' },
-    { emotion: EmotionType.Angry, title: '타이틀 영역 입니다.', id: 'angry-1' },
-    { emotion: EmotionType.Happy, title: '타이틀 영역 입니다.', id: 'happy-1' },
-    
-    // 두 번째 행
-    { emotion: EmotionType.Etc, title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.', id: 'etc-1' },
-    { emotion: EmotionType.Surprise, title: '타이틀 영역 입니다.', id: 'surprise-2' },
-    { emotion: EmotionType.Angry, title: '타이틀 영역 입니다.', id: 'angry-2' },
-    { emotion: EmotionType.Happy, title: '타이틀 영역 입니다.', id: 'happy-2' },
-    
-    // 세 번째 행
-    { emotion: EmotionType.Sad, title: '타이틀 영역 입니다. 한줄까지만 노출 됩니다.', id: 'sad-2' },
-    { emotion: EmotionType.Surprise, title: '타이틀 영역 입니다.', id: 'surprise-3' },
-    { emotion: EmotionType.Angry, title: '타이틀 영역 입니다.', id: 'angry-3' },
-    { emotion: EmotionType.Happy, title: '타이틀 영역 입니다.', id: 'happy-3' },
-  ];
-  
-  return mockDiariesData.map(item => ({
-    ...item,
-    date: '2024. 03. 12',
-  }));
-};
 
 /**
  * 감정별 이미지 경로 가져오기 함수 (핵심 수정 요구사항)
@@ -130,7 +102,7 @@ const getEmotionImagePath = (emotion: EmotionType): string => {
 /**
  * 일기 카드 컴포넌트
  */
-const DiaryCard: React.FC<{ diary: DiaryItem }> = ({ diary }) => {
+const DiaryCard: React.FC<{ diary: DiaryItem; formattedDate: string }> = ({ diary, formattedDate }) => {
   const emotionConfig = getEmotionConfig(diary.emotion);
   
   // "기타" 감정의 색상을 피그마와 일치하도록 수정
@@ -168,7 +140,7 @@ const DiaryCard: React.FC<{ diary: DiaryItem }> = ({ diary }) => {
           >
             {emotionConfig.label}
           </span>
-          <span className={styles.dateText}>{diary.date}</span>
+          <span className={styles.dateText}>{formattedDate}</span>
         </div>
         <div className={styles.cardTitle}>
           <h3 className={styles.titleText}>{diary.title}</h3>
@@ -188,8 +160,13 @@ export const Diaries: React.FC<DiariesProps> = ({
   selectOptions = [],
   selectValue = '',
 }) => {
-  const mockDiaries = generateMockDiaries();
+  const { diaries, isLoading, formatDate } = useDiariesBinding();
   const { openWriteDiaryModal } = useLinkModal();
+  
+  // 로딩 중일 때는 빈 화면 표시
+  if (isLoading) {
+    return <div className={`${styles.container} ${className}`}>로딩 중...</div>;
+  }
   
   return (
     <div className={`${styles.container} ${className}`}>
@@ -256,8 +233,12 @@ export const Diaries: React.FC<DiariesProps> = ({
         {/* 일기 목록 콘텐츠 영역 */}
         <div className={styles.mainContent}>
           <div className={styles.diaryGrid}>
-            {mockDiaries.map((diary) => (
-              <DiaryCard key={diary.id} diary={diary} />
+            {diaries.map((diary) => (
+              <DiaryCard 
+                key={diary.id} 
+                diary={diary} 
+                formattedDate={formatDate(diary.createdAt)}
+              />
             ))}
           </div>
         </div>
