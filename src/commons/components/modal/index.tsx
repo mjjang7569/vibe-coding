@@ -173,6 +173,23 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
     .filter(Boolean)
     .join(' ');
 
+  // Dark 테마 버튼 로직 (Figma 노드 0:8929, 0:9126 기준)
+  // Dark + Single: primary 버튼은 theme="light" (white 배경)
+  // Dark + Dual: secondary는 커스텀 스타일, primary는 theme="dark" (#f2f2f2 배경)
+  const isDarkTheme = theme === 'dark';
+  const isDualActions = actions === 'dual';
+  
+  // Primary 버튼 theme 결정
+  const primaryButtonTheme = isDarkTheme && isDualActions ? 'dark' : 'light';
+  
+  // Secondary 버튼 className (Dark + Dual일 때 커스텀 스타일)
+  const secondaryButtonClassName = [
+    styles.dualButton,
+    isDarkTheme ? styles.darkDualSecondaryButton : '',
+  ]
+    .filter(Boolean)
+    .join(' ');
+
   return (
     <div
       ref={ref}
@@ -192,14 +209,14 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
             size="medium"
             onClick={onSecondaryClick}
             disabled={secondaryButtonDisabled}
-            className={styles.dualButton}
+            className={secondaryButtonClassName}
           >
             {secondaryButtonText}
           </Button>
         )}
         <Button
           variant="primary"
-          theme="light"
+          theme={primaryButtonTheme}
           size="medium"
           onClick={onPrimaryClick}
           disabled={primaryButtonDisabled}

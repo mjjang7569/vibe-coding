@@ -1,14 +1,21 @@
-'use client';
+"use client";
 
-import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react';
-import { createPortal } from 'react-dom';
+import { createContext, useContext, useState, useCallback, useEffect } from "react";
+import { createPortal } from "react-dom";
+import styles from "./styles.module.css";
+
+// Modal Item 타입 정의
+interface ModalItem {
+  id: string;
+  content: React.ReactNode;
+}
 
 // Modal Context 타입 정의
 interface ModalContextType {
   isOpen: boolean;
-  openModal: (content: ReactNode) => void;
+  openModal: (content: React.ReactNode) => void;
   closeModal: () => void;
-  modalContent: ReactNode | null;
+  modalContent: React.ReactNode | null;
 }
 
 // Modal Context 생성
@@ -16,87 +23,104 @@ const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
 // Modal Provider Props 타입
 interface ModalProviderProps {
-  children: ReactNode;
+  children: React.ReactNode;
 }
 
 // Modal Provider 컴포넌트
-export const ModalProvider: React.FC<ModalProviderProps> = ({ children }) => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [modalContent, setModalContent] = useState<ReactNode | null>(null);
+export function ModalProvider({ children }: ModalProviderProps) {
+  const [modalStack, setModalStack] = useState<ModalItem[]>([]);
 
-  const openModal = useCallback((content: ReactNode) => {
-    setModalContent(content);
-    setIsOpen(true);
+  // 모달 열기 - 스택에 추가
+  const openModal = useCallback((content: React.ReactNode) => {
+    const id = `modal-${Date.now()}-${Math.random()}`;
+    setModalStack((prev) => [...prev, { id, content }]);
   }, []);
 
+  // 모달 닫기 - 스택에서 제거 (가장 최근 모달)
   const closeModal = useCallback(() => {
-    setIsOpen(false);
-    setModalContent(null);
+    setModalStack((prev) => prev.slice(0, -1));
   }, []);
 
-  const contextValue: ModalContextType = {
-    isOpen,
-    openModal,
-    closeModal,
-    modalContent,
-  };
+  // body 스크롤 제어 - 모달이 하나라도 열려있으면 스크롤 제거
+  useEffect(() => {
+    if (modalStack.length > 0) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [modalStack.length]);
 
   return (
-    <ModalContext.Provider value={contextValue}>
+    <ModalContext.Provider
+      value={{
+        isOpen: modalStack.length > 0,
+        openModal,
+        closeModal,
+        modalContent: modalStack.length > 0 ? modalStack[modalStack.length - 1].content : null,
+      }}
+    >
       {children}
-      {isOpen && modalContent && (
+      {modalStack.length > 0 && (
         <ModalPortal>
-          <ModalOverlay onClose={closeModal}>
-            <ModalWrapper>
-              {modalContent}
-            </ModalWrapper>
-          </ModalOverlay>
+          {modalStack.map((modal, index) => (
+            <ModalOverlay
+              key={modal.id}
+              zIndex={50 + index}
+              onClose={index === modalStack.length - 1 ? closeModal : undefined}
+            >
+              {modal.content}
+            </ModalOverlay>
+          ))}
         </ModalPortal>
       )}
     </ModalContext.Provider>
   );
-};
+}
 
 // Modal Hook
-export const useModal = (): ModalContextType => {
+export function useModal(): ModalContextType {
   const context = useContext(ModalContext);
   if (context === undefined) {
-    throw new Error('useModal must be used within a ModalProvider');
+    throw new Error("useModal must be used within a ModalProvider");
   }
   return context;
-};
+}
 
 // Modal Portal 컴포넌트
-const ModalPortal: React.FC<{ children: ReactNode }> = ({ children }) => {
-  if (typeof window === 'undefined') return null;
+function ModalPortal({ children }: { children: React.ReactNode }) {
+  if (typeof window === "undefined") return null;
   return createPortal(children, document.body);
-};
+}
 
 // Modal Overlay 컴포넌트
-const ModalOverlay: React.FC<{ 
-  children: ReactNode; 
-  onClose: () => void; 
-}> = ({ children, onClose }) => {
+function ModalOverlay({
+  children,
+  zIndex,
+  onClose,
+}: {
+  children: React.ReactNode;
+  zIndex: number;
+  onClose?: () => void;
+}) {
+  const handleBackdropClick = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
+
   return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50"
-      onClick={onClose}
+    <div
+      className={styles.overlay}
+      style={{ zIndex }}
+      onClick={handleBackdropClick}
     >
-      <div 
-        className="relative"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         {children}
       </div>
     </div>
   );
-};
-
-// Modal Wrapper 컴포넌트 (중복 래퍼 제거)
-const ModalWrapper: React.FC<{ children: ReactNode }> = ({ children }) => {
-  return (
-    <>
-      {children}
-    </>
-  );
-};
+}

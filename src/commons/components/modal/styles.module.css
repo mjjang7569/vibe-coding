@@ -30,7 +30,7 @@
 
 /* Danger Variant */
 .variant-danger.theme-light {
-  background-color: #fff5f5;
+  background-color: #ffffff;
 }
 
 .variant-danger.theme-dark {
@@ -91,7 +91,7 @@
 }
 
 .message.theme-dark {
-  color: #cccccc;
+  color: #d4d3d3;
 }
 
 /* ============================================
@@ -138,6 +138,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Dark 테마 Dual actions Secondary 버튼 (Figma 노드 0:9126 기준) */
+.darkDualSecondaryButton {
+  background-color: #1c1c1c;
+  border: 1px solid #5f5f5f;
+  color: #ffffff;
+}
+
+.darkDualSecondaryButton:hover:not(:disabled) {
+  background-color: #2a2a2a;
+  border-color: #707070;
+}
+
+.darkDualSecondaryButton:active:not(:disabled) {
+  background-color: #1c1c1c;
+  border-color: #5f5f5f;
 }
 
 /* ============================================
