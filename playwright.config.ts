@@ -5,7 +5,11 @@ import { defineConfig, devices } from '@playwright/test';
  * @see https://playwright.dev/docs/test-configuration
  */
 export default defineConfig({
-  testDir: './tests',
+  testDir: './',
+  testMatch: [
+    '**/tests/**/*.spec.ts',
+    '**/src/components/**/tests/**/*.spec.ts',
+  ],
   
   /* 병렬로 실행할 테스트 수 */
   fullyParallel: true,

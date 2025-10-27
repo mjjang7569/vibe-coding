@@ -5,7 +5,7 @@ import styles from './styles.module.css';
 import { Button } from '@/commons/components/button';
 import Input from '@/commons/components/input';
 import { EmotionType, emotionTypes, getEmotionLabel } from '@/commons/constants/enum';
-import { useModal } from '@/commons/providers/modal/modal.provider';
+import { useLinkModalClose } from './hooks/index.link.modal.close.hook';
 
 /**
  * DiariesNew Component Props Interface
@@ -33,10 +33,10 @@ export const DiariesNew: React.FC<DiariesNewProps> = ({
   const [selectedEmotion, setSelectedEmotion] = useState<EmotionType>(EmotionType.Happy);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const { closeModal } = useModal();
+  const { openCancelConfirmModal } = useLinkModalClose();
 
   const handleClose = () => {
-    closeModal();
+    openCancelConfirmModal();
   };
 
   const handleSubmit = () => {

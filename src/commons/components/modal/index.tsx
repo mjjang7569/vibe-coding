@@ -84,6 +84,16 @@ export interface ModalProps extends HTMLAttributes<HTMLDivElement> {
    * @default false
    */
   secondaryButtonDisabled?: boolean;
+
+  /**
+   * Primary 버튼 data-testid
+   */
+  primaryButtonDataTestId?: string;
+
+  /**
+   * Secondary 버튼 data-testid
+   */
+  secondaryButtonDataTestId?: string;
 }
 
 /**
@@ -130,6 +140,8 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       onSecondaryClick,
       primaryButtonDisabled = false,
       secondaryButtonDisabled = false,
+      primaryButtonDataTestId,
+      secondaryButtonDataTestId,
       className = '',
       ...restProps
     },
@@ -210,6 +222,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
             onClick={onSecondaryClick}
             disabled={secondaryButtonDisabled}
             className={secondaryButtonClassName}
+            data-testid={secondaryButtonDataTestId}
           >
             {secondaryButtonText}
           </Button>
@@ -221,6 +234,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
           onClick={onPrimaryClick}
           disabled={primaryButtonDisabled}
           className={actions === 'single' ? styles.singleButton : styles.dualButton}
+          data-testid={primaryButtonDataTestId}
         >
           {primaryButtonText}
         </Button>
