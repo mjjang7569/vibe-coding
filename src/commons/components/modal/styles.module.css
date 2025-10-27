@@ -1,0 +1,183 @@
+/* ============================================
+   Modal Base Styles
+   ============================================ */
+
+.modal {
+  /* Figma 디자인: 480x200 */
+  width: 480px;
+  min-height: 200px;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* ============================================
+   Variant Styles
+   ============================================ */
+
+/* Info Variant */
+.variant-info.theme-light {
+  background-color: #ffffff;
+}
+
+.variant-info.theme-dark {
+  background-color: #1c1c1c;
+}
+
+/* Danger Variant */
+.variant-danger.theme-light {
+  background-color: #fff5f5;
+}
+
+.variant-danger.theme-dark {
+  background-color: #2a1a1a;
+}
+
+/* ============================================
+   Header Section
+   ============================================ */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  text-align: center;
+}
+
+/* ============================================
+   Title Styles
+   ============================================ */
+
+.title {
+  /* Figma 디자인: 24px, Bold, center, letter-spacing: -0.24px */
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+  text-align: center;
+  margin: 0;
+}
+
+.title.theme-light {
+  color: #000000;
+}
+
+.title.theme-dark {
+  color: #ffffff;
+}
+
+/* ============================================
+   Message Styles
+   ============================================ */
+
+.message {
+  /* Figma 디자인: 20px, Medium, center, letter-spacing: -0.2px */
+  font-family: "Pretendard Variable", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  text-align: center;
+  margin: 0;
+}
+
+.message.theme-light {
+  color: #333333;
+}
+
+.message.theme-dark {
+  color: #cccccc;
+}
+
+/* ============================================
+   Actions Section
+   ============================================ */
+
+.actions {
+  display: flex;
+  gap: 21px;
+  justify-content: center;
+}
+
+/* Single action: 버튼 전체 너비 */
+.actions.actions-single {
+  width: 100%;
+}
+
+/* Dual actions: 버튼 고정 너비 */
+.actions.actions-dual {
+  width: auto;
+  justify-content: center;
+}
+
+/* ============================================
+   Button Styles
+   ============================================ */
+
+/* Single action 버튼: 전체 너비 */
+.singleButton {
+  width: 100%;
+  min-height: 48px;
+  height: 48px;
+}
+
+/* Dual actions 버튼: 104px 고정 (Figma 디자인 기준) */
+.dualButton {
+  width: 104px;
+  min-width: 104px;
+  max-width: 104px;
+  min-height: 48px;
+  height: 48px;
+  padding-left: 0;
+  padding-right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================
+   Responsive Styles
+   ============================================ */
+
+@media (max-width: 640px) {
+  .modal {
+    width: 90vw;
+    max-width: 480px;
+    padding: 20px;
+    gap: 32px;
+  }
+
+  .title {
+    font-size: 20px;
+    line-height: 20px;
+    letter-spacing: -0.2px;
+  }
+
+  .message {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.16px;
+  }
+
+  .actions {
+    gap: 12px;
+  }
+
+  /* Mobile에서 dual actions도 전체 너비 사용 */
+  .actions.actions-dual {
+    width: 100%;
+  }
+
+  .dualButton {
+    width: 100%;
+    min-width: auto;
+    max-width: none;
+    flex: 1;
+  }
+}
+
