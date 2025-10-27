@@ -1,7 +1,10 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
 import { DiariesDetail } from '../../../components/diaries-detail';
+import { EmotionType } from '../../../commons/constants/enum';
+import { URL_PATHS } from '../../../commons/constants/url';
 
 interface DiaryDetailPageProps {
   params: {
@@ -10,44 +13,94 @@ interface DiaryDetailPageProps {
 }
 
 /**
+ * 일기 데이터 타입
+ */
+interface Diary {
+  id: number;
+  title: string;
+  content: string;
+  emotion: EmotionType;
+  createdAt: string;
+}
+
+/**
  * 일기 상세 페이지
+ * 
+ * 로컬스토리지에서 일기 데이터를 읽어와 표시합니다.
  * 
  * @param params - 라우트 파라미터 (id: 일기 ID)
  */
 const DiaryDetailPage: React.FC<DiaryDetailPageProps> = ({ params }) => {
   const { id } = params;
+  const router = useRouter();
+  const [diary, setDiary] = useState<Diary | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  // TODO: 실제 데이터 fetching 로직 구현 필요
-  const mockDiaryData = {
-    title: `일기 제목 - ${id}`,
-    content: `이것은 ${id}번 일기의 내용입니다.\n여러 줄의 내용을 작성할 수 있으며,\nwireframe 구조에 따라 1168 * 169px 영역에 표시됩니다.`,
-    retrospectInput: '',
-    retrospectList: [
-      {
-        id: '1',
-        content: '오늘 하루 중 가장 기억에 남는 일은 그 사람과의 대화였다.',
-        createdAt: '2024. 12. 19'
-      },
-      {
-        id: '2',
-        content: '내일은 더 나은 하루가 되길 바란다. 새로운 목표를 세워보자.',
-        createdAt: '2024. 12. 18'
-      },
-    ],
-  };
+  useEffect(() => {
+    // 로컬스토리지에서 일기 데이터 읽기
+    const loadDiary = () => {
+      try {
+        const data = localStorage.getItem('diaries');
+        if (data) {
+          const diaries: Diary[] = JSON.parse(data);
+          const foundDiary = diaries.find((d) => d.id === Number(id));
+          
+          if (foundDiary) {
+            setDiary(foundDiary);
+          } else {
+            // 일기를 찾지 못하면 목록 페이지로 이동
+            router.push(URL_PATHS.DIARIES.LIST);
+          }
+        } else {
+          // 데이터가 없으면 목록 페이지로 이동
+          router.push(URL_PATHS.DIARIES.LIST);
+        }
+      } catch (error) {
+        console.error('일기 데이터 로드 실패:', error);
+        router.push(URL_PATHS.DIARIES.LIST);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadDiary();
+  }, [id, router]);
 
   const handleRetrospectInputChange = (value: string) => {
     // TODO: 실제 상태 관리 로직 구현 필요
     console.log('회고 입력값 변경:', value);
   };
 
+  // 포맷팅된 날짜 생성
+  const formatDate = (dateString: string): string => {
+    try {
+      const date = new Date(dateString);
+      const year = date.getFullYear();
+      const month = String(date.getMonth() + 1).padStart(2, '0');
+      const day = String(date.getDate()).padStart(2, '0');
+      return `${year}. ${month}. ${day}`;
+    } catch {
+      return dateString;
+    }
+  };
+
+  if (isLoading) {
+    return <div>로딩 중...</div>;
+  }
+
+  if (!diary) {
+    return null;
+  }
+
   return (
     <DiariesDetail
-      title={mockDiaryData.title}
-      content={mockDiaryData.content}
-      retrospectInput={mockDiaryData.retrospectInput}
+      title={diary.title}
+      content={diary.content}
+      emotion={diary.emotion}
+      createdAt={formatDate(diary.createdAt)}
+      retrospectInput=""
       onRetrospectInputChange={handleRetrospectInputChange}
-      retrospectList={mockDiaryData.retrospectList}
+      retrospectList={[]}
     />
   );
 };

@@ -1,11 +1,12 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import styles from './styles.module.css';
 import { Button } from '@/commons/components/button';
 import Input from '@/commons/components/input';
 import { EmotionType, emotionTypes, getEmotionLabel } from '@/commons/constants/enum';
 import { useLinkModalClose } from './hooks/index.link.modal.close.hook';
+import { useDiaryForm } from './hooks/index.form.hook';
 
 /**
  * DiariesNew Component Props Interface
@@ -30,18 +31,17 @@ export interface DiariesNewProps {
 export const DiariesNew: React.FC<DiariesNewProps> = ({
   className = '',
 }) => {
-  const [selectedEmotion, setSelectedEmotion] = useState<EmotionType>(EmotionType.Happy);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
   const { openCancelConfirmModal } = useLinkModalClose();
+  const { register, handleSubmit, isValid, setValue, watch } = useDiaryForm();
+
+  const selectedEmotion = watch('emotion');
 
   const handleClose = () => {
     openCancelConfirmModal();
   };
 
-  const handleSubmit = () => {
-    // 등록하기 로직
-    console.log('등록하기', { selectedEmotion, title, content });
+  const onEmotionChange = (emotion: EmotionType) => {
+    setValue('emotion', emotion, { shouldValidate: true });
   };
 
   return (
@@ -65,7 +65,7 @@ export const DiariesNew: React.FC<DiariesNewProps> = ({
                 name="emotion"
                 value={emotion}
                 checked={selectedEmotion === emotion}
-                onChange={() => setSelectedEmotion(emotion)}
+                onChange={() => onEmotionChange(emotion)}
                 className={styles.radioInput}
                 data-testid={`emotion-option-${emotion}`}
               />
@@ -98,8 +98,7 @@ export const DiariesNew: React.FC<DiariesNewProps> = ({
           size="medium"
           theme="light"
           placeholder="제목을 입력해 주세요."
-          value={title}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setTitle(e.target.value)}
+          {...register('title')}
           className={styles.titleInput}
           data-testid="diaries-new-title-input"
         />
@@ -113,8 +112,7 @@ export const DiariesNew: React.FC<DiariesNewProps> = ({
         <label className={styles.inputLabel} data-testid="diaries-new-content-label">내용</label>
         <textarea
           placeholder="내용을 입력해 주세요."
-          value={content}
-          onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setContent(e.target.value)}
+          {...register('content')}
           className={styles.contentTextarea}
           data-testid="diaries-new-content-textarea"
         />
@@ -140,6 +138,7 @@ export const DiariesNew: React.FC<DiariesNewProps> = ({
           size="medium"
           theme="light"
           onClick={handleSubmit}
+          disabled={!isValid}
           className={styles.submitButton}
           data-testid="diaries-new-submit-button"
         >
