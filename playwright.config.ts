@@ -36,11 +36,12 @@ export default defineConfig({
   },
 
   /* 테스트 실행 전 개발 서버 시작 */
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-  },
+  // 수동으로 개발 서버를 실행한 상태에서 테스트 실행
+  // webServer: {
+  //   command: 'npm run dev',
+  //   url: 'http://localhost:3000',
+  //   reuseExistingServer: !process.env.CI,
+  // },
 
   /* 다양한 브라우저에서 테스트 */
   projects: [

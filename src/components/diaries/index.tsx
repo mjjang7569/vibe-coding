@@ -11,6 +11,7 @@ import { EmotionType, getEmotionConfig } from '../../commons/constants/enum';
 import { colorTokens } from '../../commons/constants/color';
 import { useLinkModal } from './hooks/index.link.modal.hook';
 import { useDiariesBinding } from './hooks/index.binding.hook';
+import { useLinkRouting } from './hooks/index.link.routing.hook';
 
 /**
  * 일기 데이터 인터페이스
@@ -102,7 +103,11 @@ const getEmotionImagePath = (emotion: EmotionType): string => {
 /**
  * 일기 카드 컴포넌트
  */
-const DiaryCard: React.FC<{ diary: DiaryItem; formattedDate: string }> = ({ diary, formattedDate }) => {
+const DiaryCard: React.FC<{ 
+  diary: DiaryItem; 
+  formattedDate: string;
+  onClick: () => void;
+}> = ({ diary, formattedDate, onClick }) => {
   const emotionConfig = getEmotionConfig(diary.emotion);
   
   // "기타" 감정의 색상을 피그마와 일치하도록 수정
@@ -113,8 +118,21 @@ const DiaryCard: React.FC<{ diary: DiaryItem; formattedDate: string }> = ({ diar
     return emotionConfig.color.light;
   };
   
+  /**
+   * 삭제 버튼 클릭 핸들러
+   * 이벤트 전파를 막아 카드 클릭 이벤트가 발생하지 않도록 합니다.
+   */
+  const handleDeleteClick = (e: React.MouseEvent) => {
+    e.stopPropagation(); // 카드 클릭 이벤트 전파 방지
+    // TODO: 삭제 로직 구현
+  };
+  
   return (
-    <div className={styles.diaryCard}>
+    <div 
+      className={styles.diaryCard} 
+      onClick={onClick}
+      data-testid="diary-card"
+    >
       <div className={styles.cardImage}>
         <Image
           src={getEmotionImagePath(diary.emotion)}
@@ -123,7 +141,12 @@ const DiaryCard: React.FC<{ diary: DiaryItem; formattedDate: string }> = ({ diar
           height={208}
           className={styles.cardImageContent}
         />
-        <button className={styles.closeButton} aria-label="닫기">
+        <button 
+          className={styles.closeButton} 
+          aria-label="닫기"
+          onClick={handleDeleteClick}
+          data-testid="diary-card-delete"
+        >
           <Image
             src="/images/close_outline_light_m.svg"
             alt="닫기"
@@ -162,6 +185,7 @@ export const Diaries: React.FC<DiariesProps> = ({
 }) => {
   const { diaries, isLoading, formatDate } = useDiariesBinding();
   const { openWriteDiaryModal } = useLinkModal();
+  const { handleCardClick } = useLinkRouting();
   
   // 로딩 중일 때는 빈 화면 표시
   if (isLoading) {
@@ -238,6 +262,7 @@ export const Diaries: React.FC<DiariesProps> = ({
                 key={diary.id} 
                 diary={diary} 
                 formattedDate={formatDate(diary.createdAt)}
+                onClick={() => handleCardClick(diary.id)}
               />
             ))}
           </div>

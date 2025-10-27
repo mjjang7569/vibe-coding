@@ -94,7 +94,7 @@ export const useDiaryForm = (): UseDiaryFormReturn => {
     handleSubmit,
     setValue,
     watch,
-    formState: { isValid, errors },
+    formState: { errors },
   } = useForm<DiaryFormData>({
     resolver: zodResolver(diaryFormSchema),
     mode: 'onChange',
@@ -104,6 +104,18 @@ export const useDiaryForm = (): UseDiaryFormReturn => {
       emotion: EmotionType.Happy,
     },
   });
+
+  // 모든 필드 값을 감시
+  const title = watch('title');
+  const content = watch('content');
+  const emotion = watch('emotion');
+
+  // 수동으로 isValid 계산: 모든 필드가 입력되었는지 확인
+  const isValid = Boolean(
+    title && title.trim().length > 0 &&
+    content && content.trim().length > 0 &&
+    emotion
+  );
 
   /**
    * 로컬스토리지에서 다이어리 목록 가져오기

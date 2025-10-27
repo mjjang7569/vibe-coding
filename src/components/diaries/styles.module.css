@@ -161,6 +161,7 @@
   width: 274px;
   height: 296px;
   gap: 16px; /* 카드이미지와 카드컨텐츠 사이 16px 간격 */
+  cursor: pointer; /* 일기 카드 클릭 가능 표시 */
   /* box-shadow 제거 요구사항 */
 }
 

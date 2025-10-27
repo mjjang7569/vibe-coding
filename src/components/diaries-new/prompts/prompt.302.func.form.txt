@@ -91,4 +91,22 @@
                 }]
             위 데이터를 페이지 이동된 상세페이지에 노출 될 수 있도록 구현할 것
 ==============================================
-수정요구사항)class="styles_button__2Sauq styles_variant-primary__FPWZF styles_size-medium__NWFvo styles_theme-light__te2ly styles_singleButton__Mk_ZW"를 클릭하면 해당 모달이 닫히고, 페이지 이동할 것
+기존히스토리)class="styles_button__2Sauq styles_variant-primary__FPWZF styles_size-medium__NWFvo styles_theme-light__te2ly styles_singleButton__Mk_ZW"를 클릭하면 해당 모달이 닫히고, 페이지 이동할 것
+==============================================
+수정요구사항) 모든 인풋이 입력되면 등록하기버튼을 활성화 할 것. 등록하기 버튼  : class="styles_button__2Sauq styles_variant-primary__FPWZF styles_size-medium__NWFvo styles_theme-light__te2ly styles_disabled___Biwg styles_submitButton__Sl9o6"
+==============================================
+수정완료) 2025-10-27
+    체크리스트:
+    ✅ 1. react-hook-form의 mode를 'onChange'로 변경하여 필드 변경 시 실시간 검증
+    ✅ 2. watch를 사용하여 title, content, emotion 필드 값을 모니터링
+    ✅ 3. isValid를 수동으로 계산하여 모든 필드가 유효한 경우에만 true 반환
+       - title: 빈 문자열이 아니고 trim() 후 길이가 0보다 큰 경우
+       - content: 빈 문자열이 아니고 trim() 후 길이가 0보다 큰 경우
+       - emotion: 값이 존재하는 경우 (기본값 EmotionType.Happy)
+    ✅ 4. Button 컴포넌트의 disabled 속성이 !isValid로 바인딩되어 있음 확인
+    ✅ 5. 초기 상태(title='', content='')에서 버튼이 비활성화되도록 구현
+    ✅ 6. 모든 필드가 입력되면 버튼이 활성화되도록 구현
+    ✅ 7. Button 컴포넌트 CSS 수정
+       - 활성화 상태: background-color #000000 (검정색), color #ffffff (흰색)
+       - 비활성화 상태: background-color #e0e0e0 (회색), color #9e9e9e (연한 회색)
+       - :not(:disabled):not(.disabled) 선택자와 !important 추가하여 CSS 우선순위 문제 해결
