@@ -26,7 +26,7 @@
   height: 48px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0;
   box-sizing: border-box;
 }
@@ -37,6 +37,38 @@
   align-items: center;
   gap: 16px;
   flex: 1;
+}
+
+/* Selectbox 영역 */
+.selectboxArea {
+  width: 120px;
+  flex-shrink: 0;
+}
+
+/* 커스텀 스타일링 - 수정요구사항: 120px * 48px */
+.selectboxCustom {
+  width: 100%;
+  height: 48px;
+}
+
+/* 드롭다운 화살표 크기 수정 - 수정요구사항: 8.6 * 4.7px */
+.selectboxArea img[alt="드롭다운 화살표"] {
+  width: 8.6px;
+  height: 4.7px;
+}
+
+/* Selectbox 내부 div 크기 고정 */
+.selectboxArea > div {
+  width: 120px;
+  height: 48px;
+}
+
+/* Selectbox 내부 컴포넌트 크기 고정 */
+.selectboxArea > div > div {
+  width: 120px;
+  height: 48px;
+  min-height: 48px;
+  max-height: 48px;
 }
 
 /* Main 영역: 1168px * auto */
@@ -53,4 +85,83 @@
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+/* Picture Grid - 피그마: 1열 세로 배치, 40px gap */
+.pictureGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+  align-items: center;
+}
+
+/* Picture Item - 피그마: 640px × 640px, border-radius 24px */
+.pictureItem {
+  width: 640px;
+  height: 640px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 24px;
+  background-color: var(--color-gray-100);
+  box-sizing: border-box;
+}
+
+/* Picture Image */
+.pictureImage {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.pictureItem:hover .pictureImage {
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .container,
+  .gap,
+  .filter,
+  .main {
+    width: 100%;
+    max-width: 1168px;
+    padding: 0 16px;
+  }
+  
+  .pictureGrid {
+    gap: 32px;
+  }
+  
+  .pictureItem {
+    width: 100%;
+    max-width: 640px;
+    height: auto;
+    aspect-ratio: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .pictureGrid {
+    gap: 24px;
+  }
+  
+  .pictureItem {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  .selectboxArea {
+    width: 100px;
+  }
+  
+  .selectboxArea > div {
+    width: 100px;
+  }
+  
+  .selectboxArea > div > div {
+    width: 100px;
+  }
 }
