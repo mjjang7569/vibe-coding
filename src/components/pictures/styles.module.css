@@ -120,6 +120,52 @@
   transform: scale(1.05);
 }
 
+/* Splash Screen - 로딩 중 표시 */
+.splashScreen {
+  width: 640px;
+  height: 640px;
+  border-radius: 24px;
+  background-color: var(--color-gray-200);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Splash Screen Shine Effect */
+.splashScreenShine {
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 60px;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    transparent 100%
+  );
+  filter: blur(20px);
+  animation: shine 1.2s infinite;
+  transform: skewX(-30deg);
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Error Message */
+.errorMessage {
+  width: 100%;
+  padding: 32px;
+  text-align: center;
+  color: var(--color-gray-600);
+  font-size: 16px;
+}
+
 /* Responsive */
 @media (max-width: 1200px) {
   .container,
@@ -135,7 +181,8 @@
     gap: 32px;
   }
   
-  .pictureItem {
+  .pictureItem,
+  .splashScreen {
     width: 100%;
     max-width: 640px;
     height: auto;
@@ -148,7 +195,8 @@
     gap: 24px;
   }
   
-  .pictureItem {
+  .pictureItem,
+  .splashScreen {
     width: 100%;
     max-width: 100%;
   }
