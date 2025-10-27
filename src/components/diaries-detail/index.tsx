@@ -131,7 +131,7 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
   };
 
   return (
-    <div className={`${styles.container} ${className}`}>
+    <div className={`${styles.container} ${className}`} data-testid="diaries-detail-container">
       {/* Gap 영역: 1168 * 64px */}
       <div className={styles.gap64}></div>
 
