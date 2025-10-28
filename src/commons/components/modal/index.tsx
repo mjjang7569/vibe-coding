@@ -209,7 +209,7 @@ export const Modal = forwardRef<HTMLDivElement, ModalProps>(
       {...restProps}
     >
       <div className={headerClasses}>
-        <h2 className={titleClasses}>{title}</h2>
+        <h2 className={titleClasses} data-testid="modal-title">{title}</h2>
         <p className={messageClasses}>{message}</p>
       </div>
       

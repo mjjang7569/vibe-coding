@@ -74,6 +74,18 @@
   flex-direction: column;
 }
 
+/* Error Message */
+.errorMessage {
+  font-family: var(--font-ko-primary);
+  font-size: 13px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--color-danger-600);
+  margin-top: 6px;
+  display: block;
+}
+
 /* Input 너비 설정 */
 .inputWidth {
   width: 100%;
