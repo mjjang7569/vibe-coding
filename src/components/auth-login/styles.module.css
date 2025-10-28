@@ -1,0 +1,153 @@
+/* Container - 전체 화면 중앙 배치 */
+.container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(
+    135deg,
+    var(--color-primary-50) 0%,
+    var(--color-secondary-50) 100%
+  );
+  padding: 32px 16px;
+}
+
+/* Card - 로그인 폼을 담는 컨테이너 */
+.card {
+  width: 100%;
+  max-width: 480px;
+  background: var(--color-bg-primary);
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
+    0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  padding: 48px 40px;
+}
+
+/* Header 영역 */
+.header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  font-family: var(--font-ko-primary);
+  font-size: 30px;
+  line-height: 38px;
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  color: var(--color-text-primary);
+  margin: 0 0 12px 0;
+}
+
+.subtitle {
+  font-family: var(--font-ko-primary);
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Form 영역 */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Input 너비 설정 */
+.inputWidth {
+  width: 100%;
+}
+
+/* 버튼 너비 설정 */
+.buttonWidth {
+  width: 100%;
+}
+
+/* 버튼 그룹 */
+.buttonGroup {
+  margin-top: 8px;
+}
+
+/* Footer 영역 - 회원가입 링크 */
+.footer {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.footerText {
+  font-family: var(--font-ko-primary);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 400;
+  letter-spacing: 0;
+  color: var(--color-text-secondary);
+}
+
+.signupLink {
+  font-family: var(--font-ko-primary);
+  font-size: 14px;
+  line-height: 22px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--color-primary-600);
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease;
+}
+
+.signupLink:hover {
+  color: var(--color-primary-700);
+  text-decoration: underline;
+}
+
+.signupLink:active {
+  color: var(--color-primary-800);
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 640px) {
+  .card {
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+
+  .header {
+    margin-bottom: 32px;
+  }
+
+  .form {
+    gap: 20px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 4px;
+  }
+}
+
+/* 반응형 - 데스크톱 */
+@media (min-width: 768px) {
+  .container {
+    padding: 48px 32px;
+  }
+
+  .card {
+    max-width: 520px;
+    padding: 56px 48px;
+  }
+}
+
