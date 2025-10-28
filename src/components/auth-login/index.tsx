@@ -4,12 +4,15 @@ import React from 'react';
 import Input from '@/commons/components/input';
 import Button from '@/commons/components/button';
 import styles from './styles.module.css';
+import { useLoginForm } from './hooks/index.form.hook';
 
 /**
  * 로그인 컴포넌트
  * 모던한 디자인으로 구현된 로그인 UI
  */
 export default function AuthLogin() {
+  const { register, handleSubmit, isValid, errors, isSubmitting } = useLoginForm();
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -22,7 +25,8 @@ export default function AuthLogin() {
         {/* 폼 */}
         <form 
           className={styles.form}
-          onSubmit={(e) => e.preventDefault()}
+          onSubmit={handleSubmit}
+          data-testid="auth-login-form"
         >
           {/* 이메일 */}
           <div className={styles.formGroup}>
@@ -35,7 +39,16 @@ export default function AuthLogin() {
               placeholder="이메일을 입력하세요"
               label="이메일"
               className={styles.inputWidth}
+              data-testid="auth-login-email-input"
+              error={Boolean(errors.email)}
+              errorMessage={errors.email?.message}
+              {...register('email')}
             />
+            {errors.email && (
+              <div data-testid="auth-login-email-error" style={{ display: 'none' }}>
+                {errors.email.message}
+              </div>
+            )}
           </div>
 
           {/* 비밀번호 */}
@@ -49,7 +62,16 @@ export default function AuthLogin() {
               placeholder="비밀번호를 입력하세요"
               label="비밀번호"
               className={styles.inputWidth}
+              data-testid="auth-login-password-input"
+              error={Boolean(errors.password)}
+              errorMessage={errors.password?.message}
+              {...register('password')}
             />
+            {errors.password && (
+              <div data-testid="auth-login-password-error" style={{ display: 'none' }}>
+                {errors.password.message}
+              </div>
+            )}
           </div>
 
           {/* 로그인 버튼 */}
@@ -60,6 +82,8 @@ export default function AuthLogin() {
               size="large"
               theme="light"
               className={styles.buttonWidth}
+              disabled={!isValid || isSubmitting}
+              data-testid="auth-login-submit-button"
             >
               로그인
             </Button>
