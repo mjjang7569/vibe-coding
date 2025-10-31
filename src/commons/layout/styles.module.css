@@ -30,6 +30,30 @@
   cursor: pointer;
 }
 
+/* 인증 상태 UI */
+.authStatus {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.userName {
+  font-family: var(--font-ko-primary);
+  font-size: var(--typography-body-md-size);
+  font-weight: var(--typography-body-md-weight);
+  line-height: var(--typography-body-md-line-height);
+  letter-spacing: var(--typography-body-md-letter-spacing);
+  color: var(--color-text-primary);
+}
+
+.loginButton {
+  width: auto;
+}
+
+.logoutButton {
+  width: auto;
+}
+
 
 /* Gap 영역 - 1168px * 24px */
 .gap {

@@ -7,6 +7,8 @@ import styles from './styles.module.css';
 import { URL_PATHS } from '@/commons/constants/url';
 import { useActiveTab } from './hooks/index.link.routing.hook';
 import { useAreaVisibility } from './hooks/index.area.hook';
+import { useAuthStatus } from './hooks/index.auth.hook';
+import { Button } from '@/commons/components/button';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -21,6 +23,7 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
     showNavigation, 
     showFooter 
   } = useAreaVisibility();
+  const { isAuthenticated, user, handleLogin, handleLogout } = useAuthStatus();
 
   return (
     <div className={styles.container} data-testid="layout-container">
@@ -31,6 +34,35 @@ export const Layout: React.FC<LayoutProps> = ({ children }) => {
             <Link href={URL_PATHS.DIARIES.LIST}>
               <div className={styles.logo} data-testid="layout-logo">민지의 다이어리</div>
             </Link>
+          )}
+          {/* 인증 상태 UI */}
+          {isAuthenticated && user ? (
+            <div className={styles.authStatus} data-testid="layout-auth-status">
+              <span className={styles.userName}>{user.name}</span>
+              <Button
+                variant="secondary"
+                size="medium"
+                theme="light"
+                className={styles.logoutButton}
+                data-testid="layout-logout-button"
+                aria-label="로그아웃"
+                onClick={handleLogout}
+              >
+                로그아웃
+              </Button>
+            </div>
+          ) : (
+            <Button
+              variant="primary"
+              size="medium"
+              theme="light"
+              className={styles.loginButton}
+              data-testid="layout-login-button"
+              aria-label="로그인"
+              onClick={handleLogin}
+            >
+              로그인
+            </Button>
           )}
         </header>
       )}

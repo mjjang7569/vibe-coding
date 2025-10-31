@@ -14,7 +14,7 @@ export default function AuthLogin() {
   const { register, handleSubmit, isValid, errors, isSubmitting } = useLoginForm();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="auth-login-container">
       <div className={styles.card}>
         {/* 헤더 */}
         <div className={styles.header}>
