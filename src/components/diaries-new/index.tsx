@@ -59,7 +59,7 @@ export const DiariesNew: React.FC<DiariesNewProps> = ({
         <p className={styles.emotionTitle} data-testid="diaries-new-emotion-title">오늘 기분은 어땟나요?</p>
         <div className={styles.emotionRadioGroup}>
           {emotionTypes.map((emotion) => (
-            <label key={emotion} className={styles.radioLabel}>
+            <label key={emotion} className={styles.radioLabel} data-testid={`emotion-option-${emotion}`}>
               <input
                 type="radio"
                 name="emotion"
@@ -67,7 +67,6 @@ export const DiariesNew: React.FC<DiariesNewProps> = ({
                 checked={selectedEmotion === emotion}
                 onChange={() => onEmotionChange(emotion)}
                 className={styles.radioInput}
-                data-testid={`emotion-option-${emotion}`}
               />
               <span className={styles.radioCustom}>
                 {selectedEmotion === emotion ? (

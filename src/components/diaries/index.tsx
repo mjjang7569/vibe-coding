@@ -237,6 +237,7 @@ export const Diaries: React.FC<DiariesProps> = ({
             onClick={openWriteDiaryModal}
             className={styles.buttonCustom}
             aria-label="새 일기 작성하기"
+            data-testid="diaries-new-button"
           >
             <Image
               src="/icons/plus_outline_light_m.svg"
@@ -255,7 +256,7 @@ export const Diaries: React.FC<DiariesProps> = ({
       {/* Main 영역: 1168px * 936px */}
       <main className={styles.main}>
         {/* 일기 목록 콘텐츠 영역 */}
-        <div className={styles.mainContent}>
+        <div className={styles.mainContent} data-testid="diaries-list">
           <div className={styles.diaryGrid}>
             {diaries.map((diary) => (
               <DiaryCard 

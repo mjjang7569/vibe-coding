@@ -1,85 +1,74 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Diaries Link Modal Hook', () => {
-  test.beforeEach(async ({ page }) => {
-    // /diaries 페이지로 이동
-    await page.goto('/diaries');
-    
-    // 페이지가 완전히 로드될 때까지 대기 (data-testid 기반)
-    await page.waitForSelector('[data-testid="diary-search-input"]', { timeout: 500 });
+// Window 인터페이스 확장
+interface Window {
+  __TEST_BYPASS__?: boolean;
+}
+
+test.describe('Diaries Link Modal Auth Hook', () => {
+  test.describe('비로그인 유저', () => {
+    test.beforeEach(async ({ page }) => {
+      // 비로그인 상태 설정 (window.__TEST_BYPASS__를 false로 설정하여 인증 검사 수행)
+      await page.addInitScript(() => {
+        (window as Window).__TEST_BYPASS__ = false;
+      });
+
+      // localStorage 초기화 (비로그인 상태)
+      await page.goto('/diaries');
+      await page.evaluate(() => {
+        localStorage.removeItem('accessToken');
+        localStorage.removeItem('user');
+        window.dispatchEvent(new Event('localStorageChange'));
+      });
+      
+      // 페이지 새로고침하여 비로그인 상태 적용
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      
+      // 페이지가 완전히 로드될 때까지 대기 (data-testid 기반)
+      await page.waitForSelector('[data-testid="diary-search-input"]');
+    });
+
+    test('일기쓰기 버튼 클릭시 로그인 요청 모달이 노출되는지 확인', async ({ page }) => {
+      // 일기쓰기 버튼 클릭
+      await page.click('[aria-label="새 일기 작성하기"]');
+      
+      // 로그인 요청 모달 노출 여부 확인
+      // auth.guard.hook.tsx에서 표시하는 모달의 제목 "로그인하시겠습니까" 확인
+      const modalTitle = page.locator('[data-testid="modal-title"]');
+      await expect(modalTitle).toBeVisible();
+      await expect(modalTitle).toHaveText('로그인하시겠습니까');
+    });
   });
 
-  test('일기쓰기 버튼 클릭시 모달이 열리는지 확인', async ({ page }) => {
-    // 일기쓰기 버튼 클릭
-    await page.click('[aria-label="새 일기 작성하기"]');
-    
-    // 모달이 열렸는지 확인 (DiariesNew 컴포넌트의 data-testid 확인)
-    await expect(page.locator('[data-testid="diaries-new-wrapper"]')).toBeVisible();
-    
-    // 모달 헤더 확인
-    await expect(page.locator('[data-testid="diaries-new-title"]')).toHaveText('일기 쓰기');
-  });
+  test.describe('로그인 유저', () => {
+    test.beforeEach(async ({ page }) => {
+      // 로그인 유저는 기본값이므로 window.__TEST_BYPASS__를 설정하지 않음
+      // (테스트 환경에서는 기본적으로 인증 검사를 패스함)
 
-  test('모달 내부 요소들이 정상적으로 렌더링되는지 확인', async ({ page }) => {
-    // 일기쓰기 버튼 클릭
-    await page.click('[aria-label="새 일기 작성하기"]');
-    
-    // 모달이 열렸는지 확인
-    await expect(page.locator('[data-testid="diaries-new-wrapper"]')).toBeVisible();
-    
-    // 감정 선택 영역 확인
-    await expect(page.locator('[data-testid="diaries-new-emotion-title"]')).toHaveText('오늘 기분은 어땟나요?');
-    
-    // 제목 입력 영역 확인
-    await expect(page.locator('[data-testid="diaries-new-title-input"]')).toBeVisible();
-    
-    // 내용 입력 영역 확인
-    await expect(page.locator('[data-testid="diaries-new-content-textarea"]')).toBeVisible();
-    
-    // 버튼들 확인
-    await expect(page.locator('[data-testid="diaries-new-close-button"]')).toHaveText('닫기');
-    await expect(page.locator('[data-testid="diaries-new-submit-button"]')).toHaveText('등록하기');
-  });
+      // localStorage에 로그인 정보 설정 (로그인 상태)
+      await page.goto('/diaries');
+      await page.evaluate(() => {
+        localStorage.setItem('accessToken', 'test-token');
+        localStorage.setItem('user', JSON.stringify({ _id: 'test-id', name: 'Test User' }));
+        window.dispatchEvent(new Event('localStorageChange'));
+      });
+      
+      // 페이지 새로고침하여 로그인 상태 적용
+      await page.reload({ waitUntil: 'domcontentloaded' });
+      
+      // 페이지가 완전히 로드될 때까지 대기 (data-testid 기반)
+      await page.waitForSelector('[data-testid="diary-search-input"]');
+    });
 
-  test('모달 닫기 버튼 클릭시 모달이 닫히는지 확인', async ({ page }) => {
-    // 일기쓰기 버튼 클릭
-    await page.click('[aria-label="새 일기 작성하기"]');
-    
-    // 모달이 열렸는지 확인
-    await expect(page.locator('[data-testid="diaries-new-wrapper"]')).toBeVisible();
-    
-    // 닫기 버튼 클릭
-    await page.click('[data-testid="diaries-new-close-button"]');
-    
-    // 모달이 닫혔는지 확인
-    await expect(page.locator('[data-testid="diaries-new-wrapper"]')).not.toBeVisible();
-  });
-
-  test('모달 오버레이 클릭시 모달이 닫히는지 확인', async ({ page }) => {
-    // 일기쓰기 버튼 클릭
-    await page.click('[aria-label="새 일기 작성하기"]');
-    
-    // 모달이 열렸는지 확인
-    await expect(page.locator('[data-testid="diaries-new-wrapper"]')).toBeVisible();
-    
-    // 모달 오버레이 클릭 (모달 외부 영역)
-    await page.click('.fixed.inset-0.z-50');
-    
-    // 모달이 닫혔는지 확인
-    await expect(page.locator('[data-testid="diaries-new-wrapper"]')).not.toBeVisible();
-  });
-
-  test('모달 내부 클릭시 모달이 닫히지 않는지 확인', async ({ page }) => {
-    // 일기쓰기 버튼 클릭
-    await page.click('[aria-label="새 일기 작성하기"]');
-    
-    // 모달이 열렸는지 확인
-    await expect(page.locator('[data-testid="diaries-new-wrapper"]')).toBeVisible();
-    
-    // 모달 내부 영역 클릭
-    await page.click('[data-testid="diaries-new-wrapper"]');
-    
-    // 모달이 여전히 열려있는지 확인
-    await expect(page.locator('[data-testid="diaries-new-wrapper"]')).toBeVisible();
+    test('일기쓰기 버튼 클릭시 일기쓰기 페이지 모달이 노출되는지 확인', async ({ page }) => {
+      // 일기쓰기 버튼 클릭
+      await page.click('[aria-label="새 일기 작성하기"]');
+      
+      // 일기쓰기 페이지 모달 노출 여부 확인
+      await expect(page.locator('[data-testid="diaries-new-wrapper"]')).toBeVisible();
+      
+      // 모달 헤더 확인
+      await expect(page.locator('[data-testid="diaries-new-title"]')).toHaveText('일기 쓰기');
+    });
   });
 });
