@@ -235,6 +235,8 @@ export const useLoginForm = (): UseLoginFormReturn => {
       if (typeof window !== 'undefined') {
         localStorage.setItem('accessToken', accessToken);
         localStorage.setItem('user', JSON.stringify({ _id: user._id, name: user.name }));
+        // 같은 탭에서의 변경을 감지하기 위한 커스텀 이벤트 발생
+        window.dispatchEvent(new Event('localStorageChange'));
       }
 
       return { accessToken, user };
