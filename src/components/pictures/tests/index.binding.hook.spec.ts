@@ -95,10 +95,9 @@ test.describe('Pictures Binding Hook Integration Tests', () => {
     const initialCount = await page.locator('[data-testid="picture-item"]').count();
     expect(initialCount).toBeGreaterThanOrEqual(6);
     
-    // 페이지 끝으로 스크롤
-    await page.evaluate(() => {
-      window.scrollTo(0, document.body.scrollHeight);
-    });
+    // 5번째 이미지까지 스크롤하여 observer가 트리거되도록 함
+    const fifthItem = page.locator('[data-testid="picture-item"]').nth(4);
+    await fifthItem.scrollIntoViewIfNeeded();
     
     // 추가 이미지가 로드될 때까지 대기 (7번째 이미지 기다림)
     await page.waitForFunction(

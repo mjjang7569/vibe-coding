@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState } from 'react';
+import React from 'react';
 import Image from 'next/image';
 import styles from './styles.module.css';
 import { Selectbox } from '../../commons/components/selectbox';
 import { usePictureBinding } from './hooks/index.binding.hook';
+import { usePictureFilter } from './hooks/index.filter.hook';
 
 /**
  * Pictures Component Props Interface
@@ -17,16 +18,28 @@ export interface PicturesProps {
 }
 
 /**
+ * 스플래시 스크린 컴포넌트 Props
+ */
+interface SplashScreenProps {
+  width: number;
+  height: number;
+}
+
+/**
  * 스플래시 스크린 컴포넌트
  * 
  * 이미지 로딩 중에 표시되는 스켈레톤 UI입니다.
  * 회색 배경에 30도 기울어진 흰 세로줄이 좌우로 이동하는 애니메이션을 표시합니다.
  */
-const SplashScreen: React.FC = () => {
+const SplashScreen: React.FC<SplashScreenProps> = ({ width, height }) => {
   return (
     <div 
       className={styles.splashScreen}
       data-testid="picture-splash-screen"
+      style={{
+        width: `${width}px`,
+        height: `${height}px`,
+      }}
     >
       <div className={styles.splashScreenShine}></div>
     </div>
@@ -48,18 +61,11 @@ const SplashScreen: React.FC = () => {
 export const Pictures: React.FC<PicturesProps> = ({
   className = '',
 }) => {
-  // Filter 옵션 (피그마: "기본")
-  const filterOptions = [
-    { value: 'basic', label: '기본' },
-    { value: 'recent', label: '최근' },
-    { value: 'popular', label: '인기' },
-    { value: 'favorite', label: '즐겨찾기' },
-  ];
-
-  const [selectedFilter, setSelectedFilter] = useState('basic');
-
   // Binding Hook 사용
   const { pictures, isLoading, isError, observerRef } = usePictureBinding();
+  
+  // Filter Hook 사용
+  const { selectedFilter, handleFilterChange, imageSize, filterOptions } = usePictureFilter();
 
   return (
     <div 
@@ -76,12 +82,13 @@ export const Pictures: React.FC<PicturesProps> = ({
             <Selectbox
               options={filterOptions}
               value={selectedFilter}
-              onChange={setSelectedFilter}
+              onChange={handleFilterChange}
               variant="primary"
               size="medium"
               theme="light"
               placeholder="필터 선택"
               className={styles.selectboxCustom}
+              data-testid="filter-selectbox"
             />
           </div>
         </div>
@@ -105,7 +112,11 @@ export const Pictures: React.FC<PicturesProps> = ({
             {isLoading && pictures.length === 0 && (
               <>
                 {Array.from({ length: 6 }).map((_, index) => (
-                  <SplashScreen key={`splash-${index}`} />
+                  <SplashScreen 
+                    key={`splash-${index}`}
+                    width={imageSize.width}
+                    height={imageSize.height}
+                  />
                 ))}
               </>
             )}
@@ -116,18 +127,22 @@ export const Pictures: React.FC<PicturesProps> = ({
                 key={picture.id} 
                 className={styles.pictureItem}
                 data-testid="picture-item"
+                style={{
+                  width: `${imageSize.width}px`,
+                  height: `${imageSize.height}px`,
+                }}
               >
                 <Image
                   src={picture.imageUrl}
                   alt={picture.alt}
-                  width={640}
-                  height={640}
+                  width={imageSize.width}
+                  height={imageSize.height}
                   className={styles.pictureImage}
                   unoptimized // Dog CEO API는 외부 도메인이므로 unoptimized 사용
                 />
                 {/* 마지막에서 2번째 아이템에 observer 부착 */}
                 {index === pictures.length - 2 && (
-                  <div ref={observerRef} style={{ position: 'absolute', bottom: 0 }} />
+                  <div ref={observerRef} style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '1px', height: '1px' }} />
                 )}
               </div>
             ))}

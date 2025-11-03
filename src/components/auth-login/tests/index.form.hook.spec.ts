@@ -42,9 +42,10 @@ test.describe('로그인 폼 기능 테스트', () => {
     await emailInput.fill('invalidemail');
     await emailInput.blur();
     
-    // 에러 메시지 확인
-    const errorMessage = page.locator('[data-testid="auth-login-email-error"]');
+    // 에러 메시지 확인 (Input 컴포넌트 내부에 렌더링된 에러 메시지)
+    const errorMessage = page.locator('#email-error');
     await expect(errorMessage).toBeVisible({ timeout: 500 });
+    await expect(errorMessage).toContainText('올바른 이메일 형식이 아닙니다. (@를 포함해주세요)');
   });
 
   test('비밀번호 검증: 1글자 미만 시 에러 메시지 표시', async ({ page }) => {
@@ -55,9 +56,10 @@ test.describe('로그인 폼 기능 테스트', () => {
     await passwordInput.fill('');
     await passwordInput.blur();
     
-    // 에러 메시지 확인
-    const errorMessage = page.locator('[data-testid="auth-login-password-error"]');
+    // 에러 메시지 확인 (Input 컴포넌트 내부에 렌더링된 에러 메시지)
+    const errorMessage = page.locator('#password-error');
     await expect(errorMessage).toBeVisible({ timeout: 500 });
+    await expect(errorMessage).toContainText('비밀번호를 입력해주세요.');
   });
 
   test('로그인 성공 시 loginUser API에서 accessToken이 정상적으로 반환되어야 한다', async ({ page }) => {
@@ -66,9 +68,15 @@ test.describe('로그인 폼 기능 테스트', () => {
     await page.locator('[data-testid="auth-login-email-input"]').fill('a@c.com');
     await page.locator('[data-testid="auth-login-password-input"]').fill('1234qwer');
 
-    // API 응답 캡처를 위한 Promise 설정
+    // API 응답 캡처를 위한 Promise 설정 (loginUser 응답만 필터링)
     const responsePromise = page.waitForResponse(
-      response => response.url().includes('/graphql') && response.status() === 200,
+      async (response) => {
+        if (!response.url().includes('/graphql') || response.status() !== 200) {
+          return false;
+        }
+        const body = await response.json();
+        return body.data?.loginUser !== undefined;
+      },
       { timeout: 2000 }
     );
 
@@ -122,12 +130,27 @@ test.describe('로그인 폼 기능 테스트', () => {
     await page.locator('[data-testid="auth-login-email-input"]').fill('a@c.com');
     await page.locator('[data-testid="auth-login-password-input"]').fill('1234qwer');
 
+    // fetchUserLoggedIn API 완료를 기다림 (모든 API 호출이 완료된 후 모달이 표시됨)
+    const userResponsePromise = page.waitForResponse(
+      async (response) => {
+        if (!response.url().includes('/graphql') || response.status() !== 200) {
+          return false;
+        }
+        const body = await response.json();
+        return body.data?.fetchUserLoggedIn !== undefined;
+      },
+      { timeout: 2000 }
+    );
+
     // 로그인 버튼 클릭
     await page.locator('[data-testid="auth-login-submit-button"]').click();
 
+    // fetchUserLoggedIn API 완료 대기
+    await userResponsePromise;
+
     // 로그인완료 모달 표시 확인 (network 통신 시간 고려)
     const successModal = page.locator('[data-testid="auth-login-success-modal"]');
-    await expect(successModal).toBeVisible({ timeout: 2000 });
+    await expect(successModal).toBeVisible({ timeout: 500 });
 
     // 모달 제목 확인
     await expect(successModal.locator('[data-testid="modal-title"]')).toContainText('로그인 완료');
@@ -145,12 +168,27 @@ test.describe('로그인 폼 기능 테스트', () => {
     await page.locator('[data-testid="auth-login-email-input"]').fill('a@c.com');
     await page.locator('[data-testid="auth-login-password-input"]').fill('1234qwer');
 
+    // fetchUserLoggedIn API 완료를 기다림 (localStorage 저장이 완료된 후 확인)
+    const userResponsePromise = page.waitForResponse(
+      async (response) => {
+        if (!response.url().includes('/graphql') || response.status() !== 200) {
+          return false;
+        }
+        const body = await response.json();
+        return body.data?.fetchUserLoggedIn !== undefined;
+      },
+      { timeout: 2000 }
+    );
+
     // 로그인 버튼 클릭
     await page.locator('[data-testid="auth-login-submit-button"]').click();
 
+    // fetchUserLoggedIn API 완료 대기
+    await userResponsePromise;
+
     // 로그인완료 모달 표시 확인
     const successModal = page.locator('[data-testid="auth-login-success-modal"]');
-    await expect(successModal).toBeVisible({ timeout: 2000 });
+    await expect(successModal).toBeVisible({ timeout: 500 });
 
     // localStorage 확인
     const accessToken = await page.evaluate(() => localStorage.getItem('accessToken'));

@@ -83,7 +83,7 @@ test.describe('DiariesNew - Modal Close 기능', () => {
     
     // overlay 영역 클릭 (모달 바깥쪽)
     // modal.provider는 최상단 overlay를 클릭하면 closeModal()을 호출함
-    await page.locator('.overlay').last().click({ position: { x: 10, y: 10 } });
+    await page.locator('[data-testid="modal-overlay"]').last().click({ position: { x: 10, y: 10 } });
     
     // 등록취소 모달이 닫혔는지 확인
     await expect(page.locator('[data-testid="cancel-modal"]')).not.toBeVisible();

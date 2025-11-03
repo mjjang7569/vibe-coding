@@ -117,6 +117,7 @@ function ModalOverlay({
       className={styles.overlay}
       style={{ zIndex }}
       onClick={handleBackdropClick}
+      data-testid="modal-overlay"
     >
       <div className={styles.content} onClick={(e) => e.stopPropagation()}>
         {children}

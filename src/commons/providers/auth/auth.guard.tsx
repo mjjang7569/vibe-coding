@@ -26,31 +26,41 @@ export function AuthGuard({ children }: AuthGuardProps) {
   // 모달이 이미 표시되었는지 추적 (같은 상황에서 중복 표시 방지)
   const hasShownModalRef = useRef(false);
   
-  // 테스트 환경 여부
-  // Next.js에서 NEXT_PUBLIC_ 환경 변수는 빌드 타임에 번들에 포함됩니다
-  // webServer.env로 설정된 환경 변수는 Next.js 개발 서버 시작 시 전달되어야 합니다
-  const isTestEnv = process.env.NEXT_PUBLIC_TEST_ENV === "test";
+  // 테스트 우회 여부를 추적
+  // window.__TEST_BYPASS__가 명시적으로 true일 때만 우회
+  const [shouldBypass, setShouldBypass] = useState(false);
 
-  // AuthProvider 초기화 확인
+  // AuthProvider 초기화 확인 및 테스트 우회 설정
   useEffect(() => {
     // 클라이언트 사이드에서만 실행
     if (typeof window === "undefined") {
       return;
     }
 
-    // AuthProvider가 초기화되었음을 확인
-    // AuthProvider의 useEffect가 실행되어 인증 상태가 설정될 때까지 대기
-    // requestAnimationFrame을 사용하여 한 렌더링 사이클 후 초기화 완료로 간주
-    const frameId = requestAnimationFrame(() => {
-      setIsInitialized(true);
-    });
+    // 테스트 우회 플래그 확인
+    const bypassFlag = (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ === true;
+    setShouldBypass(bypassFlag);
 
-    return () => cancelAnimationFrame(frameId);
+    // AuthProvider가 초기화되었음을 확인
+    // 초기 인증 상태를 즉시 확인하고 초기화 완료로 표시
+    // localStorage에서 직접 체크하여 AuthProvider의 초기화를 기다리지 않음
+    const checkInitialAuth = () => {
+      setIsInitialized(true);
+    };
+
+    // 즉시 초기화 체크 (동기적으로 처리)
+    checkInitialAuth();
   }, []);
 
-  // 경로 변경 시 모달 표시 상태 리셋
+  // 경로 변경 시 모달 표시 상태 리셋 및 테스트 우회 플래그 재확인
   useEffect(() => {
     hasShownModalRef.current = false;
+    
+    // 경로 변경 시 테스트 우회 플래그 재확인
+    if (typeof window !== "undefined") {
+      const bypassFlag = (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ === true;
+      setShouldBypass(bypassFlag);
+    }
   }, [pathname]);
 
   // 권한 검증 및 모달 처리
@@ -60,12 +70,13 @@ export function AuthGuard({ children }: AuthGuardProps) {
       return;
     }
 
-    // 테스트 환경에서는 항상 접근 허용
-    if (isTestEnv) {
+    // 테스트 우회가 활성화된 경우 항상 접근 허용
+    if (shouldBypass) {
       return;
     }
 
     // 현재 경로에 접근 가능한지 확인
+    // isAuthenticated를 즉시 확인하여 최신 상태 반영
     const canAccess = canAccessURL(pathname, isAuthenticated);
 
     // 접근 불가능하고, 모달을 아직 표시하지 않은 경우
@@ -89,15 +100,15 @@ export function AuthGuard({ children }: AuthGuardProps) {
         />
       );
     }
-  }, [pathname, isAuthenticated, isInitialized, isTestEnv, openModal, closeModal, router]);
+  }, [pathname, isAuthenticated, isInitialized, shouldBypass, router]);
 
   // 초기화 중이거나 권한 검증이 필요한 경우 빈 화면 표시
   if (!isInitialized) {
     return null;
   }
 
-  // 테스트 환경에서는 항상 children 표시
-  if (isTestEnv) {
+  // 테스트 우회가 활성화된 경우 항상 children 표시
+  if (shouldBypass) {
     return <>{children}</>;
   }
 
@@ -109,7 +120,8 @@ export function AuthGuard({ children }: AuthGuardProps) {
     return <>{children}</>;
   }
 
-  // 접근 불가능한 경우 빈 화면 (모달은 이미 표시됨)
+  // 접근 불가능한 경우 빈 화면 (리다이렉트가 진행 중)
+  // useEffect에서 이미 로그인 페이지로 리다이렉트했으므로 여기서는 null 반환
   return null;
 }
 

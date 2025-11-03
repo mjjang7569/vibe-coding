@@ -127,10 +127,28 @@ export const usePictureBinding = (): UsePictureBindingReturn => {
   });
 
   /**
+   * 모든 페이지의 데이터를 평탄화하여 PictureItem 배열로 변환
+   */
+  const pictures: PictureItem[] =
+    data?.pages.flatMap((page, pageIndex) =>
+      transformToPictureItems(page.message, pageIndex)
+    ) ?? [];
+
+  /**
    * Intersection Observer를 사용한 무한 스크롤
    * 마지막 2개 아이템만 남았을 때 추가 데이터 로드
    */
+  const observerRef = useCallback(
+    (node: HTMLDivElement | null) => {
+      observerTarget.current = node;
+    },
+    []
+  );
+
   useEffect(() => {
+    const currentTarget = observerTarget.current;
+    if (!currentTarget) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const target = entries[0];
@@ -140,39 +158,16 @@ export const usePictureBinding = (): UsePictureBindingReturn => {
       },
       {
         threshold: 0.1,
-        rootMargin: '400px', // 400px 전에 미리 로드 (2개 아이템 높이 정도)
+        rootMargin: '0px 0px 400px 0px', // 하단 400px 전에 미리 로드 (2개 아이템 높이 정도)
       }
     );
 
-    const currentTarget = observerTarget.current;
-    if (currentTarget) {
-      observer.observe(currentTarget);
-    }
+    observer.observe(currentTarget);
 
     return () => {
-      if (currentTarget) {
-        observer.unobserve(currentTarget);
-      }
+      observer.disconnect();
     };
-  }, [hasNextPage, isFetchingNextPage, fetchNextPage]);
-
-  /**
-   * 모든 페이지의 데이터를 평탄화하여 PictureItem 배열로 변환
-   */
-  const pictures: PictureItem[] =
-    data?.pages.flatMap((page, pageIndex) =>
-      transformToPictureItems(page.message, pageIndex)
-    ) ?? [];
-
-  /**
-   * Observer ref 콜백
-   * Intersection Observer의 타겟 요소를 설정합니다.
-   * 
-   * @param {HTMLDivElement | null} node - 관찰할 DOM 요소
-   */
-  const observerRef = useCallback((node: HTMLDivElement | null) => {
-    observerTarget.current = node;
-  }, []);
+  }, [pictures.length, hasNextPage, isFetchingNextPage, fetchNextPage]);
 
   return {
     pictures,

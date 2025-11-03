@@ -109,12 +109,15 @@ export function AuthProvider({ children }: AuthProviderProps) {
       localStorage.removeItem(STORAGE_KEYS.ACCESS_TOKEN);
       localStorage.removeItem(STORAGE_KEYS.USER);
       
+      // 상태를 즉시 업데이트 (다른 컴포넌트들이 실시간으로 반영받도록)
+      updateAuthState();
+      
       // 같은 탭에서의 변경을 감지하기 위한 커스텀 이벤트 발생
       window.dispatchEvent(new Event("localStorageChange"));
       
       router.push(URL_PATHS.AUTH.LOGIN);
     }
-  }, [router]);
+  }, [router, updateAuthState]);
 
   return (
     <AuthContext.Provider

@@ -10,8 +10,8 @@ import { Pagination } from '../../commons/components/pagination';
 import { EmotionType, getEmotionConfig } from '../../commons/constants/enum';
 import { colorTokens } from '../../commons/constants/color';
 import { useLinkModal } from './hooks/index.link.modal.hook';
-import { useDiariesBinding } from './hooks/index.binding.hook';
 import { useLinkRouting } from './hooks/index.link.routing.hook';
+import { useSearchDiaries } from './hooks/index.search.hook';
 
 /**
  * 일기 데이터 인터페이스
@@ -166,7 +166,7 @@ const DiaryCard: React.FC<{
           <span className={styles.dateText}>{formattedDate}</span>
         </div>
         <div className={styles.cardTitle}>
-          <h3 className={styles.titleText}>{diary.title}</h3>
+          <h3 className={styles.titleText} data-testid="diary-card-title">{diary.title}</h3>
         </div>
       </div>
     </div>
@@ -183,9 +183,21 @@ export const Diaries: React.FC<DiariesProps> = ({
   selectOptions = [],
   selectValue = '',
 }) => {
-  const { diaries, isLoading, formatDate } = useDiariesBinding();
+  const { filteredDiaries, isLoading, formatDate, handleSearch } = useSearchDiaries();
   const { openWriteDiaryModal } = useLinkModal();
   const { handleCardClick } = useLinkRouting();
+  
+  // 검색 핸들러 - props의 onSearch와 내부 handleSearch를 모두 실행
+  const handleSearchWithCallback = (value: string) => {
+    handleSearch(value);
+    onSearch?.(value);
+  };
+  
+  // 실시간 검색 핸들러 - 입력값이 변경될 때마다 실행
+  const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    handleSearch(value);
+  };
   
   // 로딩 중일 때는 빈 화면 표시
   if (isLoading) {
@@ -221,7 +233,8 @@ export const Diaries: React.FC<DiariesProps> = ({
               variant="primary"
               size="medium"
               theme="light"
-              onSearch={onSearch}
+              onSearch={handleSearchWithCallback}
+              onChange={handleSearchChange}
               className={styles.searchbarCustom}
               data-testid="diary-search-input"
               aria-label="일기 검색어 입력"
@@ -258,7 +271,7 @@ export const Diaries: React.FC<DiariesProps> = ({
         {/* 일기 목록 콘텐츠 영역 */}
         <div className={styles.mainContent} data-testid="diaries-list">
           <div className={styles.diaryGrid}>
-            {diaries.map((diary) => (
+            {filteredDiaries.map((diary) => (
               <DiaryCard 
                 key={diary.id} 
                 diary={diary} 

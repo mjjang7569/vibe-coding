@@ -3,9 +3,10 @@
 import React from 'react';
 import Image from 'next/image';
 import styles from './styles.module.css';
-import { Button } from '../../commons/components/button';
-import Input from '../../commons/components/input';
-import { EmotionType, getEmotionConfig, getEmotionImage, getEmotionLabel } from '../../commons/constants/enum';
+import { Button } from '@/commons/components/button';
+import Input from '@/commons/components/input';
+import { EmotionType, getEmotionConfig, getEmotionImage, getEmotionLabel } from '@/commons/constants/enum';
+import { useRetrospectForm } from './hooks/index.retrospect.form.hook';
 
 /**
  * DiariesDetail Component Props Interface
@@ -103,8 +104,6 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
   onEdit,
   onDelete,
   onCopyContent,
-  retrospectInput = '',
-  onRetrospectInputChange,
   retrospectList = [
     {
       id: '1',
@@ -118,9 +117,8 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
     }
   ],
 }) => {
-  const handleRetrospectInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    onRetrospectInputChange?.(e.target.value);
-  };
+  // 회고 폼 훅
+  const { register, handleSubmit, isValid } = useRetrospectForm();
 
   const handleCopyContent = () => {
     if (onCopyContent) {
@@ -231,25 +229,28 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
       {/* Retrospect Input 영역: 1168 * 85px */}
       <section className={styles.retrospectInput} role="region" aria-label="회고 입력">
         <div className={styles.retrospectLabel}>회고</div>
-        <div className={styles.retrospectInputContainer}>
+        <form onSubmit={handleSubmit} className={styles.retrospectInputContainer}>
           <Input
             variant="primary"
             theme="light"
             size="medium"
             placeholder="회고를 남겨보세요."
-            value={retrospectInput}
-            onChange={handleRetrospectInputChange}
+            {...register('content')}
+            data-testid="retrospect-input"
             className="flex-1"
           />
           <Button
+            type="submit"
             variant="primary"
             theme="light"
             size="medium"
+            disabled={!isValid}
+            data-testid="retrospect-submit-button"
             className="w-[51px]"
           >
             입력
           </Button>
-        </div>
+        </form>
       </section>
 
       {/* Gap 영역: 1168 * 16px */}

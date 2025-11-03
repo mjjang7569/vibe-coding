@@ -46,25 +46,17 @@ export function useAuthGuard(): UseAuthGuardReturn {
   // 모달이 이미 표시되었는지 추적 (같은 상황에서 중복 표시 방지)
   const hasShownModalRef = useRef(false);
   
-  // 테스트 환경 여부
-  const isTestEnv = process.env.NEXT_PUBLIC_TEST_ENV === "test";
-  
   // 테스트 환경에서 로그인 검사 패스 여부
-  // 테스트 환경에서는 기본적으로 패스하지만, window.__TEST_BYPASS__가 false면 검사
+  // window.__TEST_BYPASS__가 명시적으로 true일 때만 검사를 패스
+  // 기본값은 false (검사 수행)
   const shouldBypassCheck = useCallback(() => {
     if (typeof window === "undefined") {
       return false;
     }
     
-    // 실제 환경: 항상 검사 수행
-    if (!isTestEnv) {
-      return false;
-    }
-    
-    // 테스트 환경: window.__TEST_BYPASS__가 명시적으로 false가 아니면 패스
-    // undefined이거나 true이면 패스
-    return (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ !== false;
-  }, [isTestEnv]);
+    // window.__TEST_BYPASS__가 명시적으로 true일 때만 패스
+    return (window as Window & { __TEST_BYPASS__?: boolean }).__TEST_BYPASS__ === true;
+  }, []);
   
   /**
    * 로그인 모달 표시
@@ -127,7 +119,7 @@ export function useAuthGuard(): UseAuthGuardReturn {
       <Modal
         variant="info"
         actions="dual"
-        title="로그인하시겠습니까"
+        title="로그인"
         message="회원 전용 기능입니다. 로그인이 필요합니다."
         primaryButtonText="로그인하러가기"
         secondaryButtonText="취소"
