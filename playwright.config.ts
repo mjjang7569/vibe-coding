@@ -1,6 +1,13 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
+ * 병렬 테스트를 위한 포트 계산
+ * agentIndex 환경변수를 통해 agent-index 값을 받아옴
+ */
+const agentIndex = process.env.agentIndex ? parseInt(process.env.agentIndex) : 0;
+const port = 3000 + agentIndex;
+
+/**
  * Playwright 설정
  * @see https://playwright.dev/docs/test-configuration
  */
@@ -32,14 +39,14 @@ export default defineConfig({
     // trace: 'on-first-retry',
     
     /* Base URL - Next.js 개발 서버 */
-    baseURL: 'http://localhost:3000',
+    baseURL: `http://localhost:${port}`,
   },
-
+  
   /* 테스트 실행 전 개발 서버 시작 */
   // 수동으로 개발 서버를 실행한 상태에서 테스트 실행
   webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:3000',
+    command: `npm run dev -- --port ${port}`,
+    url: `http://localhost:${port}`,
     reuseExistingServer: !process.env.CI,
     env:{
       NEXT_PUBLIC_TEST_ENV :'test'
