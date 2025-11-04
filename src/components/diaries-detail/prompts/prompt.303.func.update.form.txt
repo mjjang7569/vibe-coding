@@ -11,10 +11,10 @@
 
 ==============================================
 
-조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: wpeq0oul)
-조건-피그마) 구현될 컴포넌트 노드ID(수정전): 3:1124
-조건-피그마) 구현될 컴포넌트 노드ID(수정중): 3:1224
-조건-피그마) 구현될 컴포넌트 노드ID(수정중-회고): 3:1247
+조건-피그마) 활용할MCP: CursorTalkToFigmaMCP(채널명: plpe2swd)
+조건-피그마) 구현될 컴포넌트 노드ID(수정전): 0:1270
+조건-피그마) 구현될 컴포넌트 노드ID(수정중): 0:1399
+조건-피그마) 구현될 컴포넌트 노드ID(수정중-회고): 0:1421
 
 조건-파일경로) 참고할 TSX  파일경로: src/components/diaries-detail/index.tsx
 조건-파일경로) 참고할 CSS  파일경로: src/components/diaries-detail/styles.module.css

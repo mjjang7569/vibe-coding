@@ -118,47 +118,46 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
     ref
   ) => {
     // 페이지 번호 배열 생성
+    // 요구사항: 1,2,3,4,5 형태로 정확히 visiblePages 개수만큼만 표시
     const generatePageNumbers = () => {
-      const pages: (number | string)[] = [];
-      const halfVisible = Math.floor(visiblePages / 2);
+      const pages: number[] = [];
       
-      let startPage = Math.max(1, currentPage - halfVisible);
-      let endPage = Math.min(totalPages, currentPage + halfVisible);
+      // 디버깅: 현재 상태 출력
+      console.log('[Pagination Debug]', {
+        currentPage,
+        totalPages,
+        visiblePages,
+      });
       
-      // 시작 페이지 조정
-      if (endPage - startPage + 1 < visiblePages) {
-        if (startPage === 1) {
-          endPage = Math.min(totalPages, startPage + visiblePages - 1);
-        } else {
-          startPage = Math.max(1, endPage - visiblePages + 1);
-        }
-      }
+      // 현재 페이지가 속한 그룹의 시작 페이지 계산
+      // 예: visiblePages=5일 때, 1~5페이지는 1부터, 6~10페이지는 6부터
+      const pageGroup = Math.ceil(currentPage / visiblePages);
+      const startPage = (pageGroup - 1) * visiblePages + 1;
+      const endPage = Math.min(startPage + visiblePages - 1, totalPages);
       
-      // 첫 페이지와 마지막 페이지 사이에 ... 표시
-      if (startPage > 1) {
-        pages.push(1);
-        if (startPage > 2) {
-          pages.push('...');
-        }
-      }
+      console.log('[Pagination Debug] Calculated:', {
+        pageGroup,
+        startPage,
+        endPage,
+      });
       
-      // 페이지 번호들
+      // 페이지 번호들 생성
       for (let i = startPage; i <= endPage; i++) {
         pages.push(i);
       }
       
-      // 마지막 페이지 처리
-      if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-          pages.push('...');
-        }
-        pages.push(totalPages);
-      }
+      console.log('[Pagination Debug] Generated pages:', pages);
       
       return pages;
     };
 
     const pageNumbers = generatePageNumbers();
+
+    // 현재 페이지가 속한 그룹과 네비게이션 활성화 상태 계산
+    const currentGroup = Math.ceil(currentPage / visiblePages);
+    const totalGroups = Math.ceil(totalPages / visiblePages);
+    const isFirstGroup = currentGroup === 1;
+    const isLastGroup = currentGroup >= totalGroups;
 
     // 페이지 변경 핸들러
     const handlePageChange = (page: number) => {
@@ -168,17 +167,37 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
       onPageChange?.(page);
     };
 
-    // 이전 페이지로 이동
+    // 이전 페이지 그룹으로 이동 (5개 단위)
     const handlePrevious = () => {
-      if (currentPage > 1) {
-        handlePageChange(currentPage - 1);
+      if (isFirstGroup) return;
+      
+      // 이전 그룹의 마지막 페이지로 이동
+      const prevGroupLastPage = (currentGroup - 1) * visiblePages;
+      
+      if (prevGroupLastPage >= 1) {
+        handlePageChange(prevGroupLastPage);
+        console.log('[Pagination] 이전 그룹으로 이동:', {
+          currentPage,
+          currentGroup,
+          targetPage: prevGroupLastPage
+        });
       }
     };
 
-    // 다음 페이지로 이동
+    // 다음 페이지 그룹으로 이동 (5개 단위)
     const handleNext = () => {
-      if (currentPage < totalPages) {
-        handlePageChange(currentPage + 1);
+      if (isLastGroup) return;
+      
+      // 다음 그룹의 첫 페이지로 이동
+      const nextGroupFirstPage = currentGroup * visiblePages + 1;
+      
+      if (nextGroupFirstPage <= totalPages) {
+        handlePageChange(nextGroupFirstPage);
+        console.log('[Pagination] 다음 그룹으로 이동:', {
+          currentPage,
+          currentGroup,
+          targetPage: nextGroupFirstPage
+        });
       }
     };
 
@@ -242,13 +261,13 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
           </button>
         )}
 
-        {/* 이전 페이지 버튼 */}
+        {/* 이전 페이지 그룹 버튼 (5개 단위) */}
         {showNavigation && (
           <button
             className={styles.navButton}
             onClick={handlePrevious}
-            disabled={disabled || currentPage <= 1}
-            aria-label="이전 페이지로 이동"
+            disabled={disabled || isFirstGroup}
+            aria-label="이전 페이지 그룹으로 이동"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path
@@ -264,16 +283,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
 
         {/* 페이지 번호들 */}
         <div className={styles.pageNumbers}>
-          {pageNumbers.map((page, index) => {
-            if (page === '...') {
-              return (
-                <span key={`ellipsis-${index}`} className={styles.ellipsis}>
-                  ...
-                </span>
-              );
-            }
-
-            const pageNum = page as number;
+          {pageNumbers.map((pageNum) => {
             const isActive = pageNum === currentPage;
 
             return (
@@ -289,6 +299,7 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
                 disabled={disabled}
                 aria-label={`${pageNum}페이지로 이동`}
                 aria-current={isActive ? 'page' : undefined}
+                data-testid={`page-button-${pageNum}`}
               >
                 {pageNum}
               </button>
@@ -296,13 +307,13 @@ export const Pagination = forwardRef<HTMLDivElement, PaginationProps>(
           })}
         </div>
 
-        {/* 다음 페이지 버튼 */}
+        {/* 다음 페이지 그룹 버튼 (5개 단위) */}
         {showNavigation && (
           <button
             className={styles.navButton}
             onClick={handleNext}
-            disabled={disabled || currentPage >= totalPages}
-            aria-label="다음 페이지로 이동"
+            disabled={disabled || isLastGroup}
+            aria-label="다음 페이지 그룹으로 이동"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
               <path

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>페이지네이션 테스트 도구</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    .container {
+      background: white;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 10px;
+    }
+    .subtitle {
+      color: #666;
+      margin-bottom: 30px;
+    }
+    .test-section {
+      margin: 20px 0;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 5px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    button.secondary {
+      background: #2196F3;
+    }
+    button.secondary:hover {
+      background: #0b7dda;
+    }
+    button.danger {
+      background: #f44336;
+    }
+    button.danger:hover {
+      background: #da190b;
+    }
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background: #e8f5e9;
+      border-left: 4px solid #4CAF50;
+      border-radius: 4px;
+      display: none;
+    }
+    .result.show {
+      display: block;
+    }
+    .info {
+      background: #e3f2fd;
+      border-left: 4px solid #2196F3;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+    .current-count {
+      font-size: 18px;
+      font-weight: bold;
+      color: #333;
+      margin: 15px 0;
+    }
+    code {
+      background: #f5f5f5;
+      padding: 2px 6px;
+      border-radius: 3px;
+      font-family: 'Monaco', 'Courier New', monospace;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📊 페이지네이션 테스트 도구</h1>
+    <p class="subtitle">일기 개수에 따른 페이지네이션 동작을 테스트합니다</p>
+
+    <div class="info">
+      <strong>📐 페이지 계산 공식:</strong><br>
+      페이지당 12개씩 표시<br>
+      • 30개 → 3페이지 (12 + 12 + 6)<br>
+      • 50개 → 5페이지 (12 × 4 + 2)<br>
+      • 100개 → 9페이지 (12 × 8 + 4)
+    </div>
+
+    <div class="current-count" id="currentCount">
+      현재 저장된 일기: 0개
+    </div>
+
+    <div class="test-section">
+      <h3>🧪 테스트 데이터 생성</h3>
+      <p>다양한 개수의 테스트 데이터를 생성하고 페이지네이션을 확인하세요.</p>
+      
+      <button onclick="generateDiaries(30)">30개 생성 (3페이지)</button>
+      <button onclick="generateDiaries(50)">50개 생성 (5페이지)</button>
+      <button onclick="generateDiaries(100)">100개 생성 (9페이지)</button>
+      <button class="secondary" onclick="generateDiaries(120)">120개 생성 (10페이지)</button>
+      <button class="danger" onclick="clearDiaries()">전체 삭제</button>
+
+      <div id="result" class="result"></div>
+    </div>
+
+    <div class="test-section">
+      <h3>🔍 현재 상태 확인</h3>
+      <button class="secondary" onclick="checkCurrentState()">현재 데이터 확인</button>
+      <button class="secondary" onclick="openDiariesPage()">일기 페이지 열기</button>
+    </div>
+
+    <div class="info">
+      <strong>💡 사용 방법:</strong><br>
+      1. 위 버튼을 눌러 원하는 개수의 테스트 데이터 생성<br>
+      2. "일기 페이지 열기" 버튼으로 /diaries 페이지 이동<br>
+      3. 페이지네이션이 올바르게 표시되는지 확인<br>
+      4. 이전/다음 버튼으로 페이지 그룹 이동 테스트
+    </div>
+  </div>
+
+  <script>
+    const emotions = ['Happy', 'Sad', 'Angry', 'Surprise', 'Etc'];
+    const titles = [
+      '행복했던 하루', '오늘의 일상', '기억하고 싶은 순간',
+      '감사한 하루', '힘들었던 하루', '재미있었던 일',
+      '특별한 경험', '평범한 일상', '소중한 추억'
+    ];
+    const contents = [
+      '오늘은 정말 특별한 하루였다. 아침부터 기분이 좋아서 하루 종일 활기차게 보냈다.',
+      '평범한 하루였지만 나름대로 의미있는 시간이었다. 새로운 것을 배우고 성취감을 느꼈다.',
+      '오늘은 조금 힘든 하루였다. 하지만 이것도 지나갈 것이라 믿고 긍정적으로 생각한다.',
+      '예상치 못한 일이 일어났다. 처음에는 당황스러웠지만 결국 좋은 경험이 되었다.',
+      '오늘은 가족들과 함께 시간을 보냈다. 오랜만에 다같이 모여 즐거운 시간을 가졌다.'
+    ];
+
+    function generateDiaries(count) {
+      const diaries = [];
+      
+      for (let i = 1; i <= count; i++) {
+        const randomEmotion = emotions[Math.floor(Math.random() * emotions.length)];
+        const randomTitle = titles[Math.floor(Math.random() * titles.length)];
+        const randomContent = contents[Math.floor(Math.random() * contents.length)];
+        
+        // 최근 6개월 내 랜덤 날짜
+        const now = new Date();
+        const sixMonthsAgo = new Date();
+        sixMonthsAgo.setMonth(now.getMonth() - 6);
+        const randomDate = new Date(
+          sixMonthsAgo.getTime() + Math.random() * (now.getTime() - sixMonthsAgo.getTime())
+        );
+        
+        diaries.push({
+          id: i,
+          title: `${randomTitle} #${i}`,
+          content: randomContent,
+          emotion: randomEmotion,
+          createdAt: randomDate.toISOString()
+        });
+      }
+      
+      // 날짜 순으로 정렬 (최신순)
+      diaries.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+      
+      // ID 재할당
+      diaries.forEach((diary, index) => {
+        diary.id = index + 1;
+      });
+      
+      // 로컬스토리지에 저장
+      localStorage.setItem('diaries', JSON.stringify(diaries));
+      
+      // 결과 표시
+      const expectedPages = Math.ceil(count / 12);
+      const resultDiv = document.getElementById('result');
+      resultDiv.className = 'result show';
+      resultDiv.innerHTML = `
+        <strong>✅ 생성 완료!</strong><br>
+        • 생성된 일기: ${count}개<br>
+        • 예상 페이지 수: ${expectedPages}페이지<br>
+        • 페이지당 개수: 12개<br><br>
+        <strong>🔄 다음 단계:</strong> "일기 페이지 열기" 버튼을 눌러 확인하세요!
+      `;
+      
+      updateCurrentCount();
+      
+      console.log(`✅ ${count}개의 일기가 생성되었습니다!`);
+      console.log(`📄 예상 페이지 수: ${expectedPages}페이지`);
+      
+      return diaries;
+    }
+
+    function clearDiaries() {
+      if (confirm('모든 일기 데이터를 삭제하시겠습니까?')) {
+        localStorage.removeItem('diaries');
+        const resultDiv = document.getElementById('result');
+        resultDiv.className = 'result show';
+        resultDiv.style.background = '#ffebee';
+        resultDiv.style.borderLeft = '4px solid #f44336';
+        resultDiv.innerHTML = '<strong>🗑️ 모든 데이터가 삭제되었습니다.</strong>';
+        updateCurrentCount();
+      }
+    }
+
+    function checkCurrentState() {
+      const diaries = JSON.parse(localStorage.getItem('diaries') || '[]');
+      const count = diaries.length;
+      const expectedPages = count > 0 ? Math.ceil(count / 12) : 0;
+      
+      // 감정별 통계
+      const stats = {};
+      diaries.forEach(diary => {
+        stats[diary.emotion] = (stats[diary.emotion] || 0) + 1;
+      });
+      
+      const resultDiv = document.getElementById('result');
+      resultDiv.className = 'result show';
+      resultDiv.style.background = '#e3f2fd';
+      resultDiv.style.borderLeft = '4px solid #2196F3';
+      resultDiv.innerHTML = `
+        <strong>📊 현재 상태</strong><br>
+        • 총 일기 수: ${count}개<br>
+        • 예상 페이지: ${expectedPages}페이지<br>
+        • 감정별 통계: ${JSON.stringify(stats, null, 2)}<br>
+      `;
+    }
+
+    function openDiariesPage() {
+      window.open('/diaries', '_blank');
+    }
+
+    function updateCurrentCount() {
+      const diaries = JSON.parse(localStorage.getItem('diaries') || '[]');
+      const count = diaries.length;
+      const expectedPages = count > 0 ? Math.ceil(count / 12) : 0;
+      document.getElementById('currentCount').textContent = 
+        `현재 저장된 일기: ${count}개 (${expectedPages}페이지 예상)`;
+    }
+
+    // 페이지 로드 시 현재 개수 표시
+    updateCurrentCount();
+  </script>
+</body>
+</html>
+

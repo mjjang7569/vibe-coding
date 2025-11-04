@@ -12,6 +12,7 @@ import { colorTokens } from '../../commons/constants/color';
 import { useLinkModal } from './hooks/index.link.modal.hook';
 import { useLinkRouting } from './hooks/index.link.routing.hook';
 import { useFilterDiaries } from './hooks/index.filter.hook';
+import { usePagination } from './hooks/index.pagination.hook';
 
 /**
  * 일기 데이터 인터페이스
@@ -175,8 +176,8 @@ const DiaryCard: React.FC<{
 
 export const Diaries: React.FC<DiariesProps> = ({
   className = '',
-  currentPage = 1,
-  totalPages = 10,
+  currentPage: propsCurrentPage,
+  totalPages: propsTotalPages,
   onSearch,
   onSelectChange,
   onPageChange,
@@ -192,6 +193,28 @@ export const Diaries: React.FC<DiariesProps> = ({
     filterOptions,
     selectedEmotion 
   } = useFilterDiaries();
+  
+  // 디버깅: 필터링된 일기 개수 확인
+  console.log('[Diaries] filteredDiaries 개수:', filteredDiaries.length);
+  
+  // 페이지네이션 훅 적용
+  const {
+    paginatedDiaries,
+    currentPage,
+    totalPages,
+    handlePageChange: handlePageChangeHook,
+    resetPage
+  } = usePagination(filteredDiaries);
+  
+  // 디버깅: 페이지네이션 상태 확인
+  console.log('[Diaries] 페이지네이션 상태:', {
+    currentPage,
+    totalPages,
+    paginatedDiariesCount: paginatedDiaries.length,
+    propsCurrentPage,
+    propsTotalPages
+  });
+  
   const { openWriteDiaryModal } = useLinkModal();
   const { handleCardClick } = useLinkRouting();
   
@@ -199,9 +222,16 @@ export const Diaries: React.FC<DiariesProps> = ({
   const selectOptions = propsSelectOptions.length > 0 ? propsSelectOptions : filterOptions;
   const selectValue = propsSelectValue || selectedEmotion;
   
+  // 페이지 변경 핸들러 - props의 onPageChange와 내부 handlePageChangeHook를 모두 실행
+  const handlePageChangeWithCallback = (page: number) => {
+    handlePageChangeHook(page);
+    onPageChange?.(page);
+  };
+  
   // 검색 핸들러 - props의 onSearch와 내부 handleSearchChangeHook를 모두 실행
   const handleSearchWithCallback = (value: string) => {
     handleSearchChangeHook(value);
+    resetPage(); // 검색 시 1페이지로 초기화
     onSearch?.(value);
   };
   
@@ -209,11 +239,14 @@ export const Diaries: React.FC<DiariesProps> = ({
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     handleSearchChangeHook(value);
+    resetPage(); // 검색 시 1페이지로 초기화
   };
   
   // emotion 필터 변경 핸들러
   const handleSelectChange = (value: string) => {
+    console.log('[Diaries] 필터 변경:', value);
     handleEmotionFilter(value);
+    resetPage(); // 필터 변경 시 1페이지로 초기화
     onSelectChange?.(value);
   };
   
@@ -289,7 +322,7 @@ export const Diaries: React.FC<DiariesProps> = ({
         {/* 일기 목록 콘텐츠 영역 */}
         <div className={styles.mainContent} data-testid="diaries-list">
           <div className={styles.diaryGrid}>
-            {filteredDiaries.map((diary) => (
+            {paginatedDiaries.map((diary) => (
               <DiaryCard 
                 key={diary.id} 
                 diary={diary} 
@@ -312,7 +345,7 @@ export const Diaries: React.FC<DiariesProps> = ({
           size="medium"
           currentPage={currentPage}
           totalPages={totalPages}
-          onPageChange={onPageChange}
+          onPageChange={handlePageChangeWithCallback}
           visiblePages={5}
           showNavigation={true}
           showFirstLast={false}

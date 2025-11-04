@@ -107,21 +107,21 @@
    ============================================ */
 
 .variant-primary.theme-dark:not(:disabled):not(.disabled) {
-  background-color: #f2f2f2 !important;
+  background-color: #ffffff !important;
   color: #000000 !important;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   border: 1px solid transparent;
 }
 
 .variant-primary.theme-dark:hover:not(:disabled):not(.disabled) {
-  background-color: #e6e6e6 !important;
+  background-color: #f5f5f5 !important;
   color: #000000 !important;
   box-shadow: 0 4px 12px -2px rgba(0, 0, 0, 0.15), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
   transform: translateY(-1px);
 }
 
 .variant-primary.theme-dark:active:not(:disabled):not(.disabled) {
-  background-color: #d9d9d9 !important;
+  background-color: #ebebeb !important;
   color: #000000 !important;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
   transform: translateY(0);

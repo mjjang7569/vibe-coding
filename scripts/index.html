@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>일기 Mock 데이터 생성기</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            padding: 40px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 28px;
+        }
+        
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        
+        .input-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            color: #555;
+            margin-bottom: 8px;
+            font-weight: 500;
+            font-size: 14px;
+        }
+        
+        input[type="number"] {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+        
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .button-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        button {
+            padding: 14px 24px;
+            border: none;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            grid-column: 1 / -1;
+        }
+        
+        .btn-secondary {
+            background: #f5f5f5;
+            color: #555;
+        }
+        
+        .btn-secondary:hover {
+            background: #e0e0e0;
+        }
+        
+        .btn-danger {
+            background: #ff4444;
+            color: white;
+        }
+        
+        .output {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            min-height: 100px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .output:empty::before {
+            content: "여기에 결과가 표시됩니다...";
+            color: #999;
+            font-style: italic;
+        }
+        
+        .log-success {
+            color: #22c55e;
+            font-weight: 600;
+        }
+        
+        .log-error {
+            color: #ef4444;
+            font-weight: 600;
+        }
+        
+        .log-info {
+            color: #3b82f6;
+            font-weight: 600;
+        }
+        
+        .log-warning {
+            color: #f59e0b;
+            font-weight: 600;
+        }
+        
+        .stats-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+        }
+        
+        .stats-table th,
+        .stats-table td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .stats-table th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .emoji {
+            font-size: 18px;
+        }
+        
+        .info-box {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            font-size: 14px;
+            color: #1e40af;
+        }
+        
+        .info-box strong {
+            color: #1e3a8a;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📝 일기 Mock 데이터 생성기</h1>
+        <p class="subtitle">페이지네이션 테스트를 위한 일기 데이터를 생성합니다</p>
+        
+        <div class="info-box">
+            <strong>⚠️ 주의:</strong> 데이터 생성 시 기존 로컬 스토리지의 'diaries' 데이터가 덮어씌워집니다.
+        </div>
+        
+        <div class="input-group">
+            <label for="count">생성할 일기 개수</label>
+            <input type="number" id="count" value="120" min="1" max="1000" placeholder="생성할 일기 개수 입력">
+        </div>
+        
+        <div class="button-group">
+            <button class="btn-primary" onclick="generateData()">
+                <span class="emoji">✨</span>
+                <span>데이터 생성</span>
+            </button>
+            <button class="btn-secondary" onclick="checkData()">
+                <span class="emoji">🔍</span>
+                <span>데이터 확인</span>
+            </button>
+            <button class="btn-danger" onclick="clearData()">
+                <span class="emoji">🗑️</span>
+                <span>데이터 삭제</span>
+            </button>
+        </div>
+        
+        <div class="output" id="output"></div>
+    </div>
+
+    <script>
+        const EmotionTypes = ['Happy', 'Sad', 'Angry', 'Surprise', 'Etc'];
+        
+        const titleTemplates = [
+            '행복했던 하루', '오늘의 일상', '기억하고 싶은 순간', '감사한 하루', 
+            '힘들었던 하루', '재미있었던 일', '특별한 경험', '평범한 일상',
+            '소중한 추억', '즐거웠던 순간', '새로운 시작', '따뜻한 하루',
+            '뜻깊은 하루', '편안한 휴식', '바쁜 하루', '여유로운 하루',
+            '의미있는 만남', '달콤한 시간', '잊지 못할 순간', '마음 따뜻한 하루'
+        ];
+        
+        const contentTemplates = [
+            '오늘은 정말 특별한 하루였다. 아침부터 기분이 좋아서 하루 종일 활기차게 보냈다. 친구들과 만나서 즐거운 시간을 보냈고, 맛있는 음식도 먹었다. 이런 날이 더 많았으면 좋겠다.',
+            '평범한 하루였지만 나름대로 의미있는 시간이었다. 새로운 것을 배우고, 작은 성취감을 느꼈다. 때로는 이런 평온한 일상이 가장 소중하다는 것을 깨닫는다.',
+            '오늘은 조금 힘든 하루였다. 여러 일들이 뜻대로 풀리지 않아서 스트레스를 받았다. 하지만 이것도 지나갈 것이라 믿고 긍정적으로 생각하려고 노력했다.',
+            '예상치 못한 일이 일어났다. 처음에는 당황스러웠지만, 결국 좋은 경험이 되었다. 인생은 항상 놀라움으로 가득하다.',
+            '오늘은 가족들과 함께 시간을 보냈다. 오랜만에 다같이 모여 이야기를 나누고 웃으며 즐거운 시간을 가졌다. 가족의 소중함을 다시 한번 느꼈다.',
+            '일에 집중한 하루였다. 많은 일을 처리하느라 바빴지만, 그만큼 보람도 느꼈다. 피곤하지만 뿌듯한 마음으로 하루를 마무리한다.',
+            '친구와 오랜만에 만나서 수다를 떨었다. 학창시절 이야기부터 요즘 근황까지 이야기꽃을 피웠다. 좋은 친구가 있다는 것이 감사하다.',
+            '새로운 도전을 시작했다. 조금 두렵기도 하지만 설레기도 한다. 앞으로 어떻게 될지 기대된다.',
+            '조용한 하루를 보냈다. 집에서 책을 읽고 음악을 들으며 나만의 시간을 가졌다. 이런 여유로운 시간도 필요하다.',
+            '운동을 하고 건강한 음식을 먹으며 몸을 돌보는 하루였다. 건강의 소중함을 느끼며, 앞으로도 꾸준히 관리해야겠다고 다짐했다.'
+        ];
+        
+        function getRandomElement(array) {
+            return array[Math.floor(Math.random() * array.length)];
+        }
+        
+        function getRandomDate() {
+            const now = new Date();
+            const sixMonthsAgo = new Date();
+            sixMonthsAgo.setMonth(now.getMonth() - 6);
+            
+            const randomTime = sixMonthsAgo.getTime() + 
+                Math.random() * (now.getTime() - sixMonthsAgo.getTime());
+            
+            return new Date(randomTime).toISOString();
+        }
+        
+        function generateMockDiaries(count) {
+            const diaries = [];
+            
+            for (let i = 1; i <= count; i++) {
+                const emotion = getRandomElement(EmotionTypes);
+                const baseTitle = getRandomElement(titleTemplates);
+                const title = `${baseTitle} #${i}`;
+                const content = getRandomElement(contentTemplates);
+                const createdAt = getRandomDate();
+                
+                diaries.push({
+                    id: i,
+                    title: title,
+                    content: content,
+                    emotion: emotion,
+                    createdAt: createdAt
+                });
+            }
+            
+            // 날짜순 정렬 (최신순)
+            diaries.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+            
+            // ID 재할당
+            diaries.forEach((diary, index) => {
+                diary.id = index + 1;
+            });
+            
+            return diaries;
+        }
+        
+        function log(message, type = 'info') {
+            const output = document.getElementById('output');
+            const div = document.createElement('div');
+            div.className = `log-${type}`;
+            div.textContent = message;
+            output.appendChild(div);
+            output.scrollTop = output.scrollHeight;
+        }
+        
+        function clearOutput() {
+            document.getElementById('output').innerHTML = '';
+        }
+        
+        function generateData() {
+            clearOutput();
+            
+            const count = parseInt(document.getElementById('count').value);
+            
+            if (!count || count < 1) {
+                log('❌ 올바른 개수를 입력해주세요 (최소 1개)', 'error');
+                return;
+            }
+            
+            try {
+                const mockDiaries = generateMockDiaries(count);
+                localStorage.setItem('diaries', JSON.stringify(mockDiaries));
+                
+                log(`✅ ${count}개의 일기가 생성되어 로컬 스토리지에 저장되었습니다!`, 'success');
+                log('', 'info');
+                
+                // 감정별 통계
+                const emotionStats = {};
+                mockDiaries.forEach(diary => {
+                    emotionStats[diary.emotion] = (emotionStats[diary.emotion] || 0) + 1;
+                });
+                
+                log('📊 감정별 통계:', 'info');
+                Object.entries(emotionStats).forEach(([emotion, count]) => {
+                    log(`  ${emotion}: ${count}개`, 'info');
+                });
+                
+                log('', 'info');
+                log('✨ 데이터가 성공적으로 저장되었습니다!', 'success');
+                log('💡 페이지를 새로고침하면 변경사항을 확인할 수 있습니다.', 'info');
+                
+            } catch (error) {
+                log(`❌ 데이터 생성 중 오류 발생: ${error.message}`, 'error');
+            }
+        }
+        
+        function checkData() {
+            clearOutput();
+            
+            try {
+                const stored = localStorage.getItem('diaries');
+                if (stored) {
+                    const diaries = JSON.parse(stored);
+                    log(`📦 현재 로컬 스토리지에 ${diaries.length}개의 일기가 저장되어 있습니다.`, 'info');
+                    log('', 'info');
+                    
+                    // 최신 3개 미리보기
+                    log('🔍 최신 일기 3개 미리보기:', 'info');
+                    diaries.slice(0, 3).forEach((diary, index) => {
+                        log(`  ${index + 1}. ${diary.title} (${diary.emotion})`, 'info');
+                    });
+                    
+                    // 감정별 통계
+                    const emotionStats = {};
+                    diaries.forEach(diary => {
+                        emotionStats[diary.emotion] = (emotionStats[diary.emotion] || 0) + 1;
+                    });
+                    
+                    log('', 'info');
+                    log('📊 감정별 통계:', 'info');
+                    Object.entries(emotionStats).forEach(([emotion, count]) => {
+                        log(`  ${emotion}: ${count}개`, 'info');
+                    });
+                    
+                } else {
+                    log('📦 로컬 스토리지에 저장된 일기가 없습니다.', 'warning');
+                    log('💡 먼저 데이터를 생성해주세요.', 'info');
+                }
+            } catch (error) {
+                log(`❌ 데이터 확인 중 오류 발생: ${error.message}`, 'error');
+            }
+        }
+        
+        function clearData() {
+            if (!confirm('정말로 모든 일기 데이터를 삭제하시겠습니까?')) {
+                return;
+            }
+            
+            clearOutput();
+            
+            try {
+                localStorage.removeItem('diaries');
+                log('🗑️ 로컬 스토리지의 일기 데이터가 삭제되었습니다.', 'success');
+                log('💡 페이지를 새로고침하면 변경사항을 확인할 수 있습니다.', 'info');
+            } catch (error) {
+                log(`❌ 데이터 삭제 중 오류 발생: ${error.message}`, 'error');
+            }
+        }
+        
+        // 페이지 로드 시 현재 상태 확인
+        window.onload = function() {
+            const stored = localStorage.getItem('diaries');
+            if (stored) {
+                const diaries = JSON.parse(stored);
+                log(`📦 현재 ${diaries.length}개의 일기가 저장되어 있습니다.`, 'info');
+            } else {
+                log('📦 저장된 일기가 없습니다. 데이터를 생성해보세요!', 'info');
+            }
+        };
+    </script>
+</body>
+</html>
+

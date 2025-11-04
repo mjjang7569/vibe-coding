@@ -40,6 +40,7 @@ const DiaryDetailPage: React.FC<DiaryDetailPageProps> = ({ params }) => {
 
   return (
     <DiariesDetail
+      diaryId={diary.id}
       title={diary.title}
       content={diary.content}
       emotion={diary.emotion}

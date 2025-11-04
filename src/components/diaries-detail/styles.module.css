@@ -241,6 +241,106 @@
   box-sizing: border-box;
 }
 
+/* Edit Section - 수정 모드 영역 */
+.editSection {
+  width: 1168px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.emotionSelectLabel {
+  font-family: var(--font-ko-primary);
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  color: var(--color-text-primary);
+}
+
+.emotionRadioGroup {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.emotionRadioLabel {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+}
+
+.emotionRadioInput {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+}
+
+.emotionRadioText {
+  font-family: var(--font-ko-primary);
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.18px;
+  color: var(--color-text-secondary);
+}
+
+.editLabel {
+  font-family: var(--font-ko-primary);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  letter-spacing: -0.14px;
+  color: var(--color-text-secondary);
+}
+
+.editTextarea {
+  width: 100%;
+  padding: 12px 16px;
+  font-family: var(--font-ko-primary);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.16px;
+  color: var(--color-text-primary);
+  background-color: #ffffff;
+  border: 1px solid #d4d3d3;
+  border-radius: 8px;
+  resize: vertical;
+  box-sizing: border-box;
+}
+
+.editTextarea:focus {
+  outline: none;
+  border-color: #000000;
+}
+
+.editTextarea::placeholder {
+  color: #ababab;
+}
+
+.editFooter {
+  width: 1168px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.editButtons {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.editButtons button {
+  height: 48px !important;
+  min-height: 48px !important;
+}
+
 /* Retrospect List 영역: 1168 * 72px */
 .retrospectList {
   width: 1168px;
