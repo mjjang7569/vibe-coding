@@ -13,10 +13,12 @@
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.5);
+  /* z-index는 인라인 스타일로 동적 설정됨 */
 }
 
 /* Modal Content Wrapper */
 .content {
   position: relative;
+  /* z-index는 overlay의 자식이므로 자동으로 위에 표시됨 */
 }
 

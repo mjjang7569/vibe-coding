@@ -55,7 +55,7 @@
   width: 120px;
   flex-shrink: 0;
   position: relative; /* 드롭다운 위치 기준 */
-  z-index: 100; /* 드롭다운이 다른 요소 위에 표시되도록 */
+  /* z-index 제거 - 모달보다 낮은 레이어 */
 }
 
 /* searchbar 영역 크기 - 수정요구사항: 320*48px */
@@ -369,7 +369,7 @@
   justify-content: space-between; /* 좌우로 떨어뜨림 */
   width: 320px;
   position: relative !important; /* 드롭다운 위치 기준 */
-  z-index: 10000 !important; /* 다른 요소보다 위에 표시 */
+  /* z-index 제거 - 모달보다 낮은 레이어 */
   overflow: visible !important; /* 드롭다운이 잘리지 않도록 */
 }
 
@@ -397,7 +397,7 @@
     padding: 0 20px; /* 좌우 패딩 20px (360px 중 320px 콘텐츠) */
     align-items: flex-start;
     position: relative !important; /* 드롭다운 표시를 위한 상대 위치 */
-    z-index: 10000 !important; /* 드롭다운이 다른 요소 위에 표시되도록 */
+    /* z-index 제거 - 모달보다 낮은 레이어 */
     overflow: visible !important; /* 드롭다운이 잘리지 않도록 */
   }
   
@@ -434,7 +434,7 @@
     height: 40px !important;
     flex-shrink: 0;
     position: relative !important; /* 드롭다운 위치 기준 */
-    z-index: 10001 !important; /* 드롭다운이 최상위에 표시되도록 */
+    /* z-index 제거 - 모달보다 낮은 레이어 */
     overflow: visible !important; /* 드롭다운이 잘리지 않도록 */
   }
   
@@ -449,7 +449,7 @@
     height: 40px !important;
     position: relative !important; /* 드롭다운 위치 기준 */
     overflow: visible !important; /* 드롭다운이 잘리지 않도록 */
-    z-index: 10001 !important;
+    /* z-index 제거 - 모달보다 낮은 레이어 */
   }
   
   .searchMobile .selectboxArea > div > div {

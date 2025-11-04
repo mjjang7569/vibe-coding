@@ -4,7 +4,7 @@
   display: inline-block;
   width: 100%;
   overflow: visible; /* 드롭다운이 잘리지 않도록 */
-  z-index: 1000; /* 기본 z-index 설정 */
+  z-index: 1; /* 가장 낮은 레벨 */
 }
 
 /* Base Selectbox Styles */
@@ -89,7 +89,7 @@
   left: 0;
   right: 0; /* selectbox와 동일한 너비로 고정 */
   width: 100%; /* selectbox와 동일한 너비 */
-  z-index: 9999; /* 매우 높은 z-index로 설정 */
+  z-index: 2; /* container보다 약간 위, 모달보다 훨씬 낮음 */
   background-color: var(--color-surface-base);
   border: 1px solid var(--color-border);
   border-radius: 12px;
@@ -400,7 +400,7 @@
 
 @media (max-width: 768px) {
   .container {
-    z-index: 10000 !important; /* 모바일에서 container를 최상위로 */
+    z-index: 1; /* 가장 낮은 레벨 */
   }
   
   .size-small {
@@ -434,7 +434,7 @@
     max-height: none !important; /* 최대 높이 제한 제거 */
     height: auto !important; /* 자동 높이 */
     margin-top: 4px;
-    z-index: 99999 !important; /* 모바일에서 최상위 레이어 */
+    z-index: 2 !important; /* 가장 낮은 레벨, 모달보다 훨씬 아래 */
     position: absolute !important;
     background-color: #ffffff !important; /* 배경 명확하게 */
     border: 2px solid #3b82f6 !important; /* 파란 테두리로 디버깅 */

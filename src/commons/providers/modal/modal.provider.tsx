@@ -69,7 +69,7 @@ export function ModalProvider({ children }: ModalProviderProps) {
           {modalStack.map((modal, index) => (
             <ModalOverlay
               key={modal.id}
-              zIndex={50 + index}
+              zIndex={100000 + index}
               onClose={index === modalStack.length - 1 ? closeModal : undefined}
             >
               {modal.content}
