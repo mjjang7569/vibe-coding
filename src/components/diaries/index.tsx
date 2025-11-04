@@ -13,6 +13,8 @@ import { useLinkModal } from './hooks/index.link.modal.hook';
 import { useLinkRouting } from './hooks/index.link.routing.hook';
 import { useFilterDiaries } from './hooks/index.filter.hook';
 import { usePagination } from './hooks/index.pagination.hook';
+import { useDeleteDiary } from './hooks/index.delete.hook';
+import { useAuth } from '../../commons/providers/auth/auth.provider';
 
 /**
  * 일기 데이터 인터페이스
@@ -108,7 +110,9 @@ const DiaryCard: React.FC<{
   diary: DiaryItem; 
   formattedDate: string;
   onClick: () => void;
-}> = ({ diary, formattedDate, onClick }) => {
+  onDelete: (diaryId: number) => void;
+  isAuthenticated: boolean;
+}> = ({ diary, formattedDate, onClick, onDelete, isAuthenticated }) => {
   const emotionConfig = getEmotionConfig(diary.emotion);
   
   // "기타" 감정의 색상을 피그마와 일치하도록 수정
@@ -125,7 +129,7 @@ const DiaryCard: React.FC<{
    */
   const handleDeleteClick = (e: React.MouseEvent) => {
     e.stopPropagation(); // 카드 클릭 이벤트 전파 방지
-    // TODO: 삭제 로직 구현
+    onDelete(diary.id);
   };
   
   return (
@@ -142,19 +146,21 @@ const DiaryCard: React.FC<{
           height={208}
           className={styles.cardImageContent}
         />
-        <button 
-          className={styles.closeButton} 
-          aria-label="닫기"
-          onClick={handleDeleteClick}
-          data-testid="diary-card-delete"
-        >
-          <Image
-            src="/images/close_outline_light_m.svg"
-            alt="닫기"
-            width={24}
-            height={24}
-          />
-        </button>
+        {isAuthenticated && (
+          <button 
+            className={styles.closeButton} 
+            aria-label="닫기"
+            onClick={handleDeleteClick}
+            data-testid="diary-card-delete"
+          >
+            <Image
+              src="/images/close_outline_light_m.svg"
+              alt="닫기"
+              width={24}
+              height={24}
+            />
+          </button>
+        )}
       </div>
       <div className={styles.cardContent}>
         <div className={styles.cardHeader}>
@@ -194,6 +200,11 @@ export const Diaries: React.FC<DiariesProps> = ({
     selectedEmotion 
   } = useFilterDiaries();
   
+  const { isAuthenticated } = useAuth();
+  const { handleDelete } = useDeleteDiary();
+  const { openWriteDiaryModal } = useLinkModal();
+  const { handleCardClick } = useLinkRouting();
+  
   // 디버깅: 필터링된 일기 개수 확인
   console.log('[Diaries] filteredDiaries 개수:', filteredDiaries.length);
   
@@ -214,9 +225,6 @@ export const Diaries: React.FC<DiariesProps> = ({
     propsCurrentPage,
     propsTotalPages
   });
-  
-  const { openWriteDiaryModal } = useLinkModal();
-  const { handleCardClick } = useLinkRouting();
   
   // selectOptions와 selectValue는 훅에서 제공하는 값을 사용하되, props가 있으면 우선
   const selectOptions = propsSelectOptions.length > 0 ? propsSelectOptions : filterOptions;
@@ -328,6 +336,8 @@ export const Diaries: React.FC<DiariesProps> = ({
                 diary={diary} 
                 formattedDate={formatDate(diary.createdAt)}
                 onClick={() => handleCardClick(diary.id)}
+                onDelete={handleDelete}
+                isAuthenticated={isAuthenticated}
               />
             ))}
           </div>

@@ -8,6 +8,7 @@ import Input from '@/commons/components/input';
 import { EmotionType, emotionTypes, getEmotionConfig, getEmotionImage, getEmotionLabel } from '@/commons/constants/enum';
 import { useRetrospectForm } from './hooks/index.retrospect.form.hook';
 import { useUpdateDiaryForm } from './hooks/index.update.hook';
+import { useDeleteDiary } from './hooks/index.delete.hook';
 
 /**
  * DiariesDetail Component Props Interface
@@ -42,11 +43,6 @@ export interface DiariesDetailProps {
    * 작성일
    */
   createdAt?: string;
-  
-  /**
-   * 삭제 버튼 클릭 핸들러
-   */
-  onDelete?: () => void;
   
   /**
    * 내용 복사 핸들러
@@ -103,7 +99,6 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
   content = '내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다내용이 들어갑니다',
   emotion = EmotionType.Happy,
   createdAt = '2024. 07. 12',
-  onDelete,
   onCopyContent,
   retrospectList = [
     {
@@ -145,6 +140,23 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
     onError: (error) => {
       console.error('수정 실패:', error);
       alert('일기 수정에 실패했습니다.');
+    }
+  });
+
+  // 삭제 훅
+  const { 
+    isDeleteModalOpen, 
+    openDeleteModal, 
+    closeDeleteModal, 
+    handleDelete 
+  } = useDeleteDiary({
+    diaryId,
+    onSuccess: () => {
+      console.log('일기가 성공적으로 삭제되었습니다.');
+    },
+    onError: (error) => {
+      console.error('삭제 실패:', error);
+      alert('일기 삭제에 실패했습니다.');
     }
   });
 
@@ -254,7 +266,7 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
                 variant="secondary"
                 theme="light"
                 size="medium"
-                onClick={onDelete}
+                onClick={openDeleteModal}
                 className="w-[50px]"
               >
                 삭제
@@ -336,7 +348,7 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
               </Button>
               <Button
                 variant="primary"
-                theme="dark"
+                theme="light"
                 size="medium"
                 onClick={handleUpdateSubmit}
                 disabled={!isUpdateValid}
@@ -397,6 +409,40 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
           ))}
         </div>
       </section>
+
+      {/* 삭제 모달 */}
+      {isDeleteModalOpen && (
+        <div className={styles.modalOverlay} data-testid="delete-modal-overlay" onClick={closeDeleteModal}>
+          <div className={styles.deleteModal} data-testid="delete-modal" onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalContent}>
+              <h2 className={styles.modalTitle} data-testid="delete-modal-title">일기 삭제</h2>
+              <p className={styles.modalDescription} data-testid="delete-modal-description">일기를 삭제 하시겠어요?</p>
+            </div>
+            <div className={styles.modalButtons}>
+              <Button
+                variant="secondary"
+                theme="light"
+                size="medium"
+                onClick={closeDeleteModal}
+                data-testid="delete-modal-cancel"
+                className="w-[104px]"
+              >
+                취소
+              </Button>
+              <Button
+                variant="primary"
+                theme="light"
+                size="medium"
+                onClick={handleDelete}
+                data-testid="delete-modal-confirm"
+                className="w-[104px]"
+              >
+                삭제
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

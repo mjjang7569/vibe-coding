@@ -394,6 +394,74 @@
   margin: 12px 0;
 }
 
+/* Delete Modal */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.deleteModal {
+  width: 480px;
+  height: 200px;
+  background-color: #ffffff;
+  border-radius: 24px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+}
+
+.modalContent {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.modalTitle {
+  font-family: var(--font-ko-primary);
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 24px;
+  letter-spacing: -0.24px;
+  color: #000000;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.modalDescription {
+  font-family: var(--font-ko-primary);
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 24px;
+  letter-spacing: -0.2px;
+  color: #333333;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+.modalButtons {
+  display: flex;
+  gap: 21px;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalButtons button {
+  height: 48px !important;
+  min-height: 48px !important;
+}
+
 /* 반응형 처리 */
 @media (max-width: 1200px) {
   .container {
@@ -464,5 +532,10 @@
   .retrospectList {
     height: auto;
     min-height: 72px;
+  }
+
+  .deleteModal {
+    width: 90%;
+    max-width: 480px;
   }
 }
