@@ -11,14 +11,6 @@ import { Diaries } from '@/components/diaries';
 export default function DiariesPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages] = useState(10);
-  const [selectValue, setSelectValue] = useState('');
-
-  const selectOptions = [
-    { value: 'all', label: '전체' },
-    { value: 'daily', label: '일상' },
-    { value: 'travel', label: '여행' },
-    { value: 'food', label: '맛집' },
-  ];
 
   const handleSearch = (value: string) => {
     console.log('Search:', value);
@@ -27,7 +19,6 @@ export default function DiariesPage() {
 
   const handleSelectChange = (value: string) => {
     console.log('Select changed:', value);
-    setSelectValue(value);
     // 셀렉트 변경 로직 구현
   };
 
@@ -44,8 +35,6 @@ export default function DiariesPage() {
       onSearch={handleSearch}
       onSelectChange={handleSelectChange}
       onPageChange={handlePageChange}
-      selectOptions={selectOptions}
-      selectValue={selectValue}
     />
   );
 }

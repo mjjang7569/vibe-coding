@@ -11,7 +11,7 @@ import { EmotionType, getEmotionConfig } from '../../commons/constants/enum';
 import { colorTokens } from '../../commons/constants/color';
 import { useLinkModal } from './hooks/index.link.modal.hook';
 import { useLinkRouting } from './hooks/index.link.routing.hook';
-import { useSearchDiaries } from './hooks/index.search.hook';
+import { useFilterDiaries } from './hooks/index.filter.hook';
 
 /**
  * 일기 데이터 인터페이스
@@ -180,23 +180,41 @@ export const Diaries: React.FC<DiariesProps> = ({
   onSearch,
   onSelectChange,
   onPageChange,
-  selectOptions = [],
-  selectValue = '',
+  selectOptions: propsSelectOptions = [],
+  selectValue: propsSelectValue = '',
 }) => {
-  const { filteredDiaries, isLoading, formatDate, handleSearch } = useSearchDiaries();
+  const { 
+    filteredDiaries, 
+    isLoading, 
+    formatDate, 
+    handleSearchChange: handleSearchChangeHook,
+    handleEmotionFilter,
+    filterOptions,
+    selectedEmotion 
+  } = useFilterDiaries();
   const { openWriteDiaryModal } = useLinkModal();
   const { handleCardClick } = useLinkRouting();
   
-  // 검색 핸들러 - props의 onSearch와 내부 handleSearch를 모두 실행
+  // selectOptions와 selectValue는 훅에서 제공하는 값을 사용하되, props가 있으면 우선
+  const selectOptions = propsSelectOptions.length > 0 ? propsSelectOptions : filterOptions;
+  const selectValue = propsSelectValue || selectedEmotion;
+  
+  // 검색 핸들러 - props의 onSearch와 내부 handleSearchChangeHook를 모두 실행
   const handleSearchWithCallback = (value: string) => {
-    handleSearch(value);
+    handleSearchChangeHook(value);
     onSearch?.(value);
   };
   
   // 실시간 검색 핸들러 - 입력값이 변경될 때마다 실행
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    handleSearch(value);
+    handleSearchChangeHook(value);
+  };
+  
+  // emotion 필터 변경 핸들러
+  const handleSelectChange = (value: string) => {
+    handleEmotionFilter(value);
+    onSelectChange?.(value);
   };
   
   // 로딩 중일 때는 빈 화면 표시
@@ -221,7 +239,7 @@ export const Diaries: React.FC<DiariesProps> = ({
               variant="primary"
               size="medium"
               theme="light"
-              onChange={onSelectChange}
+              onChange={handleSelectChange}
               className={styles.selectboxCustom}
               data-testid="diary-category-select"
             />

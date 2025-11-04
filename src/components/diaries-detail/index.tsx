@@ -257,13 +257,13 @@ export const DiariesDetail: React.FC<DiariesDetailProps> = ({
       <div className={styles.gap16}></div>
 
       {/* Retrospect List 영역: 1168 * 72px */}
-      <section className={styles.retrospectList} role="region" aria-label="회고 목록">
+      <section className={styles.retrospectList} role="region" aria-label="회고 목록" data-testid="retrospect-list">
         <div className={styles.retrospectItems}>
           {retrospectList.map((item, index) => (
-            <div key={item.id || index} className={styles.retrospectItem}>
+            <div key={item.id || index} className={styles.retrospectItem} data-testid={`retrospect-item-${item.id}`}>
               <div className={styles.retrospectItemFrame}>
-                <div className={styles.retrospectContent}>{item.content}</div>
-                <div className={styles.retrospectDate}>[{item.createdAt}]</div>
+                <div className={styles.retrospectContent} data-testid={`retrospect-content-${item.id}`}>{item.content}</div>
+                <div className={styles.retrospectDate} data-testid={`retrospect-date-${item.id}`}>[{item.createdAt}]</div>
               </div>
               {index < retrospectList.length - 1 && <div className={styles.retrospectDivider} />}
             </div>
