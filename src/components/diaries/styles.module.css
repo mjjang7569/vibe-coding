@@ -5,11 +5,14 @@
   width: 100%;
   max-width: 1168px;
   margin: 0 auto;
+  overflow: visible; /* 드롭다운이 잘리지 않도록 */
+  align-items: center; /* 자식 요소들 중앙 정렬 */
 }
 
 /* Gap 영역들 */
 .gap {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
 }
 
 .gap32 {
@@ -35,6 +38,8 @@
   justify-content: space-between;
   padding: 0;
   box-sizing: border-box;
+  position: relative; /* 드롭다운 위치 기준 */
+  overflow: visible; /* 드롭다운이 잘리지 않도록 */
 }
 
 /* Search 영역 내 selectbox & searchbar 컨테이너 */
@@ -43,11 +48,14 @@
   align-items: center;
   gap: 16px;
   flex: 1;
+  position: relative; /* 드롭다운 위치 기준 */
 }
 
 .selectboxArea {
   width: 120px;
   flex-shrink: 0;
+  position: relative; /* 드롭다운 위치 기준 */
+  z-index: 100; /* 드롭다운이 다른 요소 위에 표시되도록 */
 }
 
 /* searchbar 영역 크기 - 수정요구사항: 320*48px */
@@ -133,7 +141,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible; /* 드롭다운이 잘리지 않도록 변경 */
   padding: 0; /* 요구사항: main내의 padding값을 없애줘 */
   box-sizing: border-box;
 }
@@ -298,7 +306,8 @@
 
 /* Pagination Section */
 .paginationSection {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -338,5 +347,242 @@
   .paginationCustom {
     width: auto;
     min-width: 150px;
+  }
+}
+
+/* ===== 브레이크포인트 767px 반응형 디자인 (Search 영역) ===== */
+
+/* 데스크톱 버전: 768px 이상에서만 표시 */
+.searchDesktop {
+  display: flex;
+}
+
+/* 모바일 버전: 기본적으로 숨김 */
+.searchMobile {
+  display: none;
+}
+
+/* Selectbox & Button 컨테이너 (모바일 전용) */
+.selectboxAndButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* 좌우로 떨어뜨림 */
+  width: 320px;
+  position: relative !important; /* 드롭다운 위치 기준 */
+  z-index: 10000 !important; /* 다른 요소보다 위에 표시 */
+  overflow: visible !important; /* 드롭다운이 잘리지 않도록 */
+}
+
+@media (max-width: 767px) {
+  /* ===== Search 영역 반응형 ===== */
+  
+  /* Container overflow 강제 설정 */
+  .container {
+    overflow: visible !important;
+  }
+  
+  /* 데스크톱 버전 숨김 */
+  .searchDesktop {
+    display: none;
+  }
+  
+  /* 모바일 버전 표시 */
+  .searchMobile {
+    display: flex;
+    flex-direction: column;
+    height: auto; /* 96px 자동 적용 */
+    width: 360px; /* 피그마: 360px 너비 */
+    max-width: 360px;
+    gap: 16px; /* 상하 간격 16px */
+    padding: 0 20px; /* 좌우 패딩 20px (360px 중 320px 콘텐츠) */
+    align-items: flex-start;
+    position: relative !important; /* 드롭다운 표시를 위한 상대 위치 */
+    z-index: 10000 !important; /* 드롭다운이 다른 요소 위에 표시되도록 */
+    overflow: visible !important; /* 드롭다운이 잘리지 않도록 */
+  }
+  
+  /* Searchbar 영역: 모바일에서 320px * 40px */
+  .searchMobile .searchbarArea {
+    width: 320px;
+    height: 40px;
+  }
+  
+  .searchMobile .searchbarCustom {
+    width: 320px;
+    height: 40px;
+  }
+  
+  .searchMobile .searchbarArea > div {
+    width: 320px;
+    height: 40px;
+  }
+  
+  .searchMobile .searchbarArea div input {
+    height: 40px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    font-size: 14px; /* 모바일에서 폰트 크기 조정 */
+  }
+  
+  .searchMobile .searchbarArea div input::placeholder {
+    font-size: 14px;
+  }
+  
+  /* Selectbox 영역: 모바일에서 102px * 40px */
+  .searchMobile .selectboxArea {
+    width: 102px !important;
+    height: 40px !important;
+    flex-shrink: 0;
+    position: relative !important; /* 드롭다운 위치 기준 */
+    z-index: 10001 !important; /* 드롭다운이 최상위에 표시되도록 */
+    overflow: visible !important; /* 드롭다운이 잘리지 않도록 */
+  }
+  
+  .searchMobile .selectboxCustom {
+    width: 102px !important;
+    height: 40px !important;
+    min-height: 40px !important;
+  }
+  
+  /* Selectbox 내부 요소 높이 조정 */
+  .searchMobile .selectboxArea > div {
+    height: 40px !important;
+    position: relative !important; /* 드롭다운 위치 기준 */
+    overflow: visible !important; /* 드롭다운이 잘리지 않도록 */
+    z-index: 10001 !important;
+  }
+  
+  .searchMobile .selectboxArea > div > div {
+    height: 40px;
+    line-height: 40px;
+  }
+  
+  /* 버튼 영역: 모바일에서 103px * 40px */
+  .searchMobile .writeButton {
+    width: 103px;
+    height: 40px;
+    flex-shrink: 0;
+  }
+  
+  .searchMobile .buttonCustom {
+    width: 103px !important;
+    height: 40px !important;
+    font-size: 16px;
+    padding: 8px 12px; /* 모바일 패딩 조정 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* ===== Main 영역 반응형 ===== */
+  
+  /* Main 영역: 360px 너비 */
+  .main {
+    width: 360px;
+    max-width: 360px;
+    padding: 0 20px; /* 좌우 패딩 20px (360px 중 320px 콘텐츠) */
+    overflow: visible !important; /* 드롭다운이 잘리지 않도록 */
+  }
+  
+  /* 일기 그리드: 2열 레이아웃 (152px 카드 2개) */
+  .diaryGrid {
+    grid-template-columns: repeat(2, 152px); /* 152px 카드 2개 */
+    gap: 16px 24px; /* 가로 16px, 세로 24px */
+    width: 320px; /* 콘텐츠 영역 320px */
+    max-width: 320px;
+    justify-content: flex-start; /* 좌측 정렬 */
+  }
+  
+  /* 일기 카드: 152px * 192px */
+  .diaryCard {
+    width: 152px;
+    height: 192px;
+    gap: 16px; /* 이미지와 콘텐츠 간격 16px */
+  }
+  
+  /* 카드 이미지: 152px * 116px */
+  .cardImage {
+    width: 152px;
+    height: 116px;
+  }
+  
+  .cardImageContent {
+    width: 152px;
+    height: 116px;
+  }
+  
+  /* 삭제 버튼: 20px * 20px */
+  .closeButton {
+    width: 20px;
+    height: 20px;
+    top: 12px;
+    right: 12px;
+  }
+  
+  .closeButton img {
+    width: 20px;
+    height: 20px;
+  }
+  
+  /* 카드 콘텐츠: 152px * 44px */
+  .cardContent {
+    width: 152px;
+    height: 44px;
+    padding-left: 8px;
+    padding-right: 8px;
+    gap: 4px; /* 헤더와 타이틀 간격 4px */
+  }
+  
+  /* 카드 헤더: 136px * 16px */
+  .cardHeader {
+    width: 136px;
+    height: 16px;
+  }
+  
+  /* 감정 텍스트: 12px */
+  .emotionText {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    letter-spacing: -0.12px;
+  }
+  
+  /* 날짜 텍스트: 12px */
+  .dateText {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    letter-spacing: -0.12px;
+  }
+  
+  /* 카드 타이틀: 136px * 24px */
+  .cardTitle {
+    width: 136px;
+    height: 24px;
+  }
+  
+  /* 타이틀 텍스트: 14px */
+  .titleText {
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 24px;
+    letter-spacing: -0.14px;
+  }
+  
+  /* Gap 영역 조정 */
+  .gap {
+    width: 100%;
+    max-width: 100%;
+  }
+  
+  /* Pagination Section - 모바일에서 여백 추가 */
+  .paginationSection {
+    padding: 0 20px;
+  }
+  
+  /* Pagination 커스텀 중앙 정렬 */
+  .paginationCustom {
+    margin: 0 auto;
+    justify-content: center;
   }
 }

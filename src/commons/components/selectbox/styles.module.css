@@ -3,6 +3,8 @@
   position: relative;
   display: inline-block;
   width: 100%;
+  overflow: visible; /* 드롭다운이 잘리지 않도록 */
+  z-index: 1000; /* 기본 z-index 설정 */
 }
 
 /* Base Selectbox Styles */
@@ -85,14 +87,15 @@
   position: absolute;
   top: 100%;
   left: 0;
-  right: 0;
-  z-index: 1000;
+  right: 0; /* selectbox와 동일한 너비로 고정 */
+  width: 100%; /* selectbox와 동일한 너비 */
+  z-index: 9999; /* 매우 높은 z-index로 설정 */
   background-color: var(--color-surface-base);
   border: 1px solid var(--color-border);
   border-radius: 12px;
   box-shadow: 0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  max-height: 240px;
-  overflow-y: auto;
+  max-height: none; /* 최대 높이 제한 제거 - 모든 옵션이 보이도록 */
+  overflow-y: visible; /* 스크롤 제거 - 모든 옵션 표시 */
   overflow-x: hidden;
   margin-top: 6px;
   opacity: 0;
@@ -128,6 +131,8 @@
   position: relative;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  width: 100%; /* 전체 너비 */
+  box-sizing: border-box; /* 패딩 포함 */
 }
 
 /* Dark theme option */
@@ -200,9 +205,9 @@
 .optionText {
   flex: 1;
   color: inherit;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  white-space: normal; /* 줄바꿈 허용 */
+  word-break: break-word; /* 긴 단어 자동 줄바꿈 */
+  overflow: visible; /* overflow 제거 */
 }
 
 /* Dark theme option text */
@@ -394,6 +399,10 @@
 /* ===== RESPONSIVE STYLES ===== */
 
 @media (max-width: 768px) {
+  .container {
+    z-index: 10000 !important; /* 모바일에서 container를 최상위로 */
+  }
+  
   .size-small {
     min-height: 40px;
     font-size: 14px;
@@ -422,12 +431,61 @@
   }
   
   .dropdown {
-    max-height: 200px;
+    max-height: none !important; /* 최대 높이 제한 제거 */
+    height: auto !important; /* 자동 높이 */
     margin-top: 4px;
+    z-index: 99999 !important; /* 모바일에서 최상위 레이어 */
+    position: absolute !important;
+    background-color: #ffffff !important; /* 배경 명확하게 */
+    border: 2px solid #3b82f6 !important; /* 파란 테두리로 디버깅 */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important; /* 그림자 강조 */
+    width: 100% !important; /* selectbox와 동일한 너비 */
+    min-width: unset !important; /* 최소 너비 제거 */
+    max-width: unset !important; /* 최대 너비 제거 */
+    left: 0 !important; /* 왼쪽 정렬 */
+    right: 0 !important; /* 오른쪽도 맞춤 */
+    overflow-y: visible !important; /* 스크롤 제거 */
+    overflow-x: hidden !important;
+  }
+  
+  .dropdown.open {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    transform: translateY(0) scale(1) !important;
+    pointer-events: auto !important;
   }
   
   .option {
-    padding: 12px 14px;
+    padding: 10px 12px !important;
+    white-space: normal !important; /* 텍스트 줄바꿈 허용 */
+    width: 100% !important; /* 드롭다운과 동일한 너비 */
+    min-width: unset !important; /* 최소 너비 제거 */
+    min-height: 40px !important; /* 최소 높이 */
+    background-color: #ffffff !important; /* 배경 명확하게 */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    cursor: pointer !important;
+    border-bottom: 1px solid #e5e7eb !important; /* 옵션 구분선 */
+    box-sizing: border-box !important;
+  }
+  
+  .option:hover {
+    background-color: #f3f4f6 !important; /* 호버 효과 */
+  }
+  
+  .option:last-child {
+    border-bottom: none !important; /* 마지막 옵션은 구분선 제거 */
+  }
+  
+  .optionText {
+    white-space: normal !important; /* 줄바꿈 허용 */
+    word-break: break-word !important; /* 긴 텍스트 자동 줄바꿈 */
+    flex: 1 !important;
+    color: #1c1c1c !important; /* 텍스트 색상 명확하게 */
+    font-size: 14px !important;
+    line-height: 1.4 !important;
   }
 }
 

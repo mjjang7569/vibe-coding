@@ -210,3 +210,82 @@
   border-radius: 8px;
 }
 
+/* ========================================
+   반응형 디자인: 브레이크포인트 767px
+   ======================================== */
+
+@media (max-width: 767px) {
+  /* Wrapper: 320px * 620px */
+  .wrapper {
+    width: 320px;
+    height: 620px;
+  }
+
+  /* Header 영역 */
+  .headerTitle {
+    font-size: 20px;
+    line-height: 24px;
+    letter-spacing: -0.2px;
+  }
+
+  /* Emotion Box 영역: 세로 배치로 변경 */
+  .emotionBox {
+    height: auto;
+  }
+
+  .emotionTitle {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.16px;
+  }
+
+  .emotionRadioGroup {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .radioText {
+    font-size: 16px;
+    line-height: 20px;
+    letter-spacing: -0.16px;
+  }
+
+  /* Input Title 영역 */
+  .inputTitle {
+    height: 64px;
+  }
+
+  .inputLabel {
+    font-size: 12px;
+    line-height: 16px;
+    letter-spacing: -0.12px;
+  }
+
+  /* Input Content 영역 */
+  .inputContent {
+    height: 152px;
+  }
+
+  /* Footer 영역: 버튼 크기 조정 */
+  .footer {
+    height: 40px;
+  }
+
+  .closeButton {
+    width: 80px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.16px;
+  }
+
+  .submitButton {
+    width: 80px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.16px;
+  }
+}
+

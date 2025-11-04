@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useMemo, useCallback } from 'react';
+import { useState, useMemo, useCallback, useEffect } from 'react';
 
 /**
  * 필터 옵션 타입
@@ -46,12 +46,27 @@ export interface UsePictureFilterReturn {
 }
 
 /**
- * 필터 타입에 따른 이미지 사이즈 매핑
+ * 브레이크포인트 정의 (767px)
  */
-const FILTER_SIZE_MAP: Record<FilterType, ImageSize> = {
+const BREAKPOINT = 767;
+
+/**
+ * 필터 타입에 따른 이미지 사이즈 매핑 (데스크탑)
+ */
+const FILTER_SIZE_MAP_DESKTOP: Record<FilterType, ImageSize> = {
   basic: { width: 640, height: 640 },
   horizontal: { width: 640, height: 480 },
   vertical: { width: 480, height: 640 },
+};
+
+/**
+ * 필터 타입에 따른 이미지 사이즈 매핑 (모바일)
+ * Figma 디자인 기준: 767px 이하
+ */
+const FILTER_SIZE_MAP_MOBILE: Record<FilterType, ImageSize> = {
+  basic: { width: 280, height: 280 },
+  horizontal: { width: 280, height: 210 },
+  vertical: { width: 280, height: 372 },
 };
 
 /**
@@ -94,8 +109,35 @@ const FILTER_OPTIONS: FilterOption[] = [
  * ```
  */
 export const usePictureFilter = (): UsePictureFilterReturn => {
-  // 기본 필터: "기본" (640x640)
+  // 기본 필터: "기본" (640x640 데스크탑 / 280x280 모바일)
   const [selectedFilter, setSelectedFilter] = useState<FilterType>('basic');
+  
+  // 윈도우 너비 상태 관리
+  const [windowWidth, setWindowWidth] = useState<number>(
+    typeof window !== 'undefined' ? window.innerWidth : 1200
+  );
+
+  /**
+   * 윈도우 리사이즈 이벤트 핸들러
+   */
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const handleResize = (): void => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    // 초기 설정
+    handleResize();
+
+    // 이벤트 리스너 등록
+    window.addEventListener('resize', handleResize);
+
+    // 클린업
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
   /**
    * 필터 변경 핸들러
@@ -109,11 +151,14 @@ export const usePictureFilter = (): UsePictureFilterReturn => {
 
   /**
    * 현재 필터에 맞는 이미지 사이즈 계산
-   * useMemo를 사용하여 필터가 변경될 때만 재계산
+   * useMemo를 사용하여 필터 또는 윈도우 너비가 변경될 때만 재계산
+   * 브레이크포인트: 767px
    */
   const imageSize: ImageSize = useMemo(() => {
-    return FILTER_SIZE_MAP[selectedFilter];
-  }, [selectedFilter]);
+    const isMobile = windowWidth <= BREAKPOINT;
+    const sizeMap = isMobile ? FILTER_SIZE_MAP_MOBILE : FILTER_SIZE_MAP_DESKTOP;
+    return sizeMap[selectedFilter];
+  }, [selectedFilter, windowWidth]);
 
   return {
     selectedFilter,

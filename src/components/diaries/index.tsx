@@ -268,8 +268,8 @@ export const Diaries: React.FC<DiariesProps> = ({
       {/* Gap 영역: 32px */}
       <div className={`${styles.gap} ${styles.gap32}`}></div>
 
-      {/* Search 영역: 1168px * 48px */}
-      <section className={styles.search} role="search" aria-label="일기 검색">
+      {/* Search 영역: 1168px * 48px (데스크톱) */}
+      <section className={`${styles.search} ${styles.searchDesktop}`} role="search" aria-label="일기 검색">
         <div className={styles.searchbarAndSelect}>
           {/* Selectbox 영역 */}
           <div className={styles.selectboxArea}>
@@ -319,6 +319,60 @@ export const Diaries: React.FC<DiariesProps> = ({
             />
             일기쓰기
           </Button>
+        </div>
+      </section>
+
+      {/* Search 영역: 360px * 96px (모바일, 767px 이하) */}
+      <section className={`${styles.search} ${styles.searchMobile}`} role="search" aria-label="일기 검색">
+        {/* Searchbar 영역 - 첫 번째 줄 */}
+        <div className={styles.searchbarArea}>
+          <Searchbar
+            placeholder="검색어를 입력해 주세요."
+            variant="primary"
+            size="medium"
+            theme="light"
+            onSearch={handleSearchWithCallback}
+            onChange={handleSearchChange}
+            className={styles.searchbarCustom}
+            data-testid="diary-search-input-mobile"
+            aria-label="일기 검색어 입력"
+          />
+        </div>
+        
+        {/* Selectbox & Button - 두 번째 줄 */}
+        <div className={styles.selectboxAndButton}>
+          <div className={styles.selectboxArea}>
+            <Selectbox
+              options={selectOptions}
+              value={selectValue}
+              placeholder="전체"
+              variant="primary"
+              size="medium"
+              theme="light"
+              onChange={handleSelectChange}
+              className={styles.selectboxCustom}
+              data-testid="diary-category-select-mobile"
+            />
+          </div>
+          <div className={styles.writeButton}>
+            <Button
+              variant="primary"
+              size="medium"
+              theme="light"
+              onClick={openWriteDiaryModal}
+              className={styles.buttonCustom}
+              aria-label="새 일기 작성하기"
+              data-testid="diaries-new-button-mobile"
+            >
+              <Image
+                src="/icons/plus_outline_light_m.svg"
+                alt="추가"
+                width={24}
+                height={24}
+              />
+              일기쓰기
+            </Button>
+          </div>
         </div>
       </section>
 

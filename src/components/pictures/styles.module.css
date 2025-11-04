@@ -168,32 +168,30 @@
   font-size: 16px;
 }
 
-/* Responsive - 비율기반 반응형 디자인 */
-/* 기본적으로 width: 100%를 사용하므로 미디어 쿼리에서는 padding만 추가 */
-@media (max-width: 1200px) {
-  .container,
-  .gap,
-  .filter,
-  .main {
-    padding: 0 16px; /* 양옆 여백 추가 */
-  }
-  
-  /* 개별 아이템들은 고정값 유지 */
-  .pictureGrid {
-    gap: 40px; /* gap 고정값 유지 */
+/* Responsive - 브레이크포인트 기반 반응형 디자인 */
+/* 브레이크포인트: 767px (Figma 디자인 기준) */
+
+/* 데스크탑: 768px 이상 */
+@media (min-width: 768px) {
+  .container {
+    padding: 0 16px;
   }
 }
 
-@media (max-width: 768px) {
+/* 모바일: 767px 이하 */
+@media (max-width: 767px) {
   .container,
   .gap,
   .filter,
   .main {
-    padding: 0 16px; /* 양옆 여백 유지 */
+    padding: 0 40px; /* Figma 디자인: 좌우 40px 여백 */
   }
   
   /* 개별 아이템들은 고정값 유지 */
   .pictureGrid {
-    gap: 40px; /* gap 고정값 유지 */
+    gap: 24px; /* Figma 디자인: 모바일에서 gap 24px */
   }
+  
+  /* 모바일에서는 이미지 크기가 훅을 통해 자동으로 조정됨 */
+  /* 280x280 (기본), 280x210 (가로형), 280x372 (세로형) */
 }
