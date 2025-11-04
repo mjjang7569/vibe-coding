@@ -9,21 +9,21 @@
 
 /* Gap 영역들 */
 .gap {
-  width: 1168px;
+  width: 100%; /* 반응형: 가로 자동 축소 */
 }
 
 .gap32 {
-  height: 32px; /* 첫 번째 gap: 32px */
+  height: 32px; /* 첫 번째 gap: 32px - 고정 */
 }
 
 .gap42 {
-  height: 42px; /* 두 번째 gap: 42px */
+  height: 42px; /* 두 번째 gap: 42px - 고정 */
 }
 
-/* Filter 영역: 1168px * 48px */
+/* Filter 영역: 100% * 48px (max-width: 1168px) */
 .filter {
-  width: 1168px;
-  height: 48px;
+  width: 100%; /* 반응형: 가로 자동 축소 */
+  height: 48px; /* 고정 */
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -39,16 +39,16 @@
   flex: 1;
 }
 
-/* Selectbox 영역 */
+/* Selectbox 영역 - 고정값 유지 */
 .selectboxArea {
-  width: 120px;
+  width: 120px; /* 개별 아이템: 고정값 유지 */
   flex-shrink: 0;
 }
 
-/* 커스텀 스타일링 - 수정요구사항: 120px * 48px */
+/* 커스텀 스타일링 - 수정요구사항: 120px * 48px - 고정값 유지 */
 .selectboxCustom {
   width: 100%;
-  height: 48px;
+  height: 48px; /* 개별 아이템: 고정값 유지 */
 }
 
 /* 드롭다운 화살표 크기 수정 - 수정요구사항: 8.6 * 4.7px */
@@ -57,25 +57,25 @@
   height: 4.7px;
 }
 
-/* Selectbox 컨테이너 크기 */
+/* Selectbox 컨테이너 크기 - 고정값 유지 */
 .selectboxArea :global(.container) {
-  width: 120px;
+  width: 120px; /* 개별 아이템: 고정값 유지 */
 }
 
 /* Selectbox 버튼 영역만 크기 고정 (드롭다운은 자유롭게) */
 .selectboxArea :global(.selectbox) {
-  width: 120px;
-  height: 48px;
-  min-height: 48px;
+  width: 120px; /* 개별 아이템: 고정값 유지 */
+  height: 48px; /* 개별 아이템: 고정값 유지 */
+  min-height: 48px; /* 개별 아이템: 고정값 유지 */
 }
 
-/* Main 영역: 1168px * auto */
+/* Main 영역: 100% * auto (max-width: 1168px) */
 .main {
-  width: 1168px;
+  width: 100%; /* 반응형: 가로 자동 축소 */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
-  min-height: 200px;
+  min-height: 200px; /* 고정 */
 }
 
 /* Main 영역 내 컨텐츠 */
@@ -97,11 +97,12 @@
 
 /* Picture Item - 피그마: 640px × 640px, border-radius 24px */
 /* 동적 사이즈 지원: 인라인 스타일로 width/height 설정 */
+/* 개별 아이템: 고정값 유지 */
 .pictureItem {
-  /* width와 height는 인라인 스타일로 동적 설정 */
+  /* width와 height는 인라인 스타일로 동적 설정 - 고정값 유지 */
   position: relative;
   overflow: hidden;
-  border-radius: 24px;
+  border-radius: 24px; /* 고정값 유지 */
   background-color: var(--color-gray-100);
   box-sizing: border-box;
   transition: all 0.3s ease;
@@ -121,9 +122,10 @@
 
 /* Splash Screen - 로딩 중 표시 */
 /* 동적 사이즈 지원: 인라인 스타일로 width/height 설정 */
+/* 개별 아이템: 고정값 유지 */
 .splashScreen {
-  /* width와 height는 인라인 스타일로 동적 설정 */
-  border-radius: 24px;
+  /* width와 height는 인라인 스타일로 동적 설정 - 고정값 유지 */
+  border-radius: 24px; /* 고정값 유지 */
   background-color: var(--color-gray-200);
   position: relative;
   overflow: hidden;
@@ -166,50 +168,32 @@
   font-size: 16px;
 }
 
-/* Responsive */
+/* Responsive - 비율기반 반응형 디자인 */
+/* 기본적으로 width: 100%를 사용하므로 미디어 쿼리에서는 padding만 추가 */
 @media (max-width: 1200px) {
   .container,
   .gap,
   .filter,
   .main {
-    width: 100%;
-    max-width: 1168px;
-    padding: 0 16px;
+    padding: 0 16px; /* 양옆 여백 추가 */
   }
   
+  /* 개별 아이템들은 고정값 유지 */
   .pictureGrid {
-    gap: 32px;
-  }
-  
-  .pictureItem,
-  .splashScreen {
-    width: 100%;
-    max-width: 640px;
-    height: auto;
-    aspect-ratio: 1;
+    gap: 40px; /* gap 고정값 유지 */
   }
 }
 
 @media (max-width: 768px) {
+  .container,
+  .gap,
+  .filter,
+  .main {
+    padding: 0 16px; /* 양옆 여백 유지 */
+  }
+  
+  /* 개별 아이템들은 고정값 유지 */
   .pictureGrid {
-    gap: 24px;
-  }
-  
-  .pictureItem,
-  .splashScreen {
-    width: 100%;
-    max-width: 100%;
-  }
-  
-  .selectboxArea {
-    width: 100px;
-  }
-  
-  .selectboxArea > div {
-    width: 100px;
-  }
-  
-  .selectboxArea > div > div {
-    width: 100px;
+    gap: 40px; /* gap 고정값 유지 */
   }
 }

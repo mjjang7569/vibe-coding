@@ -9,7 +9,8 @@
 
 /* Header 영역 - 1168px * 60px */
 .header {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 60px;
   margin: 0 auto;
   background-color: transparent;
@@ -18,6 +19,12 @@
   justify-content: space-between;
   padding: 0 20px;
   box-sizing: border-box;
+}
+
+@media (max-width: 1168px) {
+  .header {
+    padding: 0 20px;
+  }
 }
 
 .logo {
@@ -57,20 +64,30 @@
 
 /* Gap 영역 - 1168px * 24px */
 .gap {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 24px;
   margin: 0 auto;
 }
 
 /* Banner 영역 - 1168px * 240px */
 .banner {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 240px;
   margin: 0 auto;
   background-color: var(--color-gray-300);
   border-radius: 24px;
   overflow: hidden;
   position: relative;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1168px) {
+  .banner {
+    margin: 0 20px;
+    width: calc(100% - 40px);
+  }
 }
 
 .bannerImage {
@@ -82,13 +99,21 @@
 
 /* Navigation 영역 - 1168px * 48px */
 .navigation {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   height: 48px;
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   gap: 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1168px) {
+  .navigation {
+    padding: 0 20px;
+  }
 }
 
 .navTabs {
@@ -130,7 +155,8 @@
 
 /* Main Content 영역 - 1168px * auto (children 포함) */
 .main {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   flex: 1;
   margin: 0 auto;
   background-color: transparent;
@@ -138,6 +164,13 @@
   flex-direction: column;
   min-height: 200px;
   padding: 24px 0;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1168px) {
+  .main {
+    padding: 24px 20px;
+  }
 }
 
 /* Footer 영역 - 1168px * 160px */
@@ -151,10 +184,18 @@
 }
 
 .footerContent {
-  width: 1168px;
+  width: 100%;
+  max-width: 1168px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  box-sizing: border-box;
+}
+
+@media (max-width: 1168px) {
+  .footerContent {
+    padding: 0 20px;
+  }
 }
 
 .footerLogo {

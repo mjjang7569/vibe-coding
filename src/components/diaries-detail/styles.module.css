@@ -5,28 +5,30 @@
   width: 100%;
   max-width: 1168px;
   margin: 0 auto;
+  padding: 0 20px; /* 작은 화면에서 좌우 여백 */
+  box-sizing: border-box;
 }
 
 /* Gap 영역들 - wireframe 요구사항에 따른 정확한 수치값 */
 .gap64 {
-  width: 1168px;
+  width: 100%; /* 비율 기반 반응형 */
   height: 64px; /* 첫 번째 gap: 1168 * 64px */
 }
 
 .gap24 {
-  width: 1168px;
+  width: 100%; /* 비율 기반 반응형 */
   height: 24px; /* 24px gap들 */
 }
 
 .gap16 {
-  width: 1168px;
+  width: 100%; /* 비율 기반 반응형 */
   height: 16px; /* 마지막 gap: 1168 * 16px */
 }
 
 /* Title Section 영역: 1168 * 84px */
 .titleSection {
-  width: 1168px;
-  height: 84px;
+  width: 100%; /* 비율 기반 반응형 */
+  height: 84px; /* 높이 고정 */
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -107,8 +109,8 @@
 
 /* Content Section 영역: 1168 * 169px */
 .contentSection {
-  width: 1168px;
-  height: 169px;
+  width: 100%; /* 비율 기반 반응형 */
+  height: 169px; /* 높이 고정 */
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -189,8 +191,8 @@
 
 /* Detail Footer 영역: 1168 * 56px */
 .detailFooter {
-  width: 1168px;
-  height: 56px;
+  width: 100%; /* 비율 기반 반응형 */
+  height: 56px; /* 높이 고정 */
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -212,8 +214,8 @@
 
 /* Retrospect Input 영역: 1168 * 85px */
 .retrospectInput {
-  width: 1168px;
-  height: 85px;
+  width: 100%; /* 비율 기반 반응형 */
+  height: 85px; /* 높이 고정 */
   display: flex;
   flex-direction: column;
   padding: 0;
@@ -243,7 +245,7 @@
 
 /* Edit Section - 수정 모드 영역 */
 .editSection {
-  width: 1168px;
+  width: 100%; /* 비율 기반 반응형 */
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -321,8 +323,8 @@
 }
 
 .editFooter {
-  width: 1168px;
-  height: 48px;
+  width: 100%; /* 비율 기반 반응형 */
+  height: 48px; /* 높이 고정 */
   display: flex;
   align-items: center;
   justify-content: flex-end;
@@ -343,8 +345,8 @@
 
 /* Retrospect List 영역: 1168 * 72px */
 .retrospectList {
-  width: 1168px;
-  height: 72px;
+  width: 100%; /* 비율 기반 반응형 */
+  height: 72px; /* 높이 고정 */
   display: flex;
   flex-direction: column;
   box-sizing: border-box;
@@ -462,53 +464,33 @@
   min-height: 48px !important;
 }
 
-/* 반응형 처리 */
-@media (max-width: 1200px) {
+/* 반응형 처리 - 비율 기반 */
+/* 
+ * 모든 주요 영역들은 이미 width: 100%로 설정되어 있으므로
+ * 컨테이너의 max-width(1168px)에 맞춰 자동으로 축소됩니다.
+ * 
+ * 높이는 고정값을 유지하되, 매우 작은 화면에서는
+ * 콘텐츠가 넘칠 수 있으므로 min-height로 전환합니다.
+ */
+
+@media (max-width: 1208px) {
+  /* 1168px + 40px(좌우 패딩) = 1208px 이하에서 패딩 적용 */
   .container {
-    max-width: 100%;
-    padding: 0 16px;
+    padding: 0 20px;
   }
-  
-  .gap64,
-  .gap24,
-  .gap16,
-  .titleSection,
-  .contentSection,
-  .detailFooter,
-  .retrospectInput,
-  .retrospectList {
-    width: 100%;
-    max-width: calc(100vw - 32px);
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
   }
   
   .titleText {
     font-size: 20px;
     line-height: 24px;
   }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 0 12px;
-  }
   
-  .gap64,
-  .gap24,
-  .gap16,
-  .titleSection,
-  .contentSection,
-  .detailFooter,
-  .retrospectInput,
-  .retrospectList {
-    width: 100%;
-    max-width: calc(100vw - 24px);
-  }
-  
-  .titleText {
-    font-size: 18px;
-    line-height: 22px;
-  }
-  
+  /* 작은 화면에서 높이 조정 */
   .titleSection {
     height: auto;
     min-height: 84px;
@@ -537,5 +519,28 @@
   .deleteModal {
     width: 90%;
     max-width: 480px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 12px;
+  }
+  
+  .titleText {
+    font-size: 18px;
+    line-height: 22px;
+  }
+  
+  .emotionText {
+    font-size: 18px;
+  }
+  
+  .footerButtons {
+    gap: 12px;
+  }
+  
+  .editButtons {
+    gap: 12px;
   }
 }

@@ -25,9 +25,11 @@
 }
 
 /* Search 영역: 1168px * 48px */
+/* 비율기반 반응형 디자인 적용 - width: 100%, max-width: 1168px */
 .search {
-  width: 1168px;
-  height: 48px;
+  width: 100%; /* 비율기반: 부모 컨테이너에 맞춰 자동 축소 */
+  max-width: 1168px; /* 최대 너비 제한 */
+  height: 48px; /* 높이는 고정 */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -123,10 +125,11 @@
   padding: 12px 10px 12px 12px;
 }
 
-/* Main 영역: 1168px * 936px */
+/* Main 영역: 비율기반 반응형 디자인 적용 */
 .main {
-  width: 1168px;
-  height: 936px;
+  width: 100%; /* 비율기반: 부모 컨테이너에 맞춰 자동 축소 */
+  max-width: 1168px; /* 최대 너비 제한 */
+  /* height 고정 제거 - 컨텐츠에 따라 자동 조정 */
   display: flex;
   flex-direction: column;
   border-radius: 8px;
@@ -141,12 +144,13 @@
   flex-direction: column;
 }
 
-/* 일기 그리드 레이아웃 - main 영역에 딱 맞게 */
+/* 일기 그리드 레이아웃 - 비율기반 반응형 디자인 적용 */
 .diaryGrid {
   display: grid;
-  grid-template-columns: repeat(4, 274px); /* 피그마와 동일: 274px 카드 4개 */
+  grid-template-columns: repeat(4, 274px); /* 기본: 274px 카드 4개 */
   gap: 24px; /* 피그마와 동일한 간격 */
-  width: 1168px; /* main 영역 너비와 정확히 일치 */
+  width: 100%; /* 비율기반: 부모 컨테이너에 맞춰 자동 축소 */
+  max-width: 1168px; /* 최대 너비 제한 */
   justify-content: center; /* 중앙 정렬로 main 영역에 딱 맞게 */
   margin: 0 auto; /* 중앙 정렬 */
 }
@@ -266,85 +270,27 @@
 
 
 
-/* 데스크톱 그리드 조정 */
-@media (min-width: 1200px) {
+/* 비율기반 반응형 디자인: grid column 수를 점진적으로 줄임 */
+/* 카드 사이즈 274px는 유지하며, 화면 크기에 따라 하나씩 아래로 떨어뜨림 */
+
+/* 3개 column: 870px 이하에서 적용 (274*3 + 24*2 = 870px) */
+@media (max-width: 1167px) {
   .diaryGrid {
-    grid-template-columns: repeat(4, 274px);
-    justify-content: space-between;
-    gap: 24px;
+    grid-template-columns: repeat(3, 274px);
   }
 }
 
-/* 반응형 처리 */
-@media (max-width: 1200px) {
+/* 2개 column: 869px 이하에서 적용 (274*2 + 24*1 = 572px) */
+@media (max-width: 869px) {
   .diaryGrid {
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-
-  .diaryCard {
-    width: 100%;
-    max-width: 250px;
-  }
-  .container {
-    max-width: 100%;
-    padding: 0 16px;
-  }
-  
-  .search {
-    width: 100%;
-    max-width: calc(100vw - 32px);
-  }
-  
-  .main {
-    width: 100%;
-    max-width: calc(100vw - 32px);
-  }
-  
-  .gap {
-    width: 100%;
-    max-width: calc(100vw - 32px);
+    grid-template-columns: repeat(2, 274px);
   }
 }
 
-@media (max-width: 768px) {
-  .container {
-    padding: 0 12px;
-  }
-  
-  .search {
-    height: auto;
-    min-height: 48px;
-    flex-direction: column;
-    gap: 12px;
-    align-items: stretch;
-  }
-  
-  .searchbarAndSelect {
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .selectboxArea,
-  .searchbarArea,
-  .writeButton {
-    width: 100%;
-  }
-  
-  .main {
-    min-height: 400px;
-    height: auto;
-  }
-
-  /* 모바일에서 그리드 레이아웃 조정 */
+/* 1개 column: 571px 이하에서 적용 (274px) */
+@media (max-width: 571px) {
   .diaryGrid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
-  }
-
-  .diaryCard {
-    width: 100%;
-    max-width: 300px;
+    grid-template-columns: repeat(1, 274px);
   }
 }
 
